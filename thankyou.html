@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us — George Town Heritage</title>
+<title>Thank You — George Town Heritage</title>
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
@@ -21,59 +21,25 @@
       <a href="trivia.html">Trivia</a>
       <a href="guide.html">Guide</a>
       <a href="about.html">About</a>
-      <a class="active" href="contact.html">Contact</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </div>
 </header>
 
-<div class="page-head alt">
-  <div class="kick">Get in Touch</div>
-  <h1>Contact Us</h1>
-  <p>Questions, feedback, or spotted a mistake? Send us a message and it comes straight to our inbox.</p>
+<div class="page-head">
+  <div class="kick">Message Sent</div>
+  <h1>&#127881; Thank you!</h1>
+  <p>Your message has been sent to us. We&rsquo;ll get back to you as soon as we can.</p>
 </div>
 
 <main class="narrow">
-  <div class="planner cform">
-    <h2>Send a Message</h2>
-    <div class="sub">Fill out the form below to send an email directly to our inbox.</div>
-
-    <!-- Connected to Formspree (Basic HTML method — no JavaScript). -->
-    <form action="https://formspree.io/f/mqpzevkb" method="POST">
-      <!-- Nicer subject line in the email you receive -->
-      <input type="hidden" name="_subject" value="New message from George Town Heritage site">
-      <!-- Spam honeypot: bots fill this hidden field; humans never see it -->
-      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
-      <!-- After submitting, send visitors to our own thank-you page.
-           IMPORTANT: replace YOUR-USERNAME (and the repo name if different) with your
-           real GitHub Pages address once your site is live. -->
-      <input type="hidden" name="_next" value="https://YOUR-USERNAME.github.io/AsasSainsKomputer-Project/thankyou.html">
-      <div class="field">
-        <label for="name">Your Name</label>
-        <input id="name" type="text" name="name" required placeholder="e.g. Jane Doe">
-      </div>
-      <div class="field">
-        <label for="email">Your Email</label>
-        <input id="email" type="email" name="email" required placeholder="name@example.com">
-      </div>
-      <div class="field">
-        <label for="inquiry">Inquiry Type</label>
-        <select id="inquiry" name="inquiry">
-          <option value="">Select a category</option>
-          <option>General question</option>
-          <option>Feedback</option>
-          <option>Report an error / correction</option>
-          <option>School or research</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="6" required placeholder="Write your message here..."></textarea>
-      </div>
-      <button class="go" type="submit">Send Message</button>
-    </form>
+  <div class="center" style="padding:10px 0 6px">
+    <a class="btn btn-solid" style="background:var(--unesco);color:#fff" href="index.html">&larr; Back to Home</a>
   </div>
-
-  <div class="backlinks"><a href="about.html">&larr; About us</a></div>
+  <div class="backlinks">
+    <a href="attractions.html">Explore the Heritage Sites &rarr;</a>
+    <a class="alt" href="contact.html">Send another message</a>
+  </div>
 </main>
 <footer>
   <div><a href="index.html">Home</a><a href="about-unesco.html">UNESCO</a><a href="history.html">History</a><a href="attractions.html">Sites</a><a href="search.html">Search</a><a href="directions.html">Directions</a><a href="route.html">Route</a><a href="trivia.html">Trivia</a><a href="guide.html">Guide</a><a href="about.html">About</a><a href="contact.html">Contact</a></div>
