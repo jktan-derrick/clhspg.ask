@@ -426,6 +426,16 @@ footer .disclaimer{margin:14px auto 0;max-width:680px;font-size:.78rem;line-heig
 .field textarea:focus{outline:none;border-color:var(--unesco)}
 .form-note{font-family:system-ui,sans-serif;font-size:.85rem;color:var(--muted);text-align:center;margin-top:16px}
 .form-note a{color:var(--unesco);font-weight:600}
+.field input[type=file]{padding:10px 12px;cursor:pointer;background:var(--card);
+  font-family:system-ui,sans-serif;font-size:.92rem}
+
+/* ---------- PHOTO GALLERY ---------- */
+.gallery{columns:3 260px;column-gap:16px;max-width:1000px;margin:0 auto}
+.gitem{break-inside:avoid;margin:0 0 16px}
+.gitem img{width:100%;display:block;border-radius:14px;border:1px solid var(--line);
+  box-shadow:var(--shadow);transition:.2s}
+.gitem img:hover{transform:scale(1.015);box-shadow:0 14px 34px rgba(15,31,102,.28)}
+@media(max-width:560px){.gallery{columns:2 140px;column-gap:12px}}
 
 @media(max-width:680px){
   .band,.who{grid-template-columns:1fr}
