@@ -12,6 +12,8 @@
 <header class="nav">
   <div class="nav-inner">
     <a class="brand" href="index.html"><img class="brand-logo" src="assets/img/clhs-logo.png" alt="">George Town Heritage</a>
+    <input class="gt-navchk" type="checkbox" id="gt-nav" aria-hidden="true">
+    <label class="nav-toggle" for="gt-nav" title="Menu">&#9776;</label>
     <nav>
       <a href="index.html">Home</a>
       <a class="active" href="about-unesco.html">UNESCO</a>
@@ -145,6 +147,28 @@
   <p class="note">George Town Heritage · A school project by students of SMJK Chung Ling.</p>
   <p class="disclaimer">&#9888; Disclaimer: This is a student project created for educational purposes. The information may contain mistakes and may not be complete, current or fully accurate &mdash; please double-check important details with official sources.</p>
 </footer>
+<!-- Settings panel (pure HTML/CSS, no JavaScript) -->
+<input class="gt-setchk" type="checkbox" id="gt-set" aria-hidden="true">
+<input class="set-radio" type="radio" name="gt-theme" id="gt-theme-light">
+<input class="set-radio" type="radio" name="gt-theme" id="gt-theme-dark">
+<label class="set-fab" for="gt-set" title="Settings">&#9881;</label>
+<div class="set-panel" role="dialog" aria-label="Settings">
+  <div class="set-head">&#9881; Settings<label class="x" for="gt-set" title="Close">&#10005;</label></div>
+  <div class="set-body">
+    <h4>Theme</h4>
+    <div class="set-opts">
+      <label for="gt-theme-light">&#9728;&#65039; Light</label>
+      <label for="gt-theme-dark">&#127769; Dark</label>
+    </div>
+    <h4>Language</h4>
+    <div class="set-opts">
+      <a class="on" href="#">English</a>
+      <span class="soon" title="Coming soon">Bahasa Melayu</span>
+    </div>
+    <p class="set-note">Theme follows your device by default and resets on each new page (no JavaScript).
+      A Bahasa Melayu version is being prepared.</p>
+  </div>
+</div>
 <!-- Floating heritage chat widget (pure HTML/CSS, no JavaScript) -->
 <input type="checkbox" id="gtc" class="gt-toggle" autocomplete="off" aria-hidden="true">
 <label for="gtc" class="gt-fab" title="Ask the heritage helper">&#128172;</label>

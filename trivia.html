@@ -8,10 +8,11 @@
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-
 <header class="nav">
   <div class="nav-inner">
     <a class="brand" href="index.html"><img class="brand-logo" src="assets/img/clhs-logo.png" alt="">George Town Heritage</a>
+    <input class="gt-navchk" type="checkbox" id="gt-nav" aria-hidden="true">
+    <label class="nav-toggle" for="gt-nav" title="Menu">&#9776;</label>
     <nav>
       <a href="index.html">Home</a>
       <a href="about-unesco.html">UNESCO</a>
@@ -32,157 +33,319 @@
 <div class="page-head">
   <div class="kick">Test Your Knowledge</div>
   <h1>Heritage Trivia</h1>
-  <p>Twelve questions about UNESCO and George Town. Pick an answer and it instantly shows
-    whether you're right — all with pure HTML &amp; CSS.</p>
+  <p>A bank of <b>50 questions</b> about UNESCO and George Town, split into <b>5 rounds of 10</b>.
+    Pick a round, then tap an answer to see instantly if you&rsquo;re right &mdash; all pure HTML &amp; CSS.</p>
 </div>
 
 <main>
-  <p class="quiznote">Tip: select an option in each question to reveal the correct answer and an
-    explanation. Reload the page to reset.</p>
-
-  <div class="cq">
-    <p class="q">1. What does the acronym UNESCO stand for?</p>
-    <div class="opts">
-      <label class="opt correct"><input type="radio" name="q1"><span>United Nations Educational, Scientific and Cultural Organization</span></label>
-      <label class="opt"><input type="radio" name="q1"><span>Universal Network for Environment, Science and Conservation</span></label>
-      <label class="opt"><input type="radio" name="q1"><span>United Nations Economic and Social Council</span></label>
+  <p class="quiznote">Choose a round below. Selecting an answer reveals the correct one and an
+    explanation. Reload the page to reset your answers.</p>
+  <section class="rounds">
+    <input type="radio" name="round" id="r1" class="roundradio" checked>
+    <input type="radio" name="round" id="r2" class="roundradio">
+    <input type="radio" name="round" id="r3" class="roundradio">
+    <input type="radio" name="round" id="r4" class="roundradio">
+    <input type="radio" name="round" id="r5" class="roundradio">
+    <div class="round-tabs">
+      <label for="r1">Round 1</label>
+      <label for="r2">Round 2</label>
+      <label for="r3">Round 3</label>
+      <label for="r4">Round 4</label>
+      <label for="r5">Round 5</label>
     </div>
-    <p class="ex">✓ UNESCO = United Nations Educational, Scientific and Cultural Organization, founded in 1945.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">2. In which year was UNESCO founded?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q2"><span>1919</span></label>
-      <label class="opt correct"><input type="radio" name="q2"><span>1945</span></label>
-      <label class="opt"><input type="radio" name="q2"><span>1972</span></label>
-      <label class="opt"><input type="radio" name="q2"><span>2008</span></label>
+    <div class="round r1">
+      <div class="cq">
+        <p class="q">Khoo Kongsi's present hall was rebuilt in 1906 after a…</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq1"><span>War</span></label><label class="opt correct"><input type="radio" name="tq1"><span>Fire</span></label><label class="opt"><input type="radio" name="tq1"><span>Flood</span></label></div>
+        <p class="ex">&#10003; The grand hall burned in 1901 and was rebuilt by 1906.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Dr. Sun Yat Sen is regarded as a founding father of modern…</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq2"><span>India</span></label><label class="opt correct"><input type="radio" name="tq2"><span>China</span></label><label class="opt"><input type="radio" name="tq2"><span>Malaysia</span></label></div>
+        <p class="ex">&#10003; He helped found modern China.</p>
+      </div>
+      <div class="cq">
+        <p class="q">George Town was named after which British king?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq3"><span>King George V</span></label><label class="opt correct"><input type="radio" name="tq3"><span>King George III</span></label><label class="opt"><input type="radio" name="tq3"><span>King Edward VII</span></label></div>
+        <p class="ex">&#10003; It was named after King George III.</p>
+      </div>
+      <div class="cq">
+        <p class="q">The Chew clan originally worked mainly as…</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq4"><span>Rice farmers</span></label><label class="opt correct"><input type="radio" name="tq4"><span>Porters and boatmen at the harbour</span></label><label class="opt"><input type="radio" name="tq4"><span>Goldsmiths</span></label></div>
+        <p class="ex">&#10003; They loaded and unloaded ships at the port.</p>
+      </div>
+      <div class="cq">
+        <p class="q">In which year was George Town inscribed as a World Heritage Site?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq5"><span>2008</span></label><label class="opt"><input type="radio" name="tq5"><span>1957</span></label><label class="opt"><input type="radio" name="tq5"><span>1998</span></label><label class="opt"><input type="radio" name="tq5"><span>2015</span></label></div>
+        <p class="ex">&#10003; George Town was inscribed in 2008.</p>
+      </div>
+      <div class="cq">
+        <p class="q">The Penang State Museum building was originally a…</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq6"><span>School (the Penang Free School)</span></label><label class="opt"><input type="radio" name="tq6"><span>Railway station</span></label><label class="opt"><input type="radio" name="tq6"><span>Prison</span></label></div>
+        <p class="ex">&#10003; It began in 1821 as part of the Penang Free School.</p>
+      </div>
+      <div class="cq">
+        <p class="q">George Town was inscribed together with which other city?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq7"><span>Melaka (Malacca)</span></label><label class="opt"><input type="radio" name="tq7"><span>Singapore</span></label><label class="opt"><input type="radio" name="tq7"><span>Kuala Lumpur</span></label></div>
+        <p class="ex">&#10003; The listing is 'Melaka and George Town'.</p>
+      </div>
+      <div class="cq">
+        <p class="q">What is George Town's romantic nickname?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq8"><span>The Pearl of the Orient</span></label><label class="opt"><input type="radio" name="tq8"><span>The Golden City</span></label><label class="opt"><input type="radio" name="tq8"><span>The Venice of Asia</span></label></div>
+        <p class="ex">&#10003; George Town is called the Pearl of the Orient.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Han Jiang Ancestral Temple belongs to which Chinese community?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq9"><span>The Hakka</span></label><label class="opt"><input type="radio" name="tq9"><span>The Cantonese</span></label><label class="opt correct"><input type="radio" name="tq9"><span>The Teochew</span></label></div>
+        <p class="ex">&#10003; It is the Teochew clan temple.</p>
+      </div>
+      <div class="cq">
+        <p class="q">The Clan Jetties are villages built on stilts over the…</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq10"><span>River</span></label><label class="opt correct"><input type="radio" name="tq10"><span>Sea</span></label><label class="opt"><input type="radio" name="tq10"><span>Rice fields</span></label></div>
+        <p class="ex">&#10003; They are built over the sea at the harbour's edge.</p>
+      </div>
     </div>
-    <p class="ex">✓ UNESCO was founded in 1945, just after the Second World War.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">3. Why was UNESCO originally created?</p>
-    <div class="opts">
-      <label class="opt correct"><input type="radio" name="q3"><span>To build lasting peace through education, science and culture</span></label>
-      <label class="opt"><input type="radio" name="q3"><span>To run the global economy</span></label>
-      <label class="opt"><input type="radio" name="q3"><span>To manage international sport</span></label>
+    <div class="round r2">
+      <div class="cq">
+        <p class="q">The 'Street of Harmony' is famous because on it you find…</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq11"><span>All the clan jetties</span></label><label class="opt"><input type="radio" name="tq11"><span>The best street food</span></label><label class="opt correct"><input type="radio" name="tq11"><span>A mosque, Chinese temple, Hindu temple and church close together</span></label></div>
+        <p class="ex">&#10003; Four faiths' buildings stand within a short walk.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Little India is the historic quarter of which community?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq12"><span>George Town's Indian community</span></label><label class="opt"><input type="radio" name="tq12"><span>The Malay community</span></label><label class="opt"><input type="radio" name="tq12"><span>The Portuguese community</span></label></div>
+        <p class="ex">&#10003; It is the Indian commercial and cultural quarter.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Which is the largest and most famous of the Clan Jetties?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq13"><span>Chew Jetty</span></label><label class="opt"><input type="radio" name="tq13"><span>Tan Jetty</span></label><label class="opt"><input type="radio" name="tq13"><span>Lim Jetty</span></label></div>
+        <p class="ex">&#10003; Chew Jetty is the largest.</p>
+      </div>
+      <div class="cq">
+        <p class="q">How many selection criteria are there for World Heritage sites?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq14"><span>Three</span></label><label class="opt correct"><input type="radio" name="tq14"><span>Ten</span></label><label class="opt"><input type="radio" name="tq14"><span>One hundred</span></label><label class="opt"><input type="radio" name="tq14"><span>Fifty</span></label></div>
+        <p class="ex">&#10003; There are ten criteria; a site must meet at least one.</p>
+      </div>
+      <div class="cq">
+        <p class="q">What does UNESCO stand for?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq15"><span>United Nations Economic and Social Council</span></label><label class="opt"><input type="radio" name="tq15"><span>Universal Network for Environment, Science and Conservation</span></label><label class="opt correct"><input type="radio" name="tq15"><span>United Nations Educational, Scientific and Cultural Organization</span></label></div>
+        <p class="ex">&#10003; UNESCO = United Nations Educational, Scientific and Cultural Organization.</p>
+      </div>
+      <div class="cq">
+        <p class="q">What shape is Fort Cornwallis?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq16"><span>A triangle</span></label><label class="opt"><input type="radio" name="tq16"><span>A perfect circle</span></label><label class="opt correct"><input type="radio" name="tq16"><span>A star fort</span></label></div>
+        <p class="ex">&#10003; It is a star-shaped fort.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Which Lithuanian artist sparked George Town's street-art fame in 2012?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq17"><span>Ai Weiwei</span></label><label class="opt"><input type="radio" name="tq17"><span>Banksy</span></label><label class="opt correct"><input type="radio" name="tq17"><span>Ernest Zacharevic</span></label></div>
+        <p class="ex">&#10003; Ernest Zacharevic painted the 2012 'Mirrors George Town' murals.</p>
+      </div>
+      <div class="cq">
+        <p class="q">George Town is the capital of which Malaysian state?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq18"><span>Melaka</span></label><label class="opt"><input type="radio" name="tq18"><span>Johor</span></label><label class="opt correct"><input type="radio" name="tq18"><span>Penang</span></label><label class="opt"><input type="radio" name="tq18"><span>Selangor</span></label></div>
+        <p class="ex">&#10003; George Town is the capital of Penang.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Cheong Fatt Tze was nicknamed the…</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq19"><span>'Rockefeller of the East'</span></label><label class="opt"><input type="radio" name="tq19"><span>'Sultan of Spice'</span></label><label class="opt"><input type="radio" name="tq19"><span>'King of Tin'</span></label></div>
+        <p class="ex">&#10003; He was called the 'Rockefeller of the East'.</p>
+      </div>
+      <div class="cq">
+        <p class="q">The Acheen Street Malay Mosque has an unusual ___ minaret.</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq20"><span>Octagonal (eight-sided)</span></label><label class="opt"><input type="radio" name="tq20"><span>Square</span></label><label class="opt"><input type="radio" name="tq20"><span>Round</span></label></div>
+        <p class="ex">&#10003; Its Egyptian-style minaret is octagonal.</p>
+      </div>
     </div>
-    <p class="ex">✓ Its founders believed peace must be built in people's minds through education and culture.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">4. A place joins the World Heritage List only if it has…</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q4"><span>The most tourists</span></label>
-      <label class="opt correct"><input type="radio" name="q4"><span>Outstanding Universal Value</span></label>
-      <label class="opt"><input type="radio" name="q4"><span>The oldest buildings</span></label>
+    <div class="round r3">
+      <div class="cq">
+        <p class="q">St. George's Church is the oldest ___ church in Southeast Asia.</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq21"><span>Anglican</span></label><label class="opt"><input type="radio" name="tq21"><span>Catholic</span></label><label class="opt"><input type="radio" name="tq21"><span>Orthodox</span></label></div>
+        <p class="ex">&#10003; Built in 1818, it is the oldest Anglican church in Southeast Asia.</p>
+      </div>
+      <div class="cq">
+        <p class="q">What gives the Blue Mansion its blue colour?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq22"><span>A natural indigo lime wash</span></label><label class="opt"><input type="radio" name="tq22"><span>Blue ceramic tiles</span></label><label class="opt"><input type="radio" name="tq22"><span>Painted glass</span></label></div>
+        <p class="ex">&#10003; Its walls use a rare indigo-blue lime dye.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Zacharevic's most famous George Town mural shows children on a…</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq23"><span>Boat</span></label><label class="opt"><input type="radio" name="tq23"><span>Bus</span></label><label class="opt correct"><input type="radio" name="tq23"><span>Bicycle</span></label></div>
+        <p class="ex">&#10003; 'Kids on a Bicycle' is his most famous mural.</p>
+      </div>
+      <div class="cq">
+        <p class="q">A site can be listed only if it has…</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq24"><span>Outstanding Universal Value</span></label><label class="opt"><input type="radio" name="tq24"><span>The oldest ruins</span></label><label class="opt"><input type="radio" name="tq24"><span>The most visitors</span></label></div>
+        <p class="ex">&#10003; Sites must show 'Outstanding Universal Value'.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Nagore Dargha Sheriff is a shrine honouring a…</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq25"><span>Hindu god</span></label><label class="opt correct"><input type="radio" name="tq25"><span>Muslim Sufi saint</span></label><label class="opt"><input type="radio" name="tq25"><span>Christian saint</span></label></div>
+        <p class="ex">&#10003; It honours the Sufi saint of Nagore.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Roughly how large is George Town's protected Core Zone?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq26"><span>The whole island</span></label><label class="opt"><input type="radio" name="tq26"><span>About 5 hectares</span></label><label class="opt correct"><input type="radio" name="tq26"><span>About 109 hectares</span></label></div>
+        <p class="ex">&#10003; The Core Zone is about 109.4 hectares.</p>
+      </div>
+      <div class="cq">
+        <p class="q">The Pinang Peranakan Mansion was the home of which wealthy leader?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq27"><span>Kapitan Chung Keng Quee</span></label><label class="opt"><input type="radio" name="tq27"><span>Cheong Fatt Tze</span></label><label class="opt"><input type="radio" name="tq27"><span>Francis Light</span></label></div>
+        <p class="ex">&#10003; It was Kapitan Chung Keng Quee's mansion.</p>
+      </div>
+      <div class="cq">
+        <p class="q">In which year was UNESCO founded?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq28"><span>1945</span></label><label class="opt"><input type="radio" name="tq28"><span>1919</span></label><label class="opt"><input type="radio" name="tq28"><span>2008</span></label><label class="opt"><input type="radio" name="tq28"><span>1972</span></label></div>
+        <p class="ex">&#10003; UNESCO was founded in 1945, just after World War II.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Kapitan Keling Mosque was founded by which community?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq29"><span>Indian-Muslim traders</span></label><label class="opt"><input type="radio" name="tq29"><span>Arab sailors</span></label><label class="opt"><input type="radio" name="tq29"><span>Chinese Muslims</span></label></div>
+        <p class="ex">&#10003; It was founded in 1801 by Indian Muslims.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Penang joined Melaka and which city to form the Straits Settlements?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq30"><span>Jakarta</span></label><label class="opt"><input type="radio" name="tq30"><span>Bangkok</span></label><label class="opt correct"><input type="radio" name="tq30"><span>Singapore</span></label></div>
+        <p class="ex">&#10003; The Straits Settlements were Penang, Melaka and Singapore.</p>
+      </div>
     </div>
-    <p class="ex">✓ Sites must show "Outstanding Universal Value" and meet at least one of ten criteria.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">5. In which year was George Town inscribed as a UNESCO World Heritage Site?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q5"><span>1957</span></label>
-      <label class="opt"><input type="radio" name="q5"><span>1998</span></label>
-      <label class="opt correct"><input type="radio" name="q5"><span>2008</span></label>
-      <label class="opt"><input type="radio" name="q5"><span>2015</span></label>
+    <div class="round r4">
+      <div class="cq">
+        <p class="q">What is the oldest Hindu temple in George Town?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq31"><span>Kapitan Keling Mosque</span></label><label class="opt correct"><input type="radio" name="tq31"><span>Sri Mahamariamman Temple (1833)</span></label><label class="opt"><input type="radio" name="tq31"><span>Nagore Dargha Sheriff</span></label></div>
+        <p class="ex">&#10003; Sri Mahamariamman was built in 1833.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Francis Light worked for which company?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq32"><span>The Dutch East India Company</span></label><label class="opt correct"><input type="radio" name="tq32"><span>The British East India Company</span></label><label class="opt"><input type="radio" name="tq32"><span>The Straits Trading Company</span></label></div>
+        <p class="ex">&#10003; Light worked for the British East India Company.</p>
+      </div>
+      <div class="cq">
+        <p class="q">The Acheen Street area was nicknamed the 'Second ___' for pilgrims to Mecca.</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq33"><span>Cairo</span></label><label class="opt correct"><input type="radio" name="tq33"><span>Jeddah</span></label><label class="opt"><input type="radio" name="tq33"><span>Medina</span></label></div>
+        <p class="ex">&#10003; So many pilgrims sailed from here it was called the 'Second Jeddah'.</p>
+      </div>
+      <div class="cq">
+        <p class="q">What is the oldest Chinese temple in George Town?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq34"><span>Han Jiang Ancestral Temple</span></label><label class="opt"><input type="radio" name="tq34"><span>Khoo Kongsi</span></label><label class="opt correct"><input type="radio" name="tq34"><span>Goddess of Mercy Temple (1728)</span></label></div>
+        <p class="ex">&#10003; The Goddess of Mercy Temple was built in 1728.</p>
+      </div>
+      <div class="cq">
+        <p class="q">The Goddess of Mercy Temple is dedicated to…</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq35"><span>Mazu, goddess of the sea</span></label><label class="opt"><input type="radio" name="tq35"><span>the God of War</span></label><label class="opt correct"><input type="radio" name="tq35"><span>Kuan Yin, the Goddess of Mercy</span></label></div>
+        <p class="ex">&#10003; It honours Kuan Yin, the Goddess of Mercy.</p>
+      </div>
+      <div class="cq">
+        <p class="q">UNESCO's famous register of protected places is called the…</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq36"><span>World Heritage List</span></label><label class="opt"><input type="radio" name="tq36"><span>Global Landmark Index</span></label><label class="opt"><input type="radio" name="tq36"><span>Golden Places List</span></label></div>
+        <p class="ex">&#10003; Places are inscribed on the World Heritage List.</p>
+      </div>
+      <div class="cq">
+        <p class="q">In which city is UNESCO's headquarters?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq37"><span>New York, USA</span></label><label class="opt"><input type="radio" name="tq37"><span>Geneva, Switzerland</span></label><label class="opt correct"><input type="radio" name="tq37"><span>Paris, France</span></label><label class="opt"><input type="radio" name="tq37"><span>London, UK</span></label></div>
+        <p class="ex">&#10003; UNESCO is headquartered in Paris, France.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Who founded George Town in 1786?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq38"><span>Captain Francis Light</span></label><label class="opt"><input type="radio" name="tq38"><span>James Brooke</span></label><label class="opt"><input type="radio" name="tq38"><span>Stamford Raffles</span></label></div>
+        <p class="ex">&#10003; Francis Light landed in 1786.</p>
+      </div>
+      <div class="cq">
+        <p class="q">The 'Straits-born Chinese' are also known as…</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq39"><span>Baba-Nyonya (Peranakan)</span></label><label class="opt"><input type="radio" name="tq39"><span>Hokkien settlers</span></label><label class="opt"><input type="radio" name="tq39"><span>Hakka miners</span></label></div>
+        <p class="ex">&#10003; They are the Baba-Nyonya, or Peranakans.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Fort Cornwallis marks the spot where who first landed?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq40"><span>Sun Yat Sen</span></label><label class="opt"><input type="radio" name="tq40"><span>Charles Cornwallis</span></label><label class="opt correct"><input type="radio" name="tq40"><span>Francis Light</span></label></div>
+        <p class="ex">&#10003; Light landed here in 1786; the fort is named after Charles Cornwallis.</p>
+      </div>
     </div>
-    <p class="ex">✓ George Town was inscribed in 2008, jointly with Melaka.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">6. George Town is the capital of which Malaysian state?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q6"><span>Melaka</span></label>
-      <label class="opt correct"><input type="radio" name="q6"><span>Penang</span></label>
-      <label class="opt"><input type="radio" name="q6"><span>Selangor</span></label>
-      <label class="opt"><input type="radio" name="q6"><span>Johor</span></label>
+    <div class="round r5">
+      <div class="cq">
+        <p class="q">Which festival's procession begins at Sri Mahamariamman Temple?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq41"><span>Thaipusam</span></label><label class="opt"><input type="radio" name="tq41"><span>Chinese New Year</span></label><label class="opt"><input type="radio" name="tq41"><span>Hari Raya</span></label></div>
+        <p class="ex">&#10003; The Thaipusam chariot procession starts there.</p>
+      </div>
+      <div class="cq">
+        <p class="q">What is a 'kongsi'?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq42"><span>A Chinese clan association</span></label><label class="opt"><input type="radio" name="tq42"><span>A type of roof</span></label><label class="opt"><input type="radio" name="tq42"><span>A street food</span></label></div>
+        <p class="ex">&#10003; A kongsi is a clan association.</p>
+      </div>
+      <div class="cq">
+        <p class="q">In which year was the World Heritage Convention adopted?</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq43"><span>1972</span></label><label class="opt"><input type="radio" name="tq43"><span>1945</span></label><label class="opt"><input type="radio" name="tq43"><span>2008</span></label><label class="opt"><input type="radio" name="tq43"><span>1994</span></label></div>
+        <p class="ex">&#10003; The World Heritage Convention was adopted in 1972.</p>
+      </div>
+      <div class="cq">
+        <p class="q">A shophouse on Armenian Street was the Penang base of which revolutionary?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq44"><span>Mahatma Gandhi</span></label><label class="opt"><input type="radio" name="tq44"><span>Tunku Abdul Rahman</span></label><label class="opt correct"><input type="radio" name="tq44"><span>Dr. Sun Yat Sen</span></label></div>
+        <p class="ex">&#10003; Dr. Sun Yat Sen based his 1911 revolution work there.</p>
+      </div>
+      <div class="cq">
+        <p class="q">UNESCO is a specialised agency of which organization?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq45"><span>The European Union</span></label><label class="opt"><input type="radio" name="tq45"><span>The Commonwealth</span></label><label class="opt correct"><input type="radio" name="tq45"><span>The United Nations</span></label></div>
+        <p class="ex">&#10003; UNESCO is a UN specialised agency.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Why was UNESCO created?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq46"><span>To run the world economy</span></label><label class="opt"><input type="radio" name="tq46"><span>To manage international sport</span></label><label class="opt correct"><input type="radio" name="tq46"><span>To build peace through education, science and culture</span></label></div>
+        <p class="ex">&#10003; UNESCO builds peace in people's minds through education and culture.</p>
+      </div>
+      <div class="cq">
+        <p class="q">The Kapitan Keling Mosque is built in which architectural style?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq47"><span>Gothic</span></label><label class="opt correct"><input type="radio" name="tq47"><span>Mughal / Indo-Islamic, with onion domes</span></label><label class="opt"><input type="radio" name="tq47"><span>Art Deco</span></label></div>
+        <p class="ex">&#10003; It has Mughal-style golden domes.</p>
+      </div>
+      <div class="cq">
+        <p class="q">Cheah Kongsi sits on which famous street?</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq48"><span>Queen Street</span></label><label class="opt"><input type="radio" name="tq48"><span>Leith Street</span></label><label class="opt correct"><input type="radio" name="tq48"><span>Armenian Street</span></label></div>
+        <p class="ex">&#10003; Cheah Kongsi is on Armenian Street.</p>
+      </div>
+      <div class="cq">
+        <p class="q">After a site is listed, the country agrees to…</p>
+        <div class="opts"><label class="opt"><input type="radio" name="tq49"><span>Sell tickets to UNESCO</span></label><label class="opt correct"><input type="radio" name="tq49"><span>Protect and preserve it for the future</span></label><label class="opt"><input type="radio" name="tq49"><span>Rebuild it in a new style</span></label></div>
+        <p class="ex">&#10003; Countries commit to protect listed sites for the future.</p>
+      </div>
+      <div class="cq">
+        <p class="q">The indigo 'Blue Mansion' is properly called the ___ Mansion.</p>
+        <div class="opts"><label class="opt correct"><input type="radio" name="tq50"><span>Cheong Fatt Tze</span></label><label class="opt"><input type="radio" name="tq50"><span>Syed Alatas</span></label><label class="opt"><input type="radio" name="tq50"><span>Pinang Peranakan</span></label></div>
+        <p class="ex">&#10003; It is the Cheong Fatt Tze Mansion.</p>
+      </div>
     </div>
-    <p class="ex">✓ George Town sits on Penang Island and is the capital of Penang state.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">7. Who founded George Town in 1786?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q7"><span>Stamford Raffles</span></label>
-      <label class="opt correct"><input type="radio" name="q7"><span>Captain Francis Light</span></label>
-      <label class="opt"><input type="radio" name="q7"><span>James Brooke</span></label>
-    </div>
-    <p class="ex">✓ Captain Francis Light of the British East India Company landed in 1786.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">8. George Town was named after which British monarch?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q8"><span>Queen Victoria</span></label>
-      <label class="opt correct"><input type="radio" name="q8"><span>King George III</span></label>
-      <label class="opt"><input type="radio" name="q8"><span>King George V</span></label>
-    </div>
-    <p class="ex">✓ It was named in honour of King George III.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">9. The indigo "Blue Mansion" is properly known as the ___ Mansion.</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q9"><span>Pinang Peranakan</span></label>
-      <label class="opt correct"><input type="radio" name="q9"><span>Cheong Fatt Tze</span></label>
-      <label class="opt"><input type="radio" name="q9"><span>Khoo Kongsi</span></label>
-    </div>
-    <p class="ex">✓ The Cheong Fatt Tze Mansion is nicknamed the Blue Mansion for its indigo walls.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">10. What is the oldest Chinese temple in George Town?</p>
-    <div class="opts">
-      <label class="opt correct"><input type="radio" name="q10"><span>Goddess of Mercy Temple (built 1728)</span></label>
-      <label class="opt"><input type="radio" name="q10"><span>Khoo Kongsi</span></label>
-      <label class="opt"><input type="radio" name="q10"><span>Han Jiang Ancestral Temple</span></label>
-    </div>
-    <p class="ex">✓ The Goddess of Mercy Temple was built in 1728 — the oldest Chinese temple in the city.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">11. The Clan Jetties are villages built on stilts over what?</p>
-    <div class="opts">
-      <label class="opt correct"><input type="radio" name="q11"><span>The sea</span></label>
-      <label class="opt"><input type="radio" name="q11"><span>A river</span></label>
-      <label class="opt"><input type="radio" name="q11"><span>Rice fields</span></label>
-    </div>
-    <p class="ex">✓ Immigrant clans built wooden stilt houses over the sea at the harbour's edge.</p>
-  </div>
-
-  <div class="cq">
-    <p class="q">12. George Town was inscribed TOGETHER with which other historic city?</p>
-    <div class="opts">
-      <label class="opt"><input type="radio" name="q12"><span>Singapore</span></label>
-      <label class="opt correct"><input type="radio" name="q12"><span>Malacca (Melaka)</span></label>
-      <label class="opt"><input type="radio" name="q12"><span>Kuala Lumpur</span></label>
-    </div>
-    <p class="ex">✓ The listing is "Melaka and George Town, Historic Cities of the Straits of Malacca."</p>
-  </div>
-
+  </section>
   <div class="backlinks">
-    <a href="history.html">← Brush up on the history</a>
-    <a class="alt" href="guide.html">Ask the Heritage Guide →</a>
+    <a href="history.html">&larr; Brush up on the history</a>
+    <a class="alt" href="guide.html">Ask the Heritage Guide &rarr;</a>
   </div>
 </main>
-
 <footer>
-  <div>
-    <a href="index.html">Home</a><a href="about-unesco.html">UNESCO</a>
-    <a href="history.html">History</a><a href="attractions.html">Sites</a>
-      <a href="search.html">Search</a>
-    <a href="directions.html">Directions</a><a href="route.html">Route</a>
-    <a href="trivia.html">Trivia</a><a href="guide.html">Guide</a>
-    <a href="about.html">About</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
-  </div>
-  <p class="note">George Town Heritage · A school project by students of SMJK Chung Ling.</p>
+  <div><a href="index.html">Home</a><a href="about-unesco.html">UNESCO</a><a href="history.html">History</a><a href="attractions.html">Sites</a><a href="search.html">Search</a><a href="directions.html">Directions</a><a href="route.html">Route</a><a href="trivia.html">Trivia</a><a href="guide.html">Guide</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
+  <p class="note">George Town Heritage · A school project by students of SMJK Chung Ling · An educational tribute to Melaka &amp; George Town, Historic Cities of the Straits of Malacca (UNESCO WHS 1223).</p>
   <p class="disclaimer">&#9888; Disclaimer: This is a student project created for educational purposes. The information may contain mistakes and may not be complete, current or fully accurate &mdash; please double-check important details with official sources.</p>
 </footer>
+<!-- Settings panel (pure HTML/CSS, no JavaScript) -->
+<input class="gt-setchk" type="checkbox" id="gt-set" aria-hidden="true">
+<input class="set-radio" type="radio" name="gt-theme" id="gt-theme-light">
+<input class="set-radio" type="radio" name="gt-theme" id="gt-theme-dark">
+<label class="set-fab" for="gt-set" title="Settings">&#9881;</label>
+<div class="set-panel" role="dialog" aria-label="Settings">
+  <div class="set-head">&#9881; Settings<label class="x" for="gt-set" title="Close">&#10005;</label></div>
+  <div class="set-body">
+    <h4>Theme</h4>
+    <div class="set-opts">
+      <label for="gt-theme-light">&#9728;&#65039; Light</label>
+      <label for="gt-theme-dark">&#127769; Dark</label>
+    </div>
+    <h4>Language</h4>
+    <div class="set-opts">
+      <a class="on" href="#">English</a>
+      <span class="soon" title="Coming soon">Bahasa Melayu</span>
+    </div>
+    <p class="set-note">Theme follows your device by default and resets on each new page (no JavaScript).
+      A Bahasa Melayu version is being prepared.</p>
+  </div>
+</div>
 <!-- Floating heritage chat widget (pure HTML/CSS, no JavaScript) -->
 <input type="checkbox" id="gtc" class="gt-toggle" autocomplete="off" aria-hidden="true">
 <label for="gtc" class="gt-fab" title="Ask the heritage helper">&#128172;</label>
