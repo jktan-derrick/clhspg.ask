@@ -9,17 +9,8 @@
   --body:#3a4064; --head:#0f1f66; --footer-bg:#0f1f66; --nav-bg:#f6f8fe;
   --shadow:0 8px 24px rgba(0,70,130,.10);
 }
-@media (prefers-color-scheme: dark){
-  :root{
-    --unesco:#8296f0; --unesco-dark:#c9d3ff; --sky:#8296f0;
-    --pale:#18204a; --ink:#e9ecfb; --bg:#0b0f26; --card:#141a3a;
-    --line:#2a335f; --sun:#ffca3a; --text:#a7b0d8; --muted:#7f9cb2;
-    --body:#c3c9ea; --head:#c9d3ff; --footer-bg:#080d24; --nav-bg:#0e1430;
-    --shadow:0 8px 24px rgba(0,0,0,.45);
-  }
-}
-/* Manual theme choice (settings panel) overrides the system default.
-   No radio checked = follow the device theme above. */
+/* Default theme is LIGHT (the :root values above). Dark mode applies only when the
+   visitor explicitly chooses it in Settings — we no longer follow the OS dark preference. */
 html:has(#gt-theme-light:checked){
   --unesco:#1c34a0; --unesco-dark:#0f1f66; --sky:#4a63d6;
   --pale:#e9edfb; --ink:#141a33; --bg:#f5f7fd; --card:#ffffff;
@@ -687,7 +678,6 @@ footer .note{color:rgba(255,255,255,.85)}
 
 /* food-number gold: readable dark-gold on white cards (light), bright on dark cards. */
 .food-number{color:#a9780a}
-@media (prefers-color-scheme:dark){ .food-number{color:var(--sun)} }
 :root[data-theme="light"] .food-number,
 html:has(#gt-theme-light:checked) .food-number{color:#a9780a}
 :root[data-theme="dark"] .food-number,
@@ -710,3 +700,9 @@ header.nav.scrolled .nav-inner{padding-top:9px;padding-bottom:9px}
   pointer-events:none;animation:gtRippleAnim .6s ease-out;z-index:0}
 @keyframes gtRippleAnim{to{transform:scale(3.6);opacity:0}}
 @media (prefers-reduced-motion:reduce){.gt-ripple{display:none}}
+
+/* Fix: subtitles on coloured banners had no explicit colour, so the global
+   p{color:var(--body)} made them dark-on-dark in light mode. */
+.page-head p{color:#ffca3a}            /* logo yellow, readable on the blue banner */
+.hero p{color:rgba(255,255,255,.95)}   /* home hero subtitle */
+.food-hero p{color:rgba(255,255,255,.95)}
