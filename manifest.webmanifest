@@ -1,0 +1,16 @@
+{
+  "name": "George Town Heritage",
+  "short_name": "GT Heritage",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f7fd",
+  "theme_color": "#1c34a0",
+  "description": "A UNESCO World Heritage city guide to George Town, Penang.",
+  "icons": [
+    {
+      "src": "assets/img/clhs-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

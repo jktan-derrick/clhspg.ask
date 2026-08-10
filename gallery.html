@@ -4,10 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Photo Gallery — George Town Heritage</title>
+<meta name="description" content="George Town, Penang: a UNESCO World Heritage Site. Explore 17 historic sites, its history, a heritage quiz, photo gallery and directions.">
+<meta name="theme-color" content="#1c34a0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Photo Gallery — George Town Heritage">
+<meta property="og:description" content="A UNESCO World Heritage city of temples, mosques, clan houses and street art.">
+<meta property="og:image" content="assets/img/clhs-logo.png">
 <link rel="icon" type="image/png" href="assets/img/clhs-logo.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="assets/styles.css">
+<script>try{var t=localStorage.getItem("gt-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}document.documentElement.classList.add("js");</script>
+<script src="assets/data-en.js" defer></script>
+<script src="assets/app.js" defer></script>
 </head>
 <body>
+<a class="skip" href="#maincontent">Skip to content</a>
 <header class="nav">
   <div class="nav-inner">
     <a class="brand" href="index.html"><img class="brand-logo" src="assets/img/clhs-logo.png" alt="">George Town Heritage</a>
@@ -18,6 +29,7 @@
       <a href="about-unesco.html">UNESCO</a>
       <a href="history.html">History</a>
       <a href="attractions.html">Sites</a>
+      <a href="food.html">Food</a>
       <a href="search.html">Search</a>
       <a href="directions.html">Directions</a>
       <a href="route.html">Route</a>
@@ -29,6 +41,7 @@
     </nav>
   </div>
 </header>
+<a id="maincontent" tabindex="-1"></a>
 
 <div class="page-head">
   <div class="kick">Community Photos</div>
@@ -61,7 +74,7 @@
     <p class="form-note">Photos are reviewed before appearing here. If a large file won't attach, paste a link instead.</p>
   </div></main>
 <footer>
-  <div><a href="index.html">Home</a><a href="about-unesco.html">UNESCO</a><a href="history.html">History</a><a href="attractions.html">Sites</a><a href="search.html">Search</a><a href="directions.html">Directions</a><a href="route.html">Route</a><a href="trivia.html">Trivia</a><a href="guide.html">Guide</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
+  <div><a href="index.html">Home</a><a href="about-unesco.html">UNESCO</a><a href="history.html">History</a><a href="attractions.html">Sites</a><a href="food.html">Food</a><a href="search.html">Search</a><a href="directions.html">Directions</a><a href="route.html">Route</a><a href="trivia.html">Trivia</a><a href="guide.html">Guide</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
   <p class="note">George Town Heritage &middot; A school project by students of SMJK Chung Ling &middot; An educational tribute to Melaka &amp; George Town, Historic Cities of the Straits of Malacca (UNESCO WHS 1223).</p>
   <p class="disclaimer">&#9888; Disclaimer: This is a student project created for educational purposes. The information may contain mistakes and may not be complete, current or fully accurate &mdash; please double-check important details with official sources.</p>
 </footer>
@@ -95,7 +108,8 @@
     <label for="gtc" class="gt-x" title="Close">&#10005;</label>
   </div>
   <div class="gt-body">
-    <div class="gt-msg bot">&#128075; Hi! Tap any question or heritage site below and the answer opens right here. If what you want isn't listed &mdash; sorry! &mdash; try the <a href="search.html">Search</a> or <a href="attractions.html">Sites</a> page.</div>
+    <div class="gt-msg bot">&#128075; Hi! Type a question and press Enter, or tap a topic or site below.</div>
+    <div id="gt-typed"></div>
     <span class="gt-grouplabel">Popular questions</span>
     <details><summary>Which is the oldest?</summary><div class="gt-ans">The oldest Chinese temple is the <a href="sites/goddess-of-mercy-temple.html">Goddess of Mercy Temple</a> (1728). The oldest Hindu temple is <a href="sites/sri-mahamariamman-temple.html">Sri Mahamariamman</a> (1833), and the oldest mosque is the <a href="sites/kapitan-keling-mosque.html">Kapitan Keling Mosque</a> (1801).</div></details>
     <details><summary>Directions</summary><div class="gt-ans">Every site has a "Get directions" button that opens Google Maps. See the <a href="directions.html">Directions page</a>.</div></details>
@@ -122,6 +136,7 @@
     <details><summary>Street Art Trail</summary><div class="gt-ans"><img class="gt-thumb" src="assets/img/street-art-trail.jpg" alt="Photo of Street Art Trail"><b>Street Art &middot; built 2012</b><br>George Town's famous murals and witty wrought-iron caricatures, turning the whole old town into an open-air gallery.<br><a href="sites/street-art-trail.html">Read the full story &rarr;</a> &nbsp;&middot;&nbsp; <a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=5.4148,100.3378&travelmode=walking">Directions</a></div></details>
     <details><summary>Something else?</summary><div class="gt-ans">Sorry, I can only help with the questions and 17 sites listed here. For anything else, try the <a href="attractions.html">Sites</a>, <a href="search.html">Search</a> or <a href="guide.html">Guide</a> page.</div></details>
   </div>
+  <div class="gt-input"><input id="gt-chat-input" type="text" autocomplete="off" placeholder="Type a question..."><button id="gt-chat-send" aria-label="Send">&#10148;</button></div>
 </div>
 </body>
 </html>

@@ -34,6 +34,40 @@ html:has(#gt-theme-dark:checked){
   --body:#c3c9ea; --head:#c9d3ff; --footer-bg:#080d24; --nav-bg:#0e1430;
   --shadow:0 8px 24px rgba(0,0,0,.45);
 }
+/* JS-persisted theme (set from localStorage before paint, no flash) */
+:root[data-theme="light"]{
+  --unesco:#1c34a0; --unesco-dark:#0f1f66; --sky:#4a63d6;
+  --pale:#e9edfb; --ink:#141a33; --bg:#f5f7fd; --card:#ffffff;
+  --line:#d8ddf2; --sun:#f5b400; --text:#48507a; --muted:#7c85ab;
+  --body:#3a4064; --head:#0f1f66; --footer-bg:#0f1f66; --nav-bg:#f6f8fe;
+  --shadow:0 8px 24px rgba(0,70,130,.10);
+}
+:root[data-theme="dark"]{
+  --unesco:#8296f0; --unesco-dark:#c9d3ff; --sky:#8296f0;
+  --pale:#18204a; --ink:#e9ecfb; --bg:#0b0f26; --card:#141a3a;
+  --line:#2a335f; --sun:#ffca3a; --text:#a7b0d8; --muted:#7f9cb2;
+  --body:#c3c9ea; --head:#c9d3ff; --footer-bg:#080d24; --nav-bg:#0e1430;
+  --shadow:0 8px 24px rgba(0,0,0,.45);
+}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Scroll-reveal animations (only when JS is on and motion is allowed) */
+@media (prefers-reduced-motion:no-preference){
+  html.js .card, html.js .site, html.js .obj .o, html.js .goal, html.js .gitem,
+  html.js .tl, html.js .cq, html.js .dirrow, html.js .route-list li, html.js .band,
+  html.js .stats, html.js .quickfacts, html.js .site-main section{
+    opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease;
+  }
+  html.js .is-in{opacity:1 !important; transform:none !important}
+}
+/* Back-to-top button (created by app.js) */
+.to-top{position:fixed;right:26px;bottom:92px;z-index:79;width:44px;height:44px;border-radius:50%;
+  border:1.5px solid var(--line);background:var(--card);color:var(--head);font-size:1.25rem;cursor:pointer;
+  box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:opacity .25s,transform .25s,visibility .25s;display:flex;align-items:center;justify-content:center}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--unesco);color:var(--unesco)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Georgia","Times New Roman",serif;color:var(--ink);
   background:var(--bg);line-height:1.65;-webkit-font-smoothing:antialiased}
@@ -516,4 +550,119 @@ footer .disclaimer{margin:14px auto 0;max-width:680px;font-size:.78rem;line-heig
 @media(max-width:680px){
   .band,.who{grid-template-columns:1fr}
   .prevnext{flex-direction:column}
+}
+
+/* ============================================================
+   JS FEATURE LAYER + FOOD PAGE + ACCESSIBILITY
+   ============================================================ */
+
+/* --- Accessibility --- */
+.skip{position:absolute;left:-999px;top:0;z-index:200;background:var(--unesco);color:#fff;
+  padding:10px 16px;border-radius:0 0 10px 0;font-family:system-ui,sans-serif;font-weight:600}
+.skip:focus{left:0}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px;border-radius:4px}
+
+/* --- Typed search (search page) --- */
+.search-msg{text-align:center;font-family:system-ui,sans-serif;color:var(--muted);min-height:1.3em;margin:6px 0 14px}
+
+/* --- Chat input --- */
+.gt-input{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);align-items:center;width:auto;background:var(--card)}
+.gt-input input{flex:1;font-family:system-ui,sans-serif;font-size:.92rem;padding:10px 14px;border:1.5px solid var(--line);
+  border-radius:22px;background:var(--bg);color:var(--ink);width:auto}
+.gt-input input:focus{outline:none;border-color:var(--unesco)}
+.gt-input button{flex:none;width:40px;height:40px;border-radius:50%;border:none;background:var(--unesco);color:#fff;cursor:pointer;font-size:1rem}
+.gt-input button:hover{background:var(--unesco-dark);color:var(--bg)}
+#gt-typed{display:flex;flex-direction:column;gap:8px}
+
+/* --- JS trivia (random 10, scored) --- */
+html.js .static-quiz{display:none}
+#js-quiz{max-width:760px;margin:0 auto}
+.q-progress{display:flex;justify-content:space-between;font-family:system-ui,sans-serif;font-size:.85rem;color:var(--muted);margin-bottom:8px}
+.q-bar{height:8px;background:var(--pale);border-radius:6px;overflow:hidden;margin-bottom:22px}
+.q-bar>div{height:100%;background:linear-gradient(90deg,var(--sky),var(--unesco));transition:width .3s}
+#js-quiz .opt{width:100%;text-align:left;font:inherit}
+#js-quiz .opt.correct{background:rgba(47,143,87,.16);border-color:#2f8f57;color:#2f8f57;font-weight:600}
+#js-quiz .opt:not(.correct).wrong{background:rgba(192,57,43,.14);border-color:#c0392b;color:#c0392b}
+#js-quiz .ex{display:none} #js-quiz .ex.show{display:block}
+#js-quiz .next{float:none;display:none;margin-top:20px}
+.q-result{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 26px;box-shadow:var(--shadow)}
+.q-result .medal{font-size:3.4rem}
+.q-result .score{font-size:2.8rem;font-weight:700;color:var(--unesco);font-family:system-ui,sans-serif}
+.q-result p{font-family:system-ui,sans-serif;font-size:1.2rem;margin:6px 0 20px;color:var(--head)}
+.q-result .again{font-family:system-ui,sans-serif;font-weight:700;background:var(--unesco);color:#fff;border:none;padding:13px 30px;border-radius:12px;cursor:pointer}
+.q-result .again:hover{background:var(--unesco-dark);color:var(--bg)}
+
+/* --- AJAX form messages --- */
+.form-msg{font-family:system-ui,sans-serif;font-size:.92rem;margin-top:14px;text-align:center;min-height:1.3em}
+.form-msg.ok{color:#2f8f57;font-weight:600}
+.form-msg.err{color:#c0392b;font-weight:600}
+
+/* --- Gallery lightbox --- */
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(4,10,26,.92);display:none;align-items:center;justify-content:center;padding:20px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:94vw;max-height:88vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.lightbox .lb-x{position:absolute;top:18px;right:22px;background:rgba(255,255,255,.16);color:#fff;border:none;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+
+/* --- Leaflet map --- */
+#leaflet-map{height:440px;max-width:900px;margin:0 auto 30px;border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow);z-index:1}
+.leaflet-popup-content a{color:var(--unesco);font-weight:600}
+
+/* --- Language suggestion bar --- */
+.lang-suggest{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:95;background:var(--card);border:1px solid var(--line);
+  border-radius:30px;padding:9px 14px;box-shadow:var(--shadow);font-family:system-ui,sans-serif;font-size:.9rem;display:flex;align-items:center;gap:10px;max-width:calc(100vw - 24px)}
+.lang-suggest a{color:var(--unesco);font-weight:700;text-decoration:none;padding:4px 14px;border:1.5px solid var(--unesco);border-radius:20px}
+.lang-suggest .ls-x{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.05rem}
+
+/* ============================================================
+   FOOD / FLAVOURS PAGE
+   ============================================================ */
+.food-hero{min-height:86vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;
+  color:#fff;padding:80px 22px;overflow:hidden;
+  background:linear-gradient(rgba(8,14,30,.62),rgba(8,14,30,.80)),
+    url("https://res.cloudinary.com/dk0ndttcl/image/upload/q_auto%3Aeco/v1/stw/ad2istyhxzwvlxzds6b6") center/cover no-repeat}
+.food-hero .ring{position:absolute;width:min(360px,72vw);height:min(360px,72vw);border:1px solid rgba(245,180,0,.5);
+  border-radius:50%;animation:gtRing 22s linear infinite}
+.food-hero-inner{position:relative;z-index:2;max-width:840px;animation:gtHeroUp 1s cubic-bezier(.16,1,.3,1) both}
+.food-hero .small-title{color:var(--sun);letter-spacing:5px;font-size:.82rem;text-transform:uppercase;
+  font-family:system-ui,sans-serif;margin-bottom:18px;animation:gtFadeDown .8s ease .2s both}
+.food-hero h1{font-family:"Georgia",serif;font-size:clamp(2.6rem,8vw,5.4rem);line-height:1.03;margin-bottom:20px;animation:gtFadeUp .8s ease .35s both}
+.food-hero h1 span{color:var(--sun)}
+.food-hero p{font-size:1.12rem;line-height:1.7;max-width:640px;margin:0 auto 30px;opacity:.95;animation:gtFadeUp .8s ease .5s both}
+.food-cta{animation:gtFadeUp .8s ease .65s both}
+.food-cta:hover{transform:translateY(-3px)}
+.food-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:26px;margin-top:44px}
+.food-card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);
+  transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .3s}
+.food-card:hover{transform:translateY(-10px);box-shadow:0 20px 44px rgba(0,60,110,.22)}
+.food-card:hover .food-image img{transform:scale(1.1)}
+.food-image{height:220px;overflow:hidden;background:var(--pale)}
+.food-image img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.25,1,.5,1)}
+.food-info{padding:22px}
+.food-number{color:var(--sun);font-weight:700;font-size:.74rem;font-family:system-ui,sans-serif;letter-spacing:1px}
+.food-info h3{font-family:"Georgia",serif;color:var(--unesco);font-size:1.5rem;margin:8px 0 10px}
+.food-info p{color:var(--text);line-height:1.65}
+.connection{background:var(--pale);border:1px solid var(--line);border-radius:22px;text-align:center;padding:52px 30px;margin:44px auto;max-width:1056px}
+.connection-box{max-width:820px;margin:0 auto}
+.connection-box .kicker{display:inline-block}
+.connection-box p{font-size:1.1rem;line-height:1.8;color:var(--body)}
+.fact-section{text-align:center;background:linear-gradient(160deg,var(--unesco-dark),var(--unesco));color:#fff;
+  border-radius:22px;padding:60px 30px;margin:0 auto 20px;max-width:1056px}
+.fact-section h2{font-family:"Georgia",serif;font-size:clamp(1.7rem,5vw,2.6rem);margin-bottom:14px;color:#fff}
+.fact-section>p{color:rgba(255,255,255,.9)}
+.fact-button{margin-top:26px;padding:14px 30px;border:none;border-radius:30px;background:var(--sun);color:#0f1f66;
+  font-weight:700;font-size:1rem;cursor:pointer;font-family:system-ui,sans-serif;
+  transition:transform .3s cubic-bezier(.175,.885,.32,1.275),box-shadow .3s}
+.fact-button:hover{transform:scale(1.06);box-shadow:0 10px 24px rgba(0,0,0,.28)}
+.fact-button:active{transform:scale(.96)}
+#fact{margin:24px auto 0;max-width:680px;min-height:28px;font-size:1.05rem;line-height:1.6;color:#fff;
+  opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}
+#fact.fade-in{opacity:1;transform:none}
+
+@keyframes gtHeroUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes gtFadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes gtFadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+@keyframes gtRing{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){
+  .food-hero .ring{animation:none}
+  .food-hero-inner,.food-hero .small-title,.food-hero h1,.food-hero p,.food-cta{animation:none}
 }

@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us — George Town Heritage</title>
+<title>Flavours of George Town — Penang Heritage Food</title>
 <meta name="description" content="George Town, Penang: a UNESCO World Heritage Site. Explore 17 historic sites, its history, a heritage quiz, photo gallery and directions.">
 <meta name="theme-color" content="#1c34a0">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Contact Us — George Town Heritage">
+<meta property="og:title" content="Flavours of George Town — Penang Heritage Food">
 <meta property="og:description" content="A UNESCO World Heritage city of temples, mosques, clan houses and street art.">
 <meta property="og:image" content="assets/img/clhs-logo.png">
 <link rel="icon" type="image/png" href="assets/img/clhs-logo.png">
@@ -29,7 +29,7 @@
       <a href="about-unesco.html">UNESCO</a>
       <a href="history.html">History</a>
       <a href="attractions.html">Sites</a>
-      <a href="food.html">Food</a>
+      <a class="active" href="food.html">Food</a>
       <a href="search.html">Search</a>
       <a href="directions.html">Directions</a>
       <a href="route.html">Route</a>
@@ -37,32 +37,64 @@
       <a href="guide.html">Guide</a>
       <a href="about.html">About</a>
       <a href="gallery.html">Gallery</a>
-      <a class="active" href="contact.html">Contact</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </div>
 </header>
 <a id="maincontent" tabindex="-1"></a>
 
-<div class="page-head alt">
-  <div class="kick">Get in Touch</div>
-  <h1>Contact Us</h1>
-  <p>Questions, feedback, or spotted a mistake? Send us a message and it comes straight to our inbox.</p>
-</div>
-<main class="narrow"><div class="planner cform">
-    <h2>Send a Message</h2>
-    <div class="sub">Fill out the form below to send an email directly to our inbox.</div>
-    <form action="https://formspree.io/f/mqpzevkb" method="POST">
-      <input type="hidden" name="_subject" value="New message from George Town Heritage site">
-      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
-      <input type="hidden" name="_next" value="https://YOUR-USERNAME.github.io/AsasSainsKomputer-Project/thankyou.html">
-      <div class="field"><label for="name">Your Name</label><input id="name" type="text" name="name" required placeholder="e.g. Jane Doe"></div>
-      <div class="field"><label for="email">Your Email</label><input id="email" type="email" name="email" required placeholder="nama@contoh.com"></div>
-      <div class="field"><label for="inquiry">Inquiry Type</label><select id="inquiry" name="inquiry"><option value="">Select a category</option><option>General question</option><option>Feedback</option><option>Report an error / correction</option><option>School or research</option></select></div>
-      <div class="field"><label for="message">Message</label><textarea id="message" name="message" rows="6" required placeholder="Write your message here..."></textarea></div>
-      <button class="go" type="submit">Send Message</button>
-    </form>
+<header class="food-hero">
+  <div class="ring"></div>
+  <div class="food-hero-inner">
+    <div class="small-title">Penang &bull; Malaysia &bull; UNESCO</div>
+    <h1>Flavours of<br><span>George Town</span></h1>
+    <p>Discover the traditional foods that form part of the multicultural living heritage of George Town, Penang.</p>
+    <a href="#food-list" class="btn btn-solid food-cta">Explore the Flavours &darr;</a>
   </div>
-  <div class="backlinks"><a href="about.html">&larr; About us</a></div></main>
+</header>
+<main>
+  <section id="food-list" class="food-section">
+    <div class="kicker">A Taste of Penang</div>
+    <h2>Traditional Food</h2>
+    <p class="lead">George Town is famous for its diverse food culture. Chinese, Malay, Indian and Peranakan influences shaped the food traditions found across Penang. These dishes are more than meals; they are part of the city's cultural identity and everyday life.</p>
+    <div class="food-grid">
+    <article class="food-card">
+      <div class="food-image"><img src="https://fooddrinkdestinations.com/wp-content/uploads/2023/03/Penang-Food-Guide-85.jpg" alt="Char Kway Teow" loading="lazy"></div>
+      <div class="food-info"><div class="food-number">01 / PENANG</div>
+        <h3>Char Kway Teow</h3><p>A famous Penang stir-fried noodle dish made with flat rice noodles, prawns, bean sprouts, egg and other ingredients. It is strongly associated with Penang's hawker food culture.</p></div>
+    </article>
+    <article class="food-card">
+      <div class="food-image"><img src="https://www.momoda8.com/Public/upload/poi/20180825/1535186151vWrduM_original.jpg" alt="Asam Laksa" loading="lazy"></div>
+      <div class="food-info"><div class="food-number">02 / PENANG</div>
+        <h3>Asam Laksa</h3><p>Penang Asam Laksa is a sour and spicy noodle soup traditionally made with fish, tamarind, herbs and vegetables. Its distinctive flavour makes it one of Penang's best-known foods.</p></div>
+    </article>
+    <article class="food-card">
+      <div class="food-image"><img src="https://apicms.thestar.com.my/uploads/images/2024/09/09/2903017.JPG" alt="Nasi Kandar" loading="lazy"></div>
+      <div class="food-info"><div class="food-number">03 / PENANG</div>
+        <h3>Nasi Kandar</h3><p>Nasi kandar consists of steamed rice served with curries and a variety of side dishes. Its development reflects the important role of Indian-Muslim communities in Penang.</p></div>
+    </article>
+    <article class="food-card">
+      <div class="food-image"><img src="assets/img/gallery/g3.jpg" alt="Nyonya Kuih" loading="lazy"></div>
+      <div class="food-info"><div class="food-number">04 / PERANAKAN</div>
+        <h3>Nyonya Kuih</h3><p>Nyonya kuih are colourful traditional sweets associated with Peranakan culture. They often use coconut, rice flour and pandan to create distinctive flavours, colours and textures.</p></div>
+    </article>
+    </div>
+  </section>
+  <section class="connection">
+    <div class="connection-box">
+      <div class="kicker">Why Food Matters</div>
+      <h2>More Than Just Food</h2>
+      <p>Traditional food is an important expression of George Town's multicultural heritage. From hawker stalls to family recipes, food shows how different communities have shared traditions over generations, and helps keep them alive.</p>
+    </div>
+  </section>
+  <section class="fact-section">
+    <h2>&#127836; Heritage Food Fact</h2>
+    <p>Click the button to discover something interesting!</p>
+    <button class="fact-button" id="fact-btn" type="button">SHOW FACT</button>
+    <p id="fact"></p>
+  </section>
+</main>
+<script>window.FOOD_FACTS=["George Town and Melaka were inscribed together as a UNESCO World Heritage property in 2008.", "UNESCO describes food as part of the multicultural living heritage of George Town.", "Penang's food culture reflects interactions between Malay, Chinese, Indian and other communities.", "Char Kway Teow is one of the foods strongly associated with Penang's hawker culture.", "Asam Laksa is known for its distinctive sour and spicy flavour.", "Nyonya cuisine reflects the cultural history of the Peranakan community."];</script>
 <footer>
   <div><a href="index.html">Home</a><a href="about-unesco.html">UNESCO</a><a href="history.html">History</a><a href="attractions.html">Sites</a><a href="food.html">Food</a><a href="search.html">Search</a><a href="directions.html">Directions</a><a href="route.html">Route</a><a href="trivia.html">Trivia</a><a href="guide.html">Guide</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
   <p class="note">George Town Heritage &middot; A school project by students of SMJK Chung Ling &middot; An educational tribute to Melaka &amp; George Town, Historic Cities of the Straits of Malacca (UNESCO WHS 1223).</p>
@@ -84,7 +116,7 @@
     <h4>Language</h4>
     <div class="set-opts">
       <a class="on" href="#">English</a>
-      <a href="contact-bm.html">Bahasa Melayu</a>
+      <a href="food-bm.html">Bahasa Melayu</a>
     </div>
     <p class="set-note">Theme follows your device by default and resets on each new page (no JavaScript).</p>
   </div>
