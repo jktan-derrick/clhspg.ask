@@ -50,10 +50,55 @@
   var REVEAL=".card,.site,.obj .o,.goal,.gitem,.tl,.cq,.dirrow,.route-list li,.band,.stats,.quickfacts,.site-main section";
   function initReveal(){
     var els=[].slice.call(document.querySelectorAll(REVEAL)); if(!els.length)return;
-    if(reduce||!("IntersectionObserver" in window)){ els.forEach(function(e){e.classList.add("is-in");}); return; }
+    // staggered delay within each parent group
+    var groups={};
+    els.forEach(function(e){ var p=e.parentNode; if(!p.__gk)p.__gk="g"+(Math.random()); var i=(groups[p.__gk]=(groups[p.__gk]||0)+1)-1; e.style.transitionDelay=Math.min(i*70,350)+"ms"; });
+    if(reduce||!("IntersectionObserver" in window)){ els.forEach(function(e){e.style.transitionDelay="0ms";e.classList.add("is-in");}); return; }
     var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add("is-in"); io.unobserve(x.target);} }); },
       {threshold:0.12, rootMargin:"0px 0px -40px 0px"});
     els.forEach(function(e){ io.observe(e); });
+  }
+
+  /* ---------- Scroll progress bar ---------- */
+  function initProgress(){
+    if(reduce)return;
+    var bar=el("div","scroll-progress"); document.body.appendChild(bar);
+    var tick=false;
+    function upd(){ var h=document.documentElement.scrollHeight-window.innerHeight; bar.style.width=(h>0?Math.min(window.scrollY/h*100,100):0)+"%"; tick=false; }
+    window.addEventListener("scroll",function(){ if(!tick){requestAnimationFrame(upd);tick=true;} },{passive:true}); upd();
+  }
+
+  /* ---------- Header shrink + shadow on scroll ---------- */
+  function initHeader(){
+    var h=document.querySelector("header.nav"); if(!h)return; var tick=false;
+    function upd(){ h.classList.toggle("scrolled",window.scrollY>28); tick=false; }
+    window.addEventListener("scroll",function(){ if(!tick){requestAnimationFrame(upd);tick=true;} },{passive:true}); upd();
+  }
+
+  /* ---------- Button ripple ---------- */
+  function initRipple(){
+    if(reduce)return;
+    document.addEventListener("click",function(e){
+      var b=e.target.closest(".btn,.fact-button,.go,.food-cta,.set-opts a,.filters label,.round-tabs label");
+      if(!b)return;
+      var r=b.getBoundingClientRect(), d=Math.max(r.width,r.height);
+      var sp=el("span","gt-ripple"); sp.style.width=sp.style.height=d+"px";
+      sp.style.left=(e.clientX-r.left-d/2)+"px"; sp.style.top=(e.clientY-r.top-d/2)+"px";
+      b.appendChild(sp); setTimeout(function(){ if(sp.parentNode)sp.remove(); },600);
+    });
+  }
+
+  /* ---------- 3D tilt on cards (pointer devices only) ---------- */
+  function initTilt(){
+    if(reduce || (window.matchMedia && matchMedia("(hover: none)").matches))return;
+    [].slice.call(document.querySelectorAll(".card,.food-card")).forEach(function(c){
+      c.addEventListener("mousemove",function(e){
+        var r=c.getBoundingClientRect();
+        var x=(e.clientX-r.left)/r.width-0.5, y=(e.clientY-r.top)/r.height-0.5;
+        c.style.transform="perspective(760px) rotateX("+(-y*5).toFixed(2)+"deg) rotateY("+(x*5).toFixed(2)+"deg) translateY(-6px)";
+      });
+      c.addEventListener("mouseleave",function(){ c.style.transform=""; });
+    });
   }
 
   /* ---------- Count-up stats ---------- */
@@ -258,5 +303,6 @@
   onReady(function(){
     initTheme(); initLangMemory(); initReveal(); initCounters(); initTopBtn();
     initSearch(); initChatInput(); initQuiz(); initForms(); initLightbox(); initMap(); initSW(); initFacts();
+    initProgress(); initHeader(); initRipple(); initTilt();
   });
 })();

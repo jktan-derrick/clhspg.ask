@@ -52,14 +52,19 @@ html:has(#gt-theme-dark:checked){
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-/* Scroll-reveal animations (only when JS is on and motion is allowed) */
+/* Scroll-reveal animations (JS on, motion allowed). Uses :not(.is-in) for the hidden
+   state so revealed elements keep hover/tilt control of their own transform. */
 @media (prefers-reduced-motion:no-preference){
   html.js .card, html.js .site, html.js .obj .o, html.js .goal, html.js .gitem,
   html.js .tl, html.js .cq, html.js .dirrow, html.js .route-list li, html.js .band,
   html.js .stats, html.js .quickfacts, html.js .site-main section{
-    opacity:0; transform:translateY(20px); transition:opacity .6s ease, transform .6s ease;
+    transition:opacity .6s ease, transform .6s ease;
   }
-  html.js .is-in{opacity:1 !important; transform:none !important}
+  html.js .card:not(.is-in), html.js .site:not(.is-in), html.js .obj .o:not(.is-in),
+  html.js .goal:not(.is-in), html.js .gitem:not(.is-in), html.js .tl:not(.is-in),
+  html.js .cq:not(.is-in), html.js .dirrow:not(.is-in), html.js .route-list li:not(.is-in),
+  html.js .band:not(.is-in), html.js .stats:not(.is-in), html.js .quickfacts:not(.is-in),
+  html.js .site-main section:not(.is-in){ opacity:0; transform:translateY(20px) }
 }
 /* Back-to-top button (created by app.js) */
 .to-top{position:fixed;right:26px;bottom:92px;z-index:79;width:44px;height:44px;border-radius:50%;
@@ -666,3 +671,42 @@ html.js .static-quiz{display:none}
   .food-hero .ring{animation:none}
   .food-hero-inner,.food-hero .small-title,.food-hero h1,.food-hero p,.food-cta{animation:none}
 }
+
+/* ============================================================
+   FIXES: mobile footer overflow, light-mode contrast, + more animations
+   ============================================================ */
+
+/* Mobile overflow fix: footer links had no whitespace between them, so they
+   never wrapped. Make the link row a wrapping flex container. */
+footer > div{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 4px}
+footer a{margin:0 5px}
+html,body{overflow-x:hidden}
+
+/* Light-mode contrast: footer note was dark var(--body) on the dark footer. */
+footer .note{color:rgba(255,255,255,.85)}
+
+/* food-number gold: readable dark-gold on white cards (light), bright on dark cards. */
+.food-number{color:#a9780a}
+@media (prefers-color-scheme:dark){ .food-number{color:var(--sun)} }
+:root[data-theme="light"] .food-number,
+html:has(#gt-theme-light:checked) .food-number{color:#a9780a}
+:root[data-theme="dark"] .food-number,
+html:has(#gt-theme-dark:checked) .food-number{color:var(--sun)}
+
+/* --- Scroll progress bar --- */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:100;
+  background:linear-gradient(90deg,var(--sun),var(--unesco));transition:width .08s linear}
+@media (prefers-reduced-motion:reduce){.scroll-progress{display:none}}
+
+/* --- Header shrink + shadow on scroll --- */
+header.nav{transition:box-shadow .25s ease, background .3s ease}
+header.nav .nav-inner{transition:padding .25s ease}
+header.nav.scrolled{box-shadow:0 6px 22px rgba(0,30,80,.16)}
+header.nav.scrolled .nav-inner{padding-top:9px;padding-bottom:9px}
+
+/* --- Button ripple --- */
+.btn,.fact-button,.go,.food-cta,.set-opts a,.filters label,.round-tabs label{position:relative;overflow:hidden}
+.gt-ripple{position:absolute;border-radius:50%;transform:scale(0);background:rgba(255,255,255,.45);
+  pointer-events:none;animation:gtRippleAnim .6s ease-out;z-index:0}
+@keyframes gtRippleAnim{to{transform:scale(3.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){.gt-ripple{display:none}}
