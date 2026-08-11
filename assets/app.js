@@ -260,6 +260,21 @@
 
   /* ---------- Trivia: random 10 of 50 with scoring ---------- */
   function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var x=a[i];a[i]=a[j];a[j]=x; } return a; }
+  function flashBtn(btn,msg){ var old=btn.innerHTML; btn.innerHTML=msg; btn.disabled=true; setTimeout(function(){ btn.innerHTML=old; btn.disabled=false; },1600); }
+  function legacyCopy(str){ try{ var ta=document.createElement("textarea"); ta.value=str; ta.setAttribute("readonly","");
+    ta.style.position="fixed"; ta.style.top="-1000px"; ta.style.opacity="0"; document.body.appendChild(ta);
+    ta.focus(); ta.select(); var ok=document.execCommand("copy"); document.body.removeChild(ta); return ok; }catch(e){ return false; } }
+  function shareScore(score,btn){
+    var url=location.href.split("#")[0];
+    var text=t("I scored "+score+"/10 on the George Town Heritage quiz! Can you beat me?",
+               "Saya dapat "+score+"/10 dalam Kuiz Warisan George Town! Boleh anda kalahkan saya?");
+    if(navigator.share){ navigator.share({title:t("George Town Heritage Trivia","Kuiz Warisan George Town"),text:text,url:url}).catch(function(){}); return; }
+    var full=text+" "+url;
+    function ok(){ flashBtn(btn,t("✓ Copied!","✓ Disalin!")); }
+    function fail(){ if(legacyCopy(full))ok(); else flashBtn(btn,t("Copy failed","Gagal menyalin")); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(full).then(ok,fail); }
+    else fail();
+  }
   function initQuiz(){
     var host=document.getElementById("js-quiz"); if(!host||!window.QUIZ)return;
     var stat=document.querySelector(".static-quiz"); if(stat)stat.style.display="none";
@@ -291,11 +306,19 @@
     }
     function results(){ host.innerHTML="";
       var medal = score>=9?"🏆":score>=7?"🥇":score>=5?"🥈":"🥉";
+      var prev=parseInt(lsGet("gt-quiz-best")||"0",10); if(isNaN(prev))prev=0;
+      var isBest=score>prev, best=Math.max(score,prev);
+      if(isBest)lsSet("gt-quiz-best",String(best));
       var r=el("div","q-result is-in");
       r.innerHTML='<div class="medal">'+medal+'</div><div class="score">'+score+'/10</div><p>'+
-        (score>=9?t("Heritage Master!","Sifu Warisan!"):score>=7?t("Heritage Expert","Pakar Warisan"):score>=5?t("Heritage Enthusiast","Peminat Warisan"):t("Heritage Explorer","Penjelajah Warisan"))+'</p>';
-      var again=el("button","again",t("Play Again (new questions)","Main Semula (soalan baharu)")); again.type="button";
-      again.addEventListener("click",start); r.appendChild(again); host.appendChild(r);
+        (score>=9?t("Heritage Master!","Sifu Warisan!"):score>=7?t("Heritage Expert","Pakar Warisan"):score>=5?t("Heritage Enthusiast","Peminat Warisan"):t("Heritage Explorer","Penjelajah Warisan"))+'</p>'
+        +'<div class="q-best">'+(isBest?'<span class="q-newbest">🎉 '+t("New personal best!","Rekod peribadi baharu!")+'</span>':'')
+        +'<span class="q-bestline">'+t("Personal best: ","Rekod terbaik: ")+best+'/10</span></div>';
+      var row=el("div","q-actions");
+      var again=el("button","again",t("Play Again (new questions)","Main Semula (soalan baharu)")); again.type="button"; again.addEventListener("click",start);
+      var share=el("button","share-btn","🔗 "+t("Share score","Kongsi skor")); share.type="button"; share.addEventListener("click",function(){ shareScore(score,share); });
+      row.appendChild(again); row.appendChild(share);
+      r.appendChild(row); host.appendChild(r);
     }
     start();
   }
