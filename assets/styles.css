@@ -706,3 +706,36 @@ header.nav.scrolled .nav-inner{padding-top:9px;padding-bottom:9px}
 .page-head p{color:#ffca3a}            /* logo yellow, readable on the blue banner */
 .hero p{color:rgba(255,255,255,.95)}   /* home hero subtitle */
 .food-hero p{color:rgba(255,255,255,.95)}
+
+/* ============================================================
+   Feature pack: audio guide + view-photo + map filters/find-me
+   ============================================================ */
+/* Site-page action buttons (Listen / View photo) match .btn-dir sizing */
+.site-actions button{font-family:system-ui,sans-serif;font-weight:600;font-size:.9rem;border-radius:10px;
+  padding:11px 18px;border:1.5px solid rgba(255,255,255,.6);cursor:pointer;display:inline-flex;align-items:center;gap:7px;line-height:1;
+  background:rgba(255,255,255,.16);color:#fff}
+.site-actions button:hover{background:rgba(255,255,255,.3)}
+.btn-listen.playing{background:var(--sun);color:#3a2a00;border-color:var(--sun)}
+
+/* Lightbox: prev/next arrows + caption */
+.lightbox .lb-fig{margin:0;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:94vw}
+.lb-cap{color:#fff;font-family:system-ui,sans-serif;font-size:.92rem;opacity:.9;text-align:center;max-width:640px}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.16);color:#fff;border:none;
+  width:48px;height:48px;border-radius:50%;font-size:1.9rem;line-height:1;cursor:pointer}
+.lb-prev{left:14px}.lb-next{right:14px}.lb-nav:hover{background:rgba(255,255,255,.3)}
+
+/* Map filter chips + Find-me button */
+.map-tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;align-items:center}
+.map-chip{font-family:system-ui,sans-serif;font-weight:600;font-size:.82rem;border:1.5px solid var(--line);
+  background:var(--card);color:var(--body);border-radius:999px;padding:7px 13px;cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px}
+.map-chip i{width:11px;height:11px;border-radius:50%;background:var(--c);display:inline-block}
+.map-chip.off{opacity:.42;text-decoration:line-through}
+.map-find{font-family:system-ui,sans-serif;font-weight:700;font-size:.82rem;border:none;cursor:pointer;
+  background:var(--unesco);color:#fff;border-radius:999px;padding:8px 15px;margin-left:auto;display:inline-flex;align-items:center;gap:6px}
+.map-find:hover{filter:brightness(1.08)}
+.map-find[disabled]{opacity:.6;cursor:default}
+
+/* Coloured map pins + you-are-here dot */
+.gt-pin span{display:block;width:18px;height:18px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.45)}
+.gt-you span{display:block;width:16px;height:16px;border-radius:50%;background:#2b6cff;border:3px solid #fff;box-shadow:0 0 0 4px rgba(43,108,255,.3)}

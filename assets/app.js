@@ -251,31 +251,163 @@
     });
   }
 
-  /* ---------- Gallery lightbox ---------- */
+  /* ---------- Shared lightbox (gallery + site photo) with prev/next ---------- */
+  var LB=null;
+  function ensureLightbox(){
+    if(LB)return LB;
+    var ov=el("div","lightbox");
+    ov.innerHTML='<button class="lb-x" aria-label="'+t("Close","Tutup")+'">&#10005;</button>'
+      +'<button class="lb-nav lb-prev" aria-label="'+t("Previous","Sebelumnya")+'">&#8249;</button>'
+      +'<figure class="lb-fig"><img alt=""><figcaption class="lb-cap"></figcaption></figure>'
+      +'<button class="lb-nav lb-next" aria-label="'+t("Next","Seterusnya")+'">&#8250;</button>';
+    document.body.appendChild(ov);
+    var big=ov.querySelector("img"), cap=ov.querySelector(".lb-cap");
+    var prev=ov.querySelector(".lb-prev"), next=ov.querySelector(".lb-next");
+    var list=[], i=0;
+    function show(){ var it=list[i]; big.src=it.src; big.alt=it.alt||""; cap.textContent=it.cap||"";
+      var multi=list.length>1; prev.style.display=next.style.display=multi?"":"none"; cap.style.display=cap.textContent?"":"none"; }
+    function close(){ ov.classList.remove("open"); big.src=""; }
+    function nav(d){ if(list.length<2)return; i=(i+d+list.length)%list.length; show(); }
+    ov.querySelector(".lb-x").addEventListener("click",close);
+    prev.addEventListener("click",function(e){ e.stopPropagation(); nav(-1); });
+    next.addEventListener("click",function(e){ e.stopPropagation(); nav(1); });
+    ov.addEventListener("click",function(e){ if(e.target===ov)close(); });
+    document.addEventListener("keydown",function(e){ if(!ov.classList.contains("open"))return;
+      if(e.key==="Escape")close(); else if(e.key==="ArrowLeft")nav(-1); else if(e.key==="ArrowRight")nav(1); });
+    LB={ open:function(items,start){ list=items; i=start||0; show(); ov.classList.add("open"); } };
+    return LB;
+  }
   function initLightbox(){
     var imgs=[].slice.call(document.querySelectorAll(".gitem img")); if(!imgs.length)return;
-    var ov=el("div","lightbox"); ov.innerHTML='<button class="lb-x" aria-label="Close">&#10005;</button><img alt="">';
-    document.body.appendChild(ov); var big=ov.querySelector("img");
-    imgs.forEach(function(im){ im.style.cursor="zoom-in"; im.addEventListener("click",function(){ big.src=im.src; ov.classList.add("open"); }); });
-    function close(){ ov.classList.remove("open"); big.src=""; }
-    ov.addEventListener("click",function(e){ if(e.target===ov||e.target.className==="lb-x")close(); });
-    document.addEventListener("keydown",function(e){ if(e.key==="Escape")close(); });
+    var items=imgs.map(function(im){ return {src:im.src, alt:im.alt, cap:im.getAttribute("data-cap")||im.alt||""}; });
+    var lb=ensureLightbox();
+    imgs.forEach(function(im,k){ im.style.cursor="zoom-in"; im.addEventListener("click",function(){ lb.open(items,k); }); });
   }
 
-  /* ---------- Leaflet map (directions page) ---------- */
+  /* ---------- Site page: view photo (carousel-ready) ---------- */
+  function initSitePhoto(){
+    var hero=document.querySelector(".site-hero"); if(!hero)return;
+    var acts=hero.querySelector(".site-actions"); if(!acts)return;
+    var name=((hero.querySelector("h1")||{}).textContent||"").trim();
+    var id=(location.pathname.split("/").pop()||"").replace(/(-bm)?\.html$/,"");
+    var photos=[];
+    // future: drop extra photos in window.SITE_PHOTOS[id] to turn this into a real carousel
+    if(window.SITE_PHOTOS && window.SITE_PHOTOS[id]) photos=window.SITE_PHOTOS[id].slice();
+    if(!photos.length){ var m=/url\((['"]?)(.*?)\1\)/.exec(hero.getAttribute("style")||""); if(m&&m[2])photos=[m[2]]; }
+    if(!photos.length)return;
+    var items=photos.map(function(src){ return {src:src, alt:name, cap:name}; });
+    var lb=ensureLightbox();
+    var label=photos.length>1 ? t("Photos ("+photos.length+")","Foto ("+photos.length+")") : t("View photo","Lihat foto");
+    var btn=el("button","btn-photo","&#128247; "+label); btn.type="button";
+    btn.addEventListener("click",function(){ lb.open(items,0); });
+    acts.appendChild(btn);
+  }
+
+  /* ---------- Site page: audio guide (text-to-speech) ---------- */
+  function initAudioGuide(){
+    var hero=document.querySelector(".site-hero"), main=document.querySelector(".site-main");
+    if(!hero||!main||!("speechSynthesis" in window))return;
+    var acts=hero.querySelector(".site-actions"); if(!acts)return;
+    var name=((hero.querySelector("h1")||{}).textContent||"").trim();
+    var parts=name?[name+"."]:[];
+    [].slice.call(main.querySelectorAll("section")).forEach(function(sec){
+      var h=sec.querySelector("h2"); if(h)parts.push(h.textContent.trim()+".");
+      [].slice.call(sec.querySelectorAll("p")).forEach(function(p){ var x=p.textContent.trim(); if(x)parts.push(x); });
+    });
+    var text=parts.join(" "); if(!text)return;
+    // split into sentence chunks to dodge the long-utterance cutoff in some browsers
+    var chunks=text.match(/[^.!?]+[.!?]*/g)||[text];
+    var lang=LANG==="ms"?"ms-MY":"en-GB";
+    var btn=el("button","btn-listen","&#128266; "+t("Listen","Dengar")); btn.type="button"; acts.appendChild(btn);
+    var playing=false, qi=0;
+    function idle(){ playing=false; btn.classList.remove("playing"); btn.innerHTML="&#128266; "+t("Listen","Dengar"); }
+    function stop(){ window.speechSynthesis.cancel(); idle(); }
+    function speakNext(){ if(!playing)return; if(qi>=chunks.length){ idle(); return; }
+      var u=new SpeechSynthesisUtterance(chunks[qi++].trim()); u.lang=lang; u.rate=0.98;
+      u.onend=speakNext; u.onerror=idle; window.speechSynthesis.speak(u); }
+    btn.addEventListener("click",function(){
+      if(playing){ stop(); return; }
+      window.speechSynthesis.cancel(); playing=true; qi=0;
+      btn.classList.add("playing"); btn.innerHTML="&#9632; "+t("Stop","Berhenti"); speakNext();
+    });
+    window.addEventListener("pagehide",function(){ window.speechSynthesis.cancel(); });
+    window.addEventListener("beforeunload",function(){ window.speechSynthesis.cancel(); });
+  }
+
+  /* ---------- Leaflet map: category filters + clustering + find-me ---------- */
+  var CATS=[
+    {en:"Chinese",ms:"Cina",c:"#1c34a0"},
+    {en:"Colonial",ms:"Kolonial",c:"#0f1f66"},
+    {en:"Indian",ms:"India",c:"#c0392b"},
+    {en:"Malay-Muslim",ms:"Melayu-Islam",c:"#157f74"},
+    {en:"Street Art",ms:"Seni Jalanan",c:"#f5b400"}
+  ];
+  function catInfo(cat){ for(var i=0;i<CATS.length;i++) if(CATS[i].en===cat||CATS[i].ms===cat) return CATS[i]; return {en:cat,ms:cat,c:"#1c34a0"}; }
+  function haversine(la1,ln1,la2,ln2){ var R=6371000,r=Math.PI/180,
+    dLa=(la2-la1)*r, dLn=(ln2-ln1)*r,
+    a=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(la1*r)*Math.cos(la2*r)*Math.sin(dLn/2)*Math.sin(dLn/2);
+    return 2*R*Math.asin(Math.sqrt(a)); }
   function initMap(){
     var host=document.getElementById("leaflet-map"); if(!host||!window.SITES)return;
     function build(){ if(!window.L)return;
+      var tools=el("div","map-tools");
+      var active={}; CATS.forEach(function(ci){ active[ci.en]=true; });
+      CATS.forEach(function(ci){
+        var b=el("button","map-chip"); b.type="button"; b.style.setProperty("--c",ci.c);
+        b.innerHTML='<i></i>'+(LANG==="ms"?ci.ms:ci.en);
+        b.addEventListener("click",function(){ active[ci.en]=!active[ci.en]; b.classList.toggle("off",!active[ci.en]); refresh(); });
+        tools.appendChild(b);
+      });
+      var findBtn=el("button","map-find","&#128205; "+t("Find me","Cari saya")); findBtn.type="button"; tools.appendChild(findBtn);
+      host.parentNode.insertBefore(tools,host);
+
       var map=L.map(host,{scrollWheelZoom:false}).setView([5.4157,100.3385],15);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap"}).addTo(map);
-      var grp=[];
-      window.SITES.forEach(function(s){ var m=L.marker([s.lat,s.lng]).addTo(map);
-        m.bindPopup('<b>'+s.name+'</b><br>'+s.area+'<br><a href="'+siteUrl(s)+'">'+t("Details","Butiran")+'</a>'); grp.push(m); });
-      if(grp.length)map.fitBounds(L.featureGroup(grp).getBounds().pad(0.15));
+      var layer = L.markerClusterGroup ? L.markerClusterGroup({maxClusterRadius:36,showCoverageOnHover:false}) : L.layerGroup();
+      map.addLayer(layer);
+
+      var markers=window.SITES.map(function(s){
+        var ci=catInfo(s.cat);
+        var icon=L.divIcon({className:"gt-pin",html:'<span style="background:'+ci.c+'"></span>',iconSize:[20,20],iconAnchor:[10,10],popupAnchor:[0,-11]});
+        var m=L.marker([s.lat,s.lng],{icon:icon});
+        m.bindPopup('<b>'+s.name+'</b><br>'+s.area+'<br><a href="'+siteUrl(s)+'">'+t("Details","Butiran")+'</a>');
+        m.__cat=ci.en; return m;
+      });
+      function refresh(){ layer.clearLayers(); markers.forEach(function(m){ if(active[m.__cat]) layer.addLayer(m); }); }
+      refresh();
+      map.fitBounds(L.latLngBounds(window.SITES.map(function(s){ return [s.lat,s.lng]; })).pad(0.12));
+
+      var you=null, ring=null;
+      findBtn.addEventListener("click",function(){
+        if(!navigator.geolocation){ alert(t("Location is not available on this device.","Lokasi tidak tersedia pada peranti ini.")); return; }
+        findBtn.disabled=true; findBtn.innerHTML="&#8987; "+t("Locating…","Mencari…");
+        navigator.geolocation.getCurrentPosition(function(pos){
+          findBtn.disabled=false; findBtn.innerHTML="&#128205; "+t("Find me","Cari saya");
+          var la=pos.coords.latitude, ln=pos.coords.longitude;
+          if(you)map.removeLayer(you); if(ring)map.removeLayer(ring);
+          ring=L.circle([la,ln],{radius:Math.max(pos.coords.accuracy||40,25),color:"#2b6cff",weight:1,fillColor:"#2b6cff",fillOpacity:.12}).addTo(map);
+          you=L.marker([la,ln],{icon:L.divIcon({className:"gt-you",html:"<span></span>",iconSize:[18,18],iconAnchor:[9,9]})}).addTo(map);
+          var near=null,nd=1e15; window.SITES.forEach(function(s){ var d=haversine(la,ln,s.lat,s.lng); if(d<nd){nd=d;near=s;} });
+          var dtxt = nd<1000 ? Math.round(nd)+" m" : (nd/1000).toFixed(1)+" km";
+          you.bindPopup('<b>'+t("You are here","Anda di sini")+'</b><br>'+t("Nearest: ","Terdekat: ")+near.name+' ('+dtxt+')<br>'
+            +'<a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin='+la+','+ln
+            +'&destination='+near.lat+','+near.lng+'&travelmode=walking">'+t("Walk there","Jalan ke sana")+'</a>').openPopup();
+          map.setView([la,ln],16);
+        },function(){ findBtn.disabled=false; findBtn.innerHTML="&#128205; "+t("Find me","Cari saya");
+          alert(t("Could not get your location. Please allow location access.","Tidak dapat lokasi anda. Sila benarkan akses lokasi.")); },
+          {enableHighAccuracy:true,timeout:10000});
+      });
     }
-    if(window.L){ build(); return; }
+    function boot(){
+      if(L.markerClusterGroup||window.__gtNoCluster){ build(); return; }
+      var c1=el("link");c1.rel="stylesheet";c1.href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css";document.head.appendChild(c1);
+      var c2=el("link");c2.rel="stylesheet";c2.href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css";document.head.appendChild(c2);
+      var s=document.createElement("script"); s.src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js";
+      s.onload=build; s.onerror=function(){ window.__gtNoCluster=1; build(); }; document.body.appendChild(s);
+    }
+    if(window.L){ boot(); return; }
     var css=el("link"); css.rel="stylesheet"; css.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"; document.head.appendChild(css);
-    var js=document.createElement("script"); js.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"; js.onload=build; document.body.appendChild(js);
+    var js=document.createElement("script"); js.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"; js.onload=boot; document.body.appendChild(js);
   }
 
   /* ---------- Service worker (offline / installable) ---------- */
@@ -303,6 +435,7 @@
   onReady(function(){
     initTheme(); initLangMemory(); initReveal(); initCounters(); initTopBtn();
     initSearch(); initChatInput(); initQuiz(); initForms(); initLightbox(); initMap(); initSW(); initFacts();
+    initSitePhoto(); initAudioGuide();
     initProgress(); initHeader(); initRipple(); initTilt();
   });
 })();
