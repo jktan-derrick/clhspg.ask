@@ -419,6 +419,42 @@
     navigator.serviceWorker.register(base+"sw.js").catch(function(){});
   }
 
+  /* ---------- Live Penang weather (Open-Meteo, no API key) ---------- */
+  function wxInfo(code){
+    var m={0:["☀️","Clear sky","Langit cerah"],1:["🌤️","Mainly clear","Kebanyakannya cerah"],
+      2:["⛅","Partly cloudy","Berawan sebahagian"],3:["☁️","Overcast","Mendung"],
+      45:["🌫️","Fog","Berkabus"],48:["🌫️","Rime fog","Kabus beku"],
+      51:["🌦️","Light drizzle","Gerimis ringan"],53:["🌦️","Drizzle","Gerimis"],55:["🌦️","Heavy drizzle","Gerimis lebat"],
+      61:["🌧️","Light rain","Hujan ringan"],63:["🌧️","Rain","Hujan"],65:["🌧️","Heavy rain","Hujan lebat"],
+      66:["🌧️","Freezing rain","Hujan beku"],67:["🌧️","Freezing rain","Hujan beku"],
+      71:["🌨️","Snow","Salji"],73:["🌨️","Snow","Salji"],75:["🌨️","Heavy snow","Salji lebat"],
+      80:["🌦️","Rain showers","Hujan renyai"],81:["🌧️","Showers","Hujan renyai"],82:["⛈️","Violent showers","Hujan sangat lebat"],
+      95:["⛈️","Thunderstorm","Ribut petir"],96:["⛈️","Thunderstorm & hail","Ribut petir, hujan batu"],99:["⛈️","Thunderstorm & hail","Ribut petir, hujan batu"]};
+    return m[code]||["🌡️","—","—"];
+  }
+  function initWeather(){
+    var map=document.getElementById("leaflet-map"), hero=document.querySelector(".hero");
+    if(!map&&!hero)return;
+    var host=el("div","weather");
+    host.innerHTML='<div class="wx-load">'+t("Loading Penang weather…","Memuatkan cuaca Pulau Pinang…")+'</div>';
+    if(map) map.parentNode.insertBefore(host,map);
+    else hero.parentNode.insertBefore(host,hero.nextSibling);
+    var url="https://api.open-meteo.com/v1/forecast?latitude=5.4149&longitude=100.3327"
+      +"&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia%2FKuala_Lumpur";
+    fetch(url).then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(d){
+      var c=d&&d.current; if(!c)throw 0; var w=wxInfo(c.weather_code);
+      host.classList.add("ready");
+      host.innerHTML='<div class="wx-emoji">'+w[0]+'</div>'
+        +'<div class="wx-main"><div class="wx-temp">'+Math.round(c.temperature_2m)+'°C</div>'
+        +'<div class="wx-cond">'+(LANG==="ms"?w[2]:w[1])+'</div>'
+        +'<div class="wx-place">📍 George Town, '+t("Penang","Pulau Pinang")+'</div></div>'
+        +'<div class="wx-meta">'
+          +'<span>'+t("Feels","Terasa")+' '+Math.round(c.apparent_temperature)+'°</span>'
+          +'<span>💧 '+Math.round(c.relative_humidity_2m)+'%</span>'
+          +'<span>🌬️ '+Math.round(c.wind_speed_10m)+' km/h</span></div>';
+    }).catch(function(){ host.remove(); });
+  }
+
   /* ---------- Food page: random fact reveal ---------- */
   function initFacts(){
     var btn=document.getElementById("fact-btn"), out=document.getElementById("fact");
@@ -435,7 +471,7 @@
   onReady(function(){
     initTheme(); initLangMemory(); initReveal(); initCounters(); initTopBtn();
     initSearch(); initChatInput(); initQuiz(); initForms(); initLightbox(); initMap(); initSW(); initFacts();
-    initSitePhoto(); initAudioGuide();
+    initSitePhoto(); initAudioGuide(); initWeather();
     initProgress(); initHeader(); initRipple(); initTilt();
   });
 })();

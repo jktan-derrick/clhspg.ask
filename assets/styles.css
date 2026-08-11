@@ -739,3 +739,16 @@ header.nav.scrolled .nav-inner{padding-top:9px;padding-bottom:9px}
 /* Coloured map pins + you-are-here dot */
 .gt-pin span{display:block;width:18px;height:18px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.45)}
 .gt-you span{display:block;width:16px;height:16px;border-radius:50%;background:#2b6cff;border:3px solid #fff;box-shadow:0 0 0 4px rgba(43,108,255,.3)}
+
+/* Live Penang weather widget (Home + Directions) */
+.weather{display:flex;align-items:center;gap:12px 18px;flex-wrap:wrap;background:var(--card);
+  border:1px solid var(--line);border-radius:16px;padding:15px 20px;margin:0 0 18px;box-shadow:0 4px 14px rgba(15,31,102,.06)}
+.wx-emoji{font-size:2.5rem;line-height:1}
+.wx-main{display:flex;flex-direction:column;gap:1px}
+.wx-temp{font-family:system-ui,sans-serif;font-size:1.65rem;font-weight:800;color:var(--head);line-height:1.05}
+.wx-cond{font-family:system-ui,sans-serif;font-size:.95rem;color:var(--body)}
+.wx-place{font-family:system-ui,sans-serif;font-size:.78rem;color:var(--muted)}
+.wx-meta{display:flex;gap:8px 16px;flex-wrap:wrap;margin-left:auto;
+  font-family:system-ui,sans-serif;font-size:.85rem;font-weight:600;color:var(--body)}
+.wx-load{font-family:system-ui,sans-serif;font-size:.9rem;color:var(--muted)}
+@media(max-width:520px){.wx-meta{margin-left:0;width:100%}}
