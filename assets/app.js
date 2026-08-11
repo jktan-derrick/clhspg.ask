@@ -147,21 +147,85 @@
   function siteUrl(s){ return "sites/"+s.id+(LANG==="ms"?"-bm":"")+".html"; }
   function pageUrl(base){ return LANG==="ms" ? base.replace(/\.html$/,"-bm.html") : base; }
 
-  /* ---------- Typed search (search page) ---------- */
+  /* ---------- Global search (search page): sites + food + pages ---------- */
+  function escHtml(s){ return String(s).replace(/[&<>]/g,function(c){ return c==="&"?"&amp;":c==="<"?"&lt;":"&gt;"; }); }
+  function escRe(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
+  function hl(text,tokens){ var out=escHtml(text); if(!tokens||!tokens.length)return out;
+    try{ var re=new RegExp("("+tokens.map(escRe).join("|")+")","ig"); return out.replace(re,"<mark>$1</mark>"); }catch(e){ return out; } }
+  function searchFoods(){ return [
+    {icon:"🍜",title:"Char Kway Teow",tag:t("Penang hawker","Penjaja Pulau Pinang"),snip:t("Smoky stir-fried flat rice noodles with prawns, egg and bean sprouts — a Penang hawker icon.","Mi beras leper goreng dengan udang, telur dan taugeh — ikon penjaja Pulau Pinang.")},
+    {icon:"🍲",title:"Asam Laksa",tag:t("Penang hawker","Penjaja Pulau Pinang"),snip:t("A sour-and-spicy tamarind fish noodle soup, one of Penang's best-known dishes.","Sup mi ikan masam pedas berasaskan asam jawa, antara hidangan paling terkenal Pulau Pinang.")},
+    {icon:"🍛",title:"Nasi Kandar",tag:t("Indian-Muslim","India-Muslim"),snip:t("Steamed rice with a mix of rich curries — born of Penang's Indian-Muslim community.","Nasi kukus dengan pelbagai kari — lahir daripada masyarakat India-Muslim Pulau Pinang.")},
+    {icon:"🍮",title:t("Nyonya Kuih","Kuih Nyonya"),tag:"Peranakan",snip:t("Colourful Peranakan sweets made with coconut, rice flour and pandan.","Kuih Peranakan berwarna-warni daripada kelapa, tepung beras dan pandan.")}
+  ]; }
+  function searchPages(){ return [
+    {icon:"🌏",base:"about-unesco.html",title:t("UNESCO Objectives","Objektif UNESCO"),snip:t("Why George Town was inscribed as a World Heritage Site in 2008.","Mengapa George Town disenaraikan sebagai Tapak Warisan Dunia pada 2008."),kw:"unesco world heritage objectives 2008 outstanding universal value warisan dunia objektif nilai sejagat"},
+    {icon:"📜",base:"history.html",title:t("History","Sejarah"),snip:t("Over 500 years of trade, migration and colonial rule.","Lebih 500 tahun perdagangan, migrasi dan pemerintahan kolonial."),kw:"history timeline francis light british colonial founding trading port sejarah masa lampau kolonial"},
+    {icon:"🏛️",base:"attractions.html",title:t("All Heritage Sites","Semua Tapak Warisan"),snip:t("Browse all 17 temples, mosques, churches, clan houses and forts.","Layari kesemua 17 tokong, masjid, gereja, rumah kongsi dan kubu."),kw:"sites attractions list temples mosques churches clan houses forts tapak senarai tokong masjid"},
+    {icon:"🍜",base:"food.html",title:t("Flavours of George Town","Rasa George Town"),snip:t("The hawker dishes that define Penang's food culture.","Hidangan penjaja yang mentakrifkan budaya makanan Pulau Pinang."),kw:"food hawker makanan penjaja cuisine dishes eat rasa hidangan"},
+    {icon:"🗺️",base:"directions.html",title:t("Maps & Directions","Peta & Arah"),snip:t("An interactive map of all 17 sites, with category filters and Find-me.","Peta interaktif kesemua 17 tapak, dengan penapis kategori dan Cari-saya."),kw:"map directions walking google maps find me location peta arah laluan penapis lokasi"},
+    {icon:"🚶",base:"route.html",title:t("Walking Route","Laluan Berjalan"),snip:t("A suggested self-guided walk through the old town.","Cadangan laluan berjalan sendiri menerusi bandar lama."),kw:"route walking trail city walk itinerary self guided laluan berjalan bandar lama"},
+    {icon:"🧠",base:"trivia.html",title:t("Heritage Trivia","Kuiz Warisan"),snip:t("Test yourself with a 10-question heritage quiz.","Uji diri dengan kuiz warisan 10 soalan."),kw:"trivia quiz questions game test score kuiz soalan permainan uji"},
+    {icon:"🧭",base:"guide.html",title:t("Visitor Guide","Panduan Pelawat"),snip:t("Practical tips for planning your visit.","Petua praktikal untuk merancang lawatan anda."),kw:"guide tips visit plan hours advice panduan pelawat petua lawatan"},
+    {icon:"📷",base:"gallery.html",title:t("Photo Gallery","Galeri Foto"),snip:t("Photos of George Town — and submit your own scenery.","Foto George Town — dan hantar pemandangan anda sendiri."),kw:"gallery photos images pictures upload submit scenery galeri foto gambar hantar pemandangan"},
+    {icon:"🎓",base:"about.html",title:t("About Us","Tentang Kami"),snip:t("A student heritage project by SMJK Chung Ling, Penang.","Projek warisan pelajar SMJK Chung Ling, Pulau Pinang."),kw:"about us school project students smjk chung ling penang tentang kami sekolah pelajar projek"},
+    {icon:"✉️",base:"contact.html",title:t("Contact","Hubungi"),snip:t("Send us a message or feedback.","Hantar mesej atau maklum balas kepada kami."),kw:"contact email message feedback reach hubungi mesej maklum balas"}
+  ]; }
+  function buildSearchIndex(){
+    var kl={site:t("Site","Tapak"),food:t("Food","Makanan"),page:t("Page","Halaman")}, idx=[];
+    (window.SITES||[]).forEach(function(s){
+      idx.push({kind:"site",icon:"🏛️",title:s.name,snip:s.short,tag:s.cat+" · "+t("built ","dibina ")+s.year+" · "+s.area,
+        url:siteUrl(s),kindLabel:kl.site,hay:norm(s.name+" "+s.short+" "+s.area+" "+s.cat+" "+s.year)});
+    });
+    searchFoods().forEach(function(f){
+      idx.push({kind:"food",icon:f.icon,title:f.title,snip:f.snip,tag:f.tag,url:pageUrl("food.html"),kindLabel:kl.food,
+        hay:norm(f.title+" "+f.snip+" "+f.tag+" food makanan")});
+    });
+    searchPages().forEach(function(p){
+      idx.push({kind:"page",icon:p.icon,title:p.title,snip:p.snip,tag:"",url:pageUrl(p.base),kindLabel:kl.page,
+        hay:norm(p.title+" "+p.snip+" "+p.kw)});
+    });
+    return idx;
+  }
+  function scoreEntry(e,q,tokens){
+    for(var i=0;i<tokens.length;i++){ if(e.hay.indexOf(tokens[i])<0) return 0; }
+    var nt=norm(e.title), s=5;
+    if(nt===q)s+=100; else if(nt.indexOf(q)===0)s+=60; else if(nt.indexOf(q)>-1)s+=40;
+    if(norm(e.snip).indexOf(q)>-1)s+=8;
+    s+= e.kind==="site"?3:e.kind==="food"?2:1;
+    return s;
+  }
   function initSearch(){
     var input=document.getElementById("site-search"); if(!input)return;
     var msg=document.getElementById("search-msg");
-    var chips=[].slice.call(document.querySelectorAll(".chips a"));
-    input.addEventListener("input",function(){
-      var q=norm(input.value);
-      chips.forEach(function(c){ c.style.display = (!q || norm(c.textContent).indexOf(q)>-1) ? "" : "none"; });
-      if(msg) msg.textContent="";
-    });
-    input.form && input.form.addEventListener("submit", go);
-    input.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); go(e); } });
-    function go(e){ if(e)e.preventDefault(); var s=bestSite(input.value);
-      if(s){ location.hash="#"+s.id; if(msg)msg.textContent=""; }
-      else if(msg){ msg.textContent=t("Sorry, no site matches “","Maaf, tiada tapak sepadan dengan “")+input.value+"”."; } }
+    var browse=[].slice.call(document.querySelectorAll(".chips,.chip-label,.chat"));
+    input.setAttribute("placeholder", t("Search sites, food, history…","Cari tapak, makanan, sejarah…"));
+    var results=el("div","search-results"); results.id="search-results";
+    var anchor=msg||input; anchor.parentNode.insertBefore(results, anchor.nextSibling);
+    var index=buildSearchIndex();
+    input.addEventListener("input",run);
+    input.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); var f=results.querySelector(".sr-item"); if(f)location.href=f.getAttribute("href"); } });
+    if(input.form) input.form.addEventListener("submit",function(e){ e.preventDefault(); var f=results.querySelector(".sr-item"); if(f)location.href=f.getAttribute("href"); });
+    run();
+    function run(){
+      var raw=input.value.trim(), q=norm(raw);
+      if(!q){ results.innerHTML=""; results.classList.remove("show"); browse.forEach(function(e){e.style.display="";}); if(msg)msg.textContent=""; return; }
+      browse.forEach(function(e){e.style.display="none";});
+      var tokens=q.split(" ").filter(function(x){return x.length>0;});
+      var hits=[];
+      index.forEach(function(en){ var sc=scoreEntry(en,q,tokens); if(sc>0) hits.push({e:en,s:sc}); });
+      hits.sort(function(a,b){ return b.s-a.s; });
+      results.classList.add("show");
+      if(!hits.length){ results.innerHTML='<p class="sr-none">'+t("No results for","Tiada hasil untuk")+' “'+escHtml(raw)+'”. '+t("Try a site, a dish, or a topic.","Cuba tapak, hidangan, atau topik.")+'</p>'; if(msg)msg.textContent=""; return; }
+      if(msg)msg.textContent=hits.length+" "+t(hits.length===1?"result":"results", hits.length===1?"hasil":"hasil");
+      results.innerHTML=hits.slice(0,12).map(function(h){ var e=h.e;
+        return '<a class="sr-item" href="'+e.url+'"><span class="sr-ic">'+e.icon+'</span>'
+          +'<span class="sr-body"><span class="sr-title">'+hl(e.title,tokens)+'</span>'
+          +(e.tag?'<span class="sr-tag">'+escHtml(e.tag)+'</span>':'')
+          +'<span class="sr-snip">'+hl(e.snip,tokens)+'</span></span>'
+          +'<span class="sr-kind">'+e.kindLabel+'</span></a>';
+      }).join("");
+    }
   }
 
   /* ---------- Typed chatbot ---------- */
