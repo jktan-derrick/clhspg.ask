@@ -162,7 +162,8 @@
     {icon:"🌏",base:"about-unesco.html",title:t("UNESCO Objectives","Objektif UNESCO"),snip:t("Why George Town was inscribed as a World Heritage Site in 2008.","Mengapa George Town disenaraikan sebagai Tapak Warisan Dunia pada 2008."),kw:"unesco world heritage objectives 2008 outstanding universal value warisan dunia objektif nilai sejagat"},
     {icon:"📜",base:"history.html",title:t("History","Sejarah"),snip:t("Over 500 years of trade, migration and colonial rule.","Lebih 500 tahun perdagangan, migrasi dan pemerintahan kolonial."),kw:"history timeline francis light british colonial founding trading port sejarah masa lampau kolonial"},
     {icon:"🏛️",base:"attractions.html",title:t("All Heritage Sites","Semua Tapak Warisan"),snip:t("Browse all 17 temples, mosques, churches, clan houses and forts.","Layari kesemua 17 tokong, masjid, gereja, rumah kongsi dan kubu."),kw:"sites attractions list temples mosques churches clan houses forts tapak senarai tokong masjid"},
-    {icon:"🍜",base:"food.html",title:t("Flavours of George Town","Rasa George Town"),snip:t("The hawker dishes that define Penang's food culture.","Hidangan penjaja yang mentakrifkan budaya makanan Pulau Pinang."),kw:"food hawker makanan penjaja cuisine dishes eat rasa hidangan"},
+    {icon:"🍜",base:"food.html",title:t("Flavours of George Town","Rasa George Town"),snip:t("The hawker dishes that define Penang's food culture.","Hidangan penjaja yang mentakrifkan budaya makanan Pulau Pinang."),kw:"food hawker makanan penjaja cuisine dishes eat rasa hidangan char kway teow laksa nasi kandar nyonya cendol rojak"},
+    {icon:"🎮",base:"games.html",title:t("Traditional Games","Permainan Tradisional"),snip:t("Congkak, Wau Bulan, Gasing and more Malaysian heritage games.","Congkak, Wau Bulan, Gasing dan lebih banyak permainan warisan Malaysia."),kw:"games traditional play congkak wau bulan gasing sepak takraw batu seremban permainan tradisional kanak main"},
     {icon:"🗺️",base:"directions.html",title:t("Maps & Directions","Peta & Arah"),snip:t("An interactive map of all 17 sites, with category filters and Find-me.","Peta interaktif kesemua 17 tapak, dengan penapis kategori dan Cari-saya."),kw:"map directions walking google maps find me location peta arah laluan penapis lokasi"},
     {icon:"🚶",base:"route.html",title:t("Walking Route","Laluan Berjalan"),snip:t("A suggested self-guided walk through the old town.","Cadangan laluan berjalan sendiri menerusi bandar lama."),kw:"route walking trail city walk itinerary self guided laluan berjalan bandar lama"},
     {icon:"🧠",base:"trivia.html",title:t("Heritage Trivia","Kuiz Warisan"),snip:t("Test yourself with a 10-question heritage quiz.","Uji diri dengan kuiz warisan 10 soalan."),kw:"trivia quiz questions game test score kuiz soalan permainan uji"},
@@ -266,8 +267,8 @@
     ta.focus(); ta.select(); var ok=document.execCommand("copy"); document.body.removeChild(ta); return ok; }catch(e){ return false; } }
   function shareScore(score,btn){
     var url=location.href.split("#")[0];
-    var text=t("I scored "+score+"/10 on the George Town Heritage quiz! Can you beat me?",
-               "Saya dapat "+score+"/10 dalam Kuiz Warisan George Town! Boleh anda kalahkan saya?");
+    var text=t("I rode "+score+"/10 stations on the George Town Heritage coaster quiz! Can you beat me?",
+               "Saya lalui "+score+"/10 stesen dalam kuiz roller-coaster Warisan George Town! Boleh anda kalahkan saya?");
     if(navigator.share){ navigator.share({title:t("George Town Heritage Trivia","Kuiz Warisan George Town"),text:text,url:url}).catch(function(){}); return; }
     var full=text+" "+url;
     function ok(){ flashBtn(btn,t("✓ Copied!","✓ Disalin!")); }
@@ -278,45 +279,62 @@
   function initQuiz(){
     var host=document.getElementById("js-quiz"); if(!host||!window.QUIZ)return;
     var stat=document.querySelector(".static-quiz"); if(stat)stat.style.display="none";
-    var picked, idx, score, answered;
-    function start(){ picked=shuffle(window.QUIZ.slice()).slice(0,10).map(function(it){ var opts=shuffle([{t:it.a,c:true}].concat(it.w.map(function(w){return{t:w,c:false};}))); return {q:it.q,opts:opts,why:it.why}; });
-      idx=0; score=0; render(); }
+    var TOTAL=10, MAXLIVES=5;
+    var picked, idx, correct, lives, answered;
+    function start(){ picked=shuffle(window.QUIZ.slice()).slice(0,TOTAL).map(function(it){ var opts=shuffle([{t:it.a,c:true}].concat(it.w.map(function(w){return{t:w,c:false};}))); return {q:it.q,opts:opts,why:it.why}; });
+      idx=0; correct=0; lives=MAXLIVES; render(); }
+    function heartsHTML(){ var s=""; for(var i=0;i<MAXLIVES;i++) s+='<span class="life'+(i<lives?"":" lost")+'">'+(i<lives?"❤️":"🖤")+'</span>'; return s; }
+    function tiesHTML(){ var s=""; for(var i=0;i<TOTAL;i++) s+='<span class="tie'+(i<correct?" done":"")+(i===idx?" cur":"")+'"></span>'; return s; }
     function render(){ answered=false; var it=picked[idx];
       host.innerHTML="";
-      var bar=el("div","q-progress"); bar.innerHTML='<span>'+t("Question ","Soalan ")+(idx+1)+"/10</span><span>"+t("Score: ","Skor: ")+score+"</span>";
-      host.appendChild(bar);
-      var track=el("div","q-bar"); track.innerHTML='<div style="width:'+(idx/10*100)+'%"></div>'; host.appendChild(track);
+      var co=el("div","coaster");
+      co.innerHTML='<div class="coaster-hud"><div class="lives" title="'+t("Lives","Nyawa")+'">'+heartsHTML()+'</div>'
+        +'<div class="dist">🎢 '+t("Station ","Stesen ")+(idx+1)+"/"+TOTAL+'</div></div>'
+        +'<div class="track"><div class="rail"></div><div class="ties">'+tiesHTML()+'</div>'
+        +'<div class="cart" style="left:'+(correct/TOTAL*100)+'%">🎢</div></div>';
+      host.appendChild(co);
       var card=el("div","cq is-in"); card.appendChild(el("p","q",it.q));
       var opts=el("div","opts");
       it.opts.forEach(function(o){ var lab=el("button","opt"+(o.c?" is-correct":"")); lab.type="button"; lab.innerHTML="<span>"+o.t+"</span>";
-        lab.addEventListener("click",function(){ choose(o,lab,card); }); opts.appendChild(lab); });
+        lab.addEventListener("click",function(){ choose(o,lab,card,co); }); opts.appendChild(lab); });
       card.appendChild(opts);
       var ex=el("p","ex"); ex.textContent="✓ "+it.why; card.appendChild(ex);
       host.appendChild(card);
-      var next=el("button","next", (idx===9?t("See Results →","Lihat Keputusan →"):t("Next →","Seterusnya →"))); next.type="button"; next.style.display="none";
-      next.addEventListener("click",function(){ idx++; if(idx>=10)results(); else render(); });
+      var next=el("button","next", t("Next →","Seterusnya →")); next.type="button"; next.style.display="none";
+      next.addEventListener("click",function(){ if(lives<=0){ results(); return; } idx++; if(idx>=TOTAL)results(); else render(); });
       card._next=next; host.appendChild(next);
     }
-    function choose(o,lab,card){ if(answered)return; answered=true;
+    function choose(o,lab,card,co){ if(answered)return; answered=true;
       var all=card.querySelectorAll(".opt"); all.forEach(function(b){ b.disabled=true; if(b.classList.contains("is-correct"))b.classList.add("correct"); });
-      if(o.c)score++; else lab.classList.add("wrong");
+      var cart=co.querySelector(".cart"), tie=co.querySelectorAll(".tie")[idx];
+      if(o.c){ correct++; if(cart)cart.style.left=(correct/TOTAL*100)+"%"; if(tie)tie.classList.add("done"); }
+      else { lab.classList.add("wrong"); lives--;
+        co.classList.add("drop"); if(tie){ tie.classList.remove("cur"); tie.classList.add("broken"); }
+        var lifeEls=co.querySelectorAll(".life"); if(lifeEls[lives]){ lifeEls[lives].classList.add("lost"); lifeEls[lives].textContent="🖤"; }
+        setTimeout(function(){ co.classList.remove("drop"); },600);
+      }
       card.querySelector(".ex").classList.add("show");
-      card.parentNode.querySelector(".q-progress").children[1].textContent=t("Score: ","Skor: ")+score;
+      var last=(idx===TOTAL-1)||(lives<=0);
+      card._next.textContent = lives<=0 ? t("The track collapsed →","Landasan runtuh →") : (last?t("Finish the ride →","Tamat perjalanan →"):t("Next →","Seterusnya →"));
       card._next.style.display="inline-block";
     }
     function results(){ host.innerHTML="";
-      var medal = score>=9?"🏆":score>=7?"🥇":score>=5?"🥈":"🥉";
+      var dist=correct, survived=lives>0;
+      var medal = survived&&dist>=9?"🏆": dist>=7?"🥇": dist>=5?"🥈":"🎢";
       var prev=parseInt(lsGet("gt-quiz-best")||"0",10); if(isNaN(prev))prev=0;
-      var isBest=score>prev, best=Math.max(score,prev);
+      var isBest=dist>prev, best=Math.max(dist,prev);
       if(isBest)lsSet("gt-quiz-best",String(best));
+      var head = !survived ? t("Out of lives — the track collapsed!","Kehabisan nyawa — landasan runtuh!")
+        : dist>=9?t("Heritage Master! A perfect ride!","Sifu Warisan! Perjalanan sempurna!")
+        : dist>=7?t("Heritage Expert","Pakar Warisan")
+        : dist>=5?t("Heritage Enthusiast","Peminat Warisan"):t("Heritage Explorer","Penjelajah Warisan");
       var r=el("div","q-result is-in");
-      r.innerHTML='<div class="medal">'+medal+'</div><div class="score">'+score+'/10</div><p>'+
-        (score>=9?t("Heritage Master!","Sifu Warisan!"):score>=7?t("Heritage Expert","Pakar Warisan"):score>=5?t("Heritage Enthusiast","Peminat Warisan"):t("Heritage Explorer","Penjelajah Warisan"))+'</p>'
+      r.innerHTML='<div class="medal">'+medal+'</div><div class="score">'+dist+'/'+TOTAL+'</div><p>'+head+'</p>'
         +'<div class="q-best">'+(isBest?'<span class="q-newbest">🎉 '+t("New personal best!","Rekod peribadi baharu!")+'</span>':'')
-        +'<span class="q-bestline">'+t("Personal best: ","Rekod terbaik: ")+best+'/10</span></div>';
+        +'<span class="q-bestline">'+t("Furthest: ","Terjauh: ")+best+'/'+TOTAL+' · '+t("Lives left: ","Nyawa: ")+Math.max(lives,0)+'</span></div>';
       var row=el("div","q-actions");
-      var again=el("button","again",t("Play Again (new questions)","Main Semula (soalan baharu)")); again.type="button"; again.addEventListener("click",start);
-      var share=el("button","share-btn","🔗 "+t("Share score","Kongsi skor")); share.type="button"; share.addEventListener("click",function(){ shareScore(score,share); });
+      var again=el("button","again",t("Ride Again (new track)","Naik Semula (landasan baharu)")); again.type="button"; again.addEventListener("click",start);
+      var share=el("button","share-btn","🔗 "+t("Share score","Kongsi skor")); share.type="button"; share.addEventListener("click",function(){ shareScore(dist,share); });
       row.appendChild(again); row.appendChild(share);
       r.appendChild(row); host.appendChild(r);
     }
@@ -542,6 +560,50 @@
     }).catch(function(){ host.remove(); });
   }
 
+  /* ---------- Info modal (food dishes, locations, games) ---------- */
+  function initInfoModal(){
+    var triggers=[].slice.call(document.querySelectorAll('[data-modal="info"]')); if(!triggers.length)return;
+    var ov=el("div","info-modal");
+    ov.innerHTML='<div class="im-card"><button class="im-x" aria-label="'+t("Close","Tutup")+'">&#10005;</button>'
+      +'<div class="im-visual"></div><div class="im-body"><h2 class="im-title"></h2>'
+      +'<div class="im-fact"><span class="im-fact-label">'+t("Cultural Note","Nota Budaya")+'</span><p class="im-fact-text"></p></div>'
+      +'<p class="im-text"></p></div></div>';
+    document.body.appendChild(ov);
+    var vis=ov.querySelector(".im-visual"), ttl=ov.querySelector(".im-title"), txt=ov.querySelector(".im-text"),
+        factBox=ov.querySelector(".im-fact"), factTxt=ov.querySelector(".im-fact-text");
+    function open(tr){
+      ttl.textContent=tr.getAttribute("data-title")||"";
+      txt.textContent=tr.getAttribute("data-text")||"";
+      var fact=tr.getAttribute("data-fact");
+      if(fact){ factTxt.textContent=fact; factBox.style.display=""; } else factBox.style.display="none";
+      vis.innerHTML=""; vis.classList.remove("icon-only");
+      var img=tr.getAttribute("data-img"), icon=tr.getAttribute("data-icon"), svg=tr.querySelector(".card-visual");
+      if(img){ var im=el("img"); im.src=img; im.alt=ttl.textContent; im.onerror=function(){ this.remove(); vis.classList.add("icon-only"); }; vis.appendChild(im); }
+      else if(svg){ vis.appendChild(svg.cloneNode(true)); }
+      else if(icon){ vis.innerHTML='<span class="im-icon">'+icon+'</span>'; vis.classList.add("icon-only"); }
+      else vis.classList.add("icon-only");
+      ov.classList.add("open"); document.body.style.overflow="hidden";
+    }
+    function close(){ ov.classList.remove("open"); document.body.style.overflow=""; }
+    triggers.forEach(function(tr){
+      tr.addEventListener("click",function(){ open(tr); });
+      tr.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); open(tr); } });
+    });
+    ov.addEventListener("click",function(e){ if(e.target===ov||e.target.classList.contains("im-x"))close(); });
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&ov.classList.contains("open"))close(); });
+  }
+
+  /* ---------- Food page: category filters ---------- */
+  function initFoodFilters(){
+    var btns=[].slice.call(document.querySelectorAll(".food-filter")); if(!btns.length)return;
+    var cards=[].slice.call(document.querySelectorAll(".food-card"));
+    btns.forEach(function(b){ b.addEventListener("click",function(){
+      btns.forEach(function(x){ x.classList.remove("active"); }); b.classList.add("active");
+      var f=b.getAttribute("data-filter");
+      cards.forEach(function(c){ c.style.display=(f==="all"||c.getAttribute("data-cat")===f)?"":"none"; });
+    }); });
+  }
+
   /* ---------- Food page: random fact reveal ---------- */
   function initFacts(){
     var btn=document.getElementById("fact-btn"), out=document.getElementById("fact");
@@ -559,6 +621,7 @@
     initTheme(); initLangMemory(); initReveal(); initCounters(); initTopBtn();
     initSearch(); initChatInput(); initQuiz(); initForms(); initLightbox(); initMap(); initSW(); initFacts();
     initSitePhoto(); initAudioGuide(); initWeather();
+    initInfoModal(); initFoodFilters();
     initProgress(); initHeader(); initRipple(); initTilt();
   });
 })();

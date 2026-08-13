@@ -30,6 +30,7 @@
       <a href="history.html">History</a>
       <a href="attractions.html">Sites</a>
       <a class="active" href="food.html">Food</a>
+      <a href="games.html">Games</a>
       <a href="search.html">Search</a>
       <a href="directions.html">Directions</a>
       <a href="route.html">Route</a>
@@ -53,38 +54,168 @@
   </div>
 </header>
 <main>
+  <section class="food-intro">
+    <div class="kicker">The Story Behind the Plate</div>
+    <h2>More Than Just Food</h2>
+    <p class="lead">George Town's food culture is a reflection of its multicultural history. Chinese, Malay, Indian and Peranakan communities have all contributed traditions that continue to shape everyday life. Here, food is a way of remembering people, places and generations.</p>
+    <div class="food-stats">
+      <div class="fstat"><b>2008</b><span>UNESCO World Heritage listing</span></div>
+      <div class="fstat"><b>20</b><span>Heritage foods to explore</span></div>
+      <div class="fstat"><b>1786</b><span>George Town's founding year</span></div>
+    </div>
+  </section>
   <section id="food-list" class="food-section">
     <div class="kicker">A Taste of Penang</div>
-    <h2>Traditional Food</h2>
-    <p class="lead">George Town is famous for its diverse food culture. Chinese, Malay, Indian and Peranakan influences shaped the food traditions found across Penang. These dishes are more than meals; they are part of the city's cultural identity and everyday life.</p>
+    <h2>20 Flavours, One Heritage</h2>
+    <p class="lead">Explore twenty foods connected to Penang's diverse food culture. Tap any card to read its story.</p>
+    <div class="food-filters">
+      <button class="food-filter active" type="button" data-filter="all">All</button>
+      <button class="food-filter" type="button" data-filter="noodle">Noodles</button>
+      <button class="food-filter" type="button" data-filter="rice">Rice</button>
+      <button class="food-filter" type="button" data-filter="snack">Snacks</button>
+      <button class="food-filter" type="button" data-filter="dessert">Desserts</button>
+      <button class="food-filter" type="button" data-filter="nyonya">Peranakan</button>
+    </div>
     <div class="food-grid">
-    <article class="food-card">
-      <div class="food-image"><img src="https://fooddrinkdestinations.com/wp-content/uploads/2023/03/Penang-Food-Guide-85.jpg" alt="Char Kway Teow" loading="lazy"></div>
-      <div class="food-info"><div class="food-number">01 / PENANG</div>
-        <h3>Char Kway Teow</h3><p>A famous Penang stir-fried noodle dish made with flat rice noodles, prawns, bean sprouts, egg and other ingredients. It is strongly associated with Penang's hawker food culture.</p></div>
+    <article class="food-card" data-cat="noodle" data-modal="info" data-title="Char Kway Teow" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Char%20Kway%20Teow%2C%20Georgetown%2C%20Penang%2C%20Malaysia.JPG?width=900" data-text="Flat rice noodles stir-fried over a fierce flame with prawns, cockles, egg, chives and bean sprouts. Its smoky flavour (“wok hei”) makes it a Penang hawker icon." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Char%20Kway%20Teow%2C%20Georgetown%2C%20Penang%2C%20Malaysia.JPG?width=900" alt="Char Kway Teow" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Penang Classic</div>
+        <h3>Char Kway Teow</h3><p>Flat rice noodles stir-fried over a fierce flame with prawns, cockles, egg, chives and bean sprouts. Its smoky flavour (“wok hei”) makes it a Penang hawker icon.</p><span class="food-more">Discover the story &rarr;</span></div>
     </article>
-    <article class="food-card">
-      <div class="food-image"><img src="https://www.momoda8.com/Public/upload/poi/20180825/1535186151vWrduM_original.jpg" alt="Asam Laksa" loading="lazy"></div>
-      <div class="food-info"><div class="food-number">02 / PENANG</div>
-        <h3>Asam Laksa</h3><p>Penang Asam Laksa is a sour and spicy noodle soup traditionally made with fish, tamarind, herbs and vegetables. Its distinctive flavour makes it one of Penang's best-known foods.</p></div>
+    <article class="food-card" data-cat="noodle" data-modal="info" data-title="Asam Laksa" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Penang%20laksa.jpg?width=900" data-text="A sour-and-spicy noodle soup built on flaked mackerel, tamarind, lemongrass and fresh herbs, finished with a spoon of sweet prawn paste. One of Penang's best-known dishes." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Penang%20laksa.jpg?width=900" alt="Asam Laksa" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Penang Icon</div>
+        <h3>Asam Laksa</h3><p>A sour-and-spicy noodle soup built on flaked mackerel, tamarind, lemongrass and fresh herbs, finished with a spoon of sweet prawn paste. One of Penang's best-known dishes.</p><span class="food-more">Discover the story &rarr;</span></div>
     </article>
-    <article class="food-card">
-      <div class="food-image"><img src="https://apicms.thestar.com.my/uploads/images/2024/09/09/2903017.JPG" alt="Nasi Kandar" loading="lazy"></div>
-      <div class="food-info"><div class="food-number">03 / PENANG</div>
-        <h3>Nasi Kandar</h3><p>Nasi kandar consists of steamed rice served with curries and a variety of side dishes. Its development reflects the important role of Indian-Muslim communities in Penang.</p></div>
+    <article class="food-card" data-cat="rice" data-modal="info" data-title="Nasi Kandar" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Nasi%20kandar.jpg?width=900" data-text="Steamed rice piled with a mix of rich curries and side dishes, the gravies flooded together (“banjir”). It grew from Penang's Indian-Muslim community." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nasi%20kandar.jpg?width=900" alt="Nasi Kandar" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Indian-Muslim</div>
+        <h3>Nasi Kandar</h3><p>Steamed rice piled with a mix of rich curries and side dishes, the gravies flooded together (“banjir”). It grew from Penang's Indian-Muslim community.</p><span class="food-more">Discover the story &rarr;</span></div>
     </article>
-    <article class="food-card">
-      <div class="food-image"><img src="assets/img/food/nyonya-kuih.jpg" alt="Nyonya Kuih" loading="lazy"></div>
-      <div class="food-info"><div class="food-number">04 / PERANAKAN</div>
-        <h3>Nyonya Kuih</h3><p>Nyonya kuih are colourful traditional sweets associated with Peranakan culture. They often use coconut, rice flour and pandan to create distinctive flavours, colours and textures.</p></div>
+    <article class="food-card" data-cat="nyonya" data-modal="info" data-title="Nyonya Kuih" data-img="assets/img/food/nyonya-kuih.jpg" data-text="Colourful bite-sized Peranakan sweets made with coconut, rice flour and pandan, giving distinctive flavours, colours and textures." tabindex="0" role="button">
+      <div class="food-image"><img src="assets/img/food/nyonya-kuih.jpg" alt="Nyonya Kuih" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Peranakan</div>
+        <h3>Nyonya Kuih</h3><p>Colourful bite-sized Peranakan sweets made with coconut, rice flour and pandan, giving distinctive flavours, colours and textures.</p><span class="food-more">Discover the story &rarr;</span></div>
     </article>
+    <article class="food-card" data-cat="noodle" data-modal="info" data-title="Penang Hokkien Mee" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Hokkien%20Mee%2C%20Georgetown%2C%20Penang%2C%20Malaysia.JPG?width=900" data-text="Also called prawn noodles: yellow noodles and rice vermicelli in a deep, spicy broth simmered from prawn shells and pork, topped with prawns and egg." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hokkien%20Mee%2C%20Georgetown%2C%20Penang%2C%20Malaysia.JPG?width=900" alt="Penang Hokkien Mee" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Hokkien</div>
+        <h3>Penang Hokkien Mee</h3><p>Also called prawn noodles: yellow noodles and rice vermicelli in a deep, spicy broth simmered from prawn shells and pork, topped with prawns and egg.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="dessert" data-modal="info" data-title="Cendol" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Cendol%20penang.jpg?width=900" data-text="A cooling bowl of shaved ice, coconut milk, dark palm sugar and soft green rice-flour jelly — perfect for Penang's tropical heat." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cendol%20penang.jpg?width=900" alt="Cendol" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Cooling Dessert</div>
+        <h3>Cendol</h3><p>A cooling bowl of shaved ice, coconut milk, dark palm sugar and soft green rice-flour jelly — perfect for Penang's tropical heat.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Pasembur" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Pasembur%20Penang.jpg?width=900" data-text="A Penang salad of crispy fritters, shredded vegetables, tofu and seafood, all smothered in a sweet, spicy nutty sauce." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pasembur%20Penang.jpg?width=900" alt="Pasembur" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Indian-Muslim</div>
+        <h3>Pasembur</h3><p>A Penang salad of crispy fritters, shredded vegetables, tofu and seafood, all smothered in a sweet, spicy nutty sauce.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Roti Canai" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Roti%20Canai.JPG?width=900" data-text="A flaky pan-fried flatbread, crisp at the edges and soft inside, flipped by hand and served with dhal or curry for dipping." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Roti%20Canai.JPG?width=900" alt="Roti Canai" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Indian-Muslim</div>
+        <h3>Roti Canai</h3><p>A flaky pan-fried flatbread, crisp at the edges and soft inside, flipped by hand and served with dhal or curry for dipping.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="noodle" data-modal="info" data-title="Chee Cheong Fun" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Chee%20cheong%20fun.jpg?width=900" data-text="Soft steamed rice-noodle rolls served the Penang way with sweet prawn-paste sauce, chilli and toasted sesame — a favourite breakfast." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Chee%20cheong%20fun.jpg?width=900" alt="Chee Cheong Fun" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Rice Rolls</div>
+        <h3>Chee Cheong Fun</h3><p>Soft steamed rice-noodle rolls served the Penang way with sweet prawn-paste sauce, chilli and toasted sesame — a favourite breakfast.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Apam Balik" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Apam%20Balik.jpg?width=900" data-text="A folded griddle pancake — thin and crisp or thick and fluffy — filled with crushed peanuts, sugar and sweetcorn." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Apam%20Balik.jpg?width=900" alt="Apam Balik" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Street Snack</div>
+        <h3>Apam Balik</h3><p>A folded griddle pancake — thin and crisp or thick and fluffy — filled with crushed peanuts, sugar and sweetcorn.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Loh Bak" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Penang%20Loh%20Bak%20.jpg?width=900" data-text="Five-spice seasoned pork rolled in beancurd skin and deep-fried, served with an assortment of fritters and dipping sauces." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Penang%20Loh%20Bak%20.jpg?width=900" alt="Loh Bak" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Hokkien</div>
+        <h3>Loh Bak</h3><p>Five-spice seasoned pork rolled in beancurd skin and deep-fried, served with an assortment of fritters and dipping sauces.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Popiah" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Popiah.jpg?width=900" data-text="A fresh, un-fried spring roll wrapped around stewed turnip, vegetables, egg and a touch of sweet sauce." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Popiah.jpg?width=900" alt="Popiah" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Hokkien</div>
+        <h3>Popiah</h3><p>A fresh, un-fried spring roll wrapped around stewed turnip, vegetables, egg and a touch of sweet sauce.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Oyster Omelette" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Oyster%20omelette.jpg?width=900" data-text="Plump oysters fried into egg and a starchy batter until crisp and golden at the edges — a savoury Teochew classic." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Oyster%20omelette.jpg?width=900" alt="Oyster Omelette" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Teochew</div>
+        <h3>Oyster Omelette</h3><p>Plump oysters fried into egg and a starchy batter until crisp and golden at the edges — a savoury Teochew classic.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="noodle" data-modal="info" data-title="Mee Goreng" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Mee%20goreng%20Pulau%20Pinang.jpg?width=900" data-text="Indian-Muslim style fried yellow noodles tossed with egg, potato, tofu and a tangy tomato-chilli sauce." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mee%20goreng%20Pulau%20Pinang.jpg?width=900" alt="Mee Goreng" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Hawker Favourite</div>
+        <h3>Mee Goreng</h3><p>Indian-Muslim style fried yellow noodles tossed with egg, potato, tofu and a tangy tomato-chilli sauce.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="nyonya" data-modal="info" data-title="Kuih Talam" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Kuih%20talam.png?width=900" data-text="A two-layered steamed kuih pairing a sweet green pandan base with a salty coconut-cream top." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kuih%20talam.png?width=900" alt="Kuih Talam" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Traditional Kuih</div>
+        <h3>Kuih Talam</h3><p>A two-layered steamed kuih pairing a sweet green pandan base with a salty coconut-cream top.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="rice" data-modal="info" data-title="Nasi Lemak" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Nasi%20Lemak%20Traditional%2C%20Khas%20Pulau%20Pinang%2C%20Malaysia.jpg?width=900" data-text="Fragrant coconut rice served with fiery sambal, crispy anchovies, peanuts, boiled egg and cucumber." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nasi%20Lemak%20Traditional%2C%20Khas%20Pulau%20Pinang%2C%20Malaysia.jpg?width=900" alt="Nasi Lemak" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Malay Heritage</div>
+        <h3>Nasi Lemak</h3><p>Fragrant coconut rice served with fiery sambal, crispy anchovies, peanuts, boiled egg and cucumber.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="dessert" data-modal="info" data-title="Pandan Cake" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Pandan%20cake.jpg?width=900" data-text="A light, airy sponge cake flavoured and tinted a soft green by fragrant pandan leaves." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pandan%20cake.jpg?width=900" alt="Pandan Cake" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Pandan</div>
+        <h3>Pandan Cake</h3><p>A light, airy sponge cake flavoured and tinted a soft green by fragrant pandan leaves.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="rice" data-modal="info" data-title="Hainan Chicken Rice" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Chee%20Meng%20Hainan%20Chicken%20Rice.jpg?width=900" data-text="Tender poached chicken with rice cooked in chicken stock, served with chilli and ginger sauces — a Hainanese favourite." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Chee%20Meng%20Hainan%20Chicken%20Rice.jpg?width=900" alt="Hainan Chicken Rice" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Hainanese</div>
+        <h3>Hainan Chicken Rice</h3><p>Tender poached chicken with rice cooked in chicken stock, served with chilli and ginger sauces — a Hainanese favourite.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Tau Sar Piah" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Tau%20sar%20piah.jpg?width=900" data-text="A flaky little pastry filled with sweet or savoury mung-bean paste — a classic Penang souvenir snack." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tau%20sar%20piah.jpg?width=900" alt="Tau Sar Piah" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Penang Pastry</div>
+        <h3>Tau Sar Piah</h3><p>A flaky little pastry filled with sweet or savoury mung-bean paste — a classic Penang souvenir snack.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Rojak" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/RojakPenang.jpg?width=900" data-text="A mixed fruit-and-vegetable salad tossed in a thick, dark prawn-paste sauce and showered with crushed peanuts." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/RojakPenang.jpg?width=900" alt="Rojak" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Local Salad</div>
+        <h3>Rojak</h3><p>A mixed fruit-and-vegetable salad tossed in a thick, dark prawn-paste sauce and showered with crushed peanuts.</p><span class="food-more">Discover the story &rarr;</span></div>
+    </article>
+    </div>
+  </section>
+  <section class="food-feature">
+    <div class="ff-grid">
+      <div class="ff-text"><div class="kicker gold">Penang's Signature</div>
+        <h2>The Soul of Penang Laksa</h2>
+        <p>Penang Asam Laksa is famous for its balance of sour, spicy and savoury. Poached mackerel is flaked into a tamarind broth loud with lemongrass, ginger flower and mint.</p>
+        <p>Topped with pineapple, cucumber and a spoon of sweet prawn paste, it is one of the dishes that made the island famous among food lovers.</p>
+      </div>
+      <div class="ff-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Penang%20laksa.jpg?width=1000" alt="Penang Asam Laksa" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+    </div>
+  </section>
+  <section class="food-heritage">
+    <div class="kicker">Living Heritage</div>
+    <h2>A City Built on Culture</h2>
+    <div class="ftimeline">
+      <div class="ftl-item"><div class="ftl-year">1786</div><h3>George Town begins</h3><p>Founded as a trading port on Penang Island, drawing people from across Asia.</p></div>
+      <div class="ftl-item"><div class="ftl-year">GENERATIONS</div><h3>Traditions become heritage</h3><p>Communities passed down recipes, crafts, languages and customs.</p></div>
+      <div class="ftl-item"><div class="ftl-year">2008</div><h3>UNESCO World Heritage</h3><p>George Town and Melaka were inscribed as the Historic Cities of the Straits of Malacca.</p></div>
+    </div>
+  </section>
+  <section class="food-locations">
+    <div class="kicker gold">Explore George Town</div>
+    <h2>Where Heritage Comes Alive</h2>
+    <p class="lead">Heritage is not kept in a museum — it lives in the streets, buildings and food stalls. Tap a card to discover more.</p>
+    <div class="loc-grid">
+      <div class="loc-card" data-modal="info" data-icon="&#127983;" data-title="Chulia Street" data-text="One of George Town's oldest streets, long a hub of trade and community life. Today it hums with heritage shophouses, cafes and some of the city's best street food." tabindex="0" role="button">
+        <div class="loc-icon">&#127983;</div><h3>Chulia Street</h3><p>One of George Town's oldest streets, long a hub of trade and community life. Today it hums with heritage shophouses, cafes and some of the city's best street food.</p><span class="loc-more">Tap to explore &rarr;</span></div>
+      <div class="loc-card" data-modal="info" data-icon="&#127963;&#65039;" data-title="Heritage Shophouses" data-text="Narrow shophouses with a shop below and a home above, their five-foot walkways and mixed Chinese-European details reflect George Town's multicultural past." tabindex="0" role="button">
+        <div class="loc-icon">&#127963;&#65039;</div><h3>Heritage Shophouses</h3><p>Narrow shophouses with a shop below and a home above, their five-foot walkways and mixed Chinese-European details reflect George Town's multicultural past.</p><span class="loc-more">Tap to explore &rarr;</span></div>
+      <div class="loc-card" data-modal="info" data-icon="&#127837;" data-title="Hawker Culture" data-text="Hawker stalls are the living heart of Penang's food heritage, passing recipes like Char Kway Teow and Asam Laksa from one generation to the next." tabindex="0" role="button">
+        <div class="loc-icon">&#127837;</div><h3>Hawker Culture</h3><p>Hawker stalls are the living heart of Penang's food heritage, passing recipes like Char Kway Teow and Asam Laksa from one generation to the next.</p><span class="loc-more">Tap to explore &rarr;</span></div>
     </div>
   </section>
   <section class="connection">
     <div class="connection-box">
-      <div class="kicker">Why Food Matters</div>
-      <h2>More Than Just Food</h2>
-      <p>Traditional food is an important expression of George Town's multicultural heritage. From hawker stalls to family recipes, food shows how different communities have shared traditions over generations, and helps keep them alive.</p>
+      <div class="kicker">Why It Matters</div>
+      <h2>Food Is Living Heritage</h2>
+      <p>A heritage city is not only about old buildings. It is about the people and everyday traditions that continue through generations. In George Town, a plate of noodles, a bowl of laksa or a colourful kuih can tell a story of migration, trade, culture and community.</p>
     </div>
   </section>
   <section class="fact-section">
@@ -94,9 +225,9 @@
     <p id="fact"></p>
   </section>
 </main>
-<script>window.FOOD_FACTS=["George Town and Melaka were inscribed together as a UNESCO World Heritage property in 2008.", "UNESCO describes food as part of the multicultural living heritage of George Town.", "Penang's food culture reflects interactions between Malay, Chinese, Indian and other communities.", "Char Kway Teow is one of the foods strongly associated with Penang's hawker culture.", "Asam Laksa is known for its distinctive sour and spicy flavour.", "Nyonya cuisine reflects the cultural history of the Peranakan community."];</script>
+<script>window.FOOD_FACTS=["George Town and Melaka were inscribed together as a UNESCO World Heritage property in 2008.", "UNESCO describes food as part of the multicultural living heritage of George Town.", "Penang's food culture reflects interactions between Malay, Chinese, Indian and other communities.", "Char Kway Teow tastes best with “wok hei” — the smoky aroma from a searing-hot wok.", "Asam Laksa is known for its distinctive sour and spicy flavour, built on tamarind and mackerel.", "Nyonya cuisine reflects the cultural history of the Peranakan community.", "Penang Hokkien Mee is also known simply as “prawn noodles”.", "Nasi Kandar gravies poured together over rice are affectionately called “banjir” (flooded).", "Many Penang hawker recipes have been cooked at the same stall for several generations.", "Cendol's green jelly gets its colour from pandan leaves."];</script>
 <footer>
-  <div><a href="index.html">Home</a><a href="about-unesco.html">UNESCO</a><a href="history.html">History</a><a href="attractions.html">Sites</a><a href="food.html">Food</a><a href="search.html">Search</a><a href="directions.html">Directions</a><a href="route.html">Route</a><a href="trivia.html">Trivia</a><a href="guide.html">Guide</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
+  <div><a href="index.html">Home</a><a href="about-unesco.html">UNESCO</a><a href="history.html">History</a><a href="attractions.html">Sites</a><a href="food.html">Food</a><a href="games.html">Games</a><a href="search.html">Search</a><a href="directions.html">Directions</a><a href="route.html">Route</a><a href="trivia.html">Trivia</a><a href="guide.html">Guide</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="contact.html">Contact</a></div>
   <p class="note">George Town Heritage &middot; A school project by students of SMJK Chung Ling &middot; An educational tribute to Melaka &amp; George Town, Historic Cities of the Straits of Malacca (UNESCO WHS 1223).</p>
   <p class="disclaimer">&#9888; Disclaimer: This is a student project created for educational purposes. The information may contain mistakes and may not be complete, current or fully accurate &mdash; please double-check important details with official sources.</p>
 </footer>

@@ -30,6 +30,7 @@
       <a href="history-bm.html">Sejarah</a>
       <a href="attractions-bm.html">Tapak</a>
       <a class="active" href="food-bm.html">Makanan</a>
+      <a href="games-bm.html">Permainan</a>
       <a href="search-bm.html">Cari</a>
       <a href="directions-bm.html">Arah</a>
       <a href="route-bm.html">Laluan</a>
@@ -53,38 +54,168 @@
   </div>
 </header>
 <main>
+  <section class="food-intro">
+    <div class="kicker">Kisah Di Sebalik Hidangan</div>
+    <h2>Lebih Daripada Sekadar Makanan</h2>
+    <p class="lead">Budaya makanan George Town mencerminkan sejarah berbilang budayanya. Masyarakat Cina, Melayu, India dan Peranakan telah menyumbang tradisi yang terus membentuk kehidupan seharian. Di sini, makanan ialah cara mengingati insan, tempat dan generasi.</p>
+    <div class="food-stats">
+      <div class="fstat"><b>2008</b><span>Penyenaraian Warisan Dunia UNESCO</span></div>
+      <div class="fstat"><b>20</b><span>Makanan warisan untuk diterokai</span></div>
+      <div class="fstat"><b>1786</b><span>Tahun George Town diasaskan</span></div>
+    </div>
+  </section>
   <section id="food-list" class="food-section">
     <div class="kicker">Citarasa Pulau Pinang</div>
-    <h2>Makanan Tradisional</h2>
-    <p class="lead">George Town terkenal dengan kepelbagaian budaya makanannya. Pengaruh Cina, Melayu, India dan Peranakan membentuk tradisi makanan di seluruh Pulau Pinang. Hidangan ini lebih daripada sekadar makanan; ia sebahagian daripada identiti budaya dan kehidupan seharian bandar ini.</p>
+    <h2>20 Citarasa, Satu Warisan</h2>
+    <p class="lead">Terokai dua puluh makanan yang berkait dengan kepelbagaian budaya makanan Pulau Pinang. Ketik mana-mana kad untuk membaca kisahnya.</p>
+    <div class="food-filters">
+      <button class="food-filter active" type="button" data-filter="all">Semua</button>
+      <button class="food-filter" type="button" data-filter="noodle">Mi</button>
+      <button class="food-filter" type="button" data-filter="rice">Nasi</button>
+      <button class="food-filter" type="button" data-filter="snack">Snek</button>
+      <button class="food-filter" type="button" data-filter="dessert">Pencuci Mulut</button>
+      <button class="food-filter" type="button" data-filter="nyonya">Peranakan</button>
+    </div>
     <div class="food-grid">
-    <article class="food-card">
-      <div class="food-image"><img src="https://fooddrinkdestinations.com/wp-content/uploads/2023/03/Penang-Food-Guide-85.jpg" alt="Char Kway Teow" loading="lazy"></div>
-      <div class="food-info"><div class="food-number">01 / PENANG</div>
-        <h3>Char Kway Teow</h3><p>Hidangan mi goreng terkenal Pulau Pinang yang diperbuat daripada mi beras leper, udang, taugeh, telur dan bahan-bahan lain. Ia sangat berkait rapat dengan budaya penjaja Pulau Pinang.</p></div>
+    <article class="food-card" data-cat="noodle" data-modal="info" data-title="Char Kway Teow" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Char%20Kway%20Teow%2C%20Georgetown%2C%20Penang%2C%20Malaysia.JPG?width=900" data-text="Mi beras leper digoreng atas api yang kuat bersama udang, kerang, telur, kucai dan taugeh. Rasa berbara (“wok hei”) menjadikannya ikon penjaja Pulau Pinang." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Char%20Kway%20Teow%2C%20Georgetown%2C%20Penang%2C%20Malaysia.JPG?width=900" alt="Char Kway Teow" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Klasik Pulau Pinang</div>
+        <h3>Char Kway Teow</h3><p>Mi beras leper digoreng atas api yang kuat bersama udang, kerang, telur, kucai dan taugeh. Rasa berbara (“wok hei”) menjadikannya ikon penjaja Pulau Pinang.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
     </article>
-    <article class="food-card">
-      <div class="food-image"><img src="https://www.momoda8.com/Public/upload/poi/20180825/1535186151vWrduM_original.jpg" alt="Asam Laksa" loading="lazy"></div>
-      <div class="food-info"><div class="food-number">02 / PENANG</div>
-        <h3>Asam Laksa</h3><p>Penang Asam Laksa ialah mi sup masam dan pedas yang dibuat secara tradisional dengan ikan, asam jawa, herba dan sayur-sayuran. Rasanya yang tersendiri menjadikannya salah satu makanan paling terkenal di Pulau Pinang.</p></div>
+    <article class="food-card" data-cat="noodle" data-modal="info" data-title="Asam Laksa" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Penang%20laksa.jpg?width=900" data-text="Mi sup masam dan pedas berasaskan ikan kembung, asam jawa, serai dan herba segar, dilengkapi sesudu hae ko manis. Antara hidangan paling terkenal di Pulau Pinang." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Penang%20laksa.jpg?width=900" alt="Asam Laksa" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Ikon Pulau Pinang</div>
+        <h3>Asam Laksa</h3><p>Mi sup masam dan pedas berasaskan ikan kembung, asam jawa, serai dan herba segar, dilengkapi sesudu hae ko manis. Antara hidangan paling terkenal di Pulau Pinang.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
     </article>
-    <article class="food-card">
-      <div class="food-image"><img src="https://apicms.thestar.com.my/uploads/images/2024/09/09/2903017.JPG" alt="Nasi Kandar" loading="lazy"></div>
-      <div class="food-info"><div class="food-number">03 / PENANG</div>
-        <h3>Nasi Kandar</h3><p>Nasi kandar terdiri daripada nasi kukus yang dihidangkan bersama kari dan pelbagai lauk. Perkembangannya mencerminkan peranan penting masyarakat India-Muslim di Pulau Pinang.</p></div>
+    <article class="food-card" data-cat="rice" data-modal="info" data-title="Nasi Kandar" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Nasi%20kandar.jpg?width=900" data-text="Nasi kukus dengan pelbagai kari dan lauk, kuahnya dicampur bersama (“banjir”). Ia berkembang daripada masyarakat India-Muslim Pulau Pinang." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nasi%20kandar.jpg?width=900" alt="Nasi Kandar" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">India-Muslim</div>
+        <h3>Nasi Kandar</h3><p>Nasi kukus dengan pelbagai kari dan lauk, kuahnya dicampur bersama (“banjir”). Ia berkembang daripada masyarakat India-Muslim Pulau Pinang.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
     </article>
-    <article class="food-card">
-      <div class="food-image"><img src="assets/img/food/nyonya-kuih.jpg" alt="Nyonya Kuih" loading="lazy"></div>
-      <div class="food-info"><div class="food-number">04 / PERANAKAN</div>
-        <h3>Nyonya Kuih</h3><p>Kuih Nyonya ialah kuih-muih tradisional berwarna-warni yang dikaitkan dengan budaya Peranakan. Ia menggunakan kelapa, tepung beras dan pandan untuk menghasilkan rasa, warna dan tekstur tersendiri.</p></div>
+    <article class="food-card" data-cat="nyonya" data-modal="info" data-title="Nyonya Kuih" data-img="assets/img/food/nyonya-kuih.jpg" data-text="Kuih-muih Peranakan berwarna-warni bersaiz kecil daripada kelapa, tepung beras dan pandan, memberikan rasa, warna dan tekstur tersendiri." tabindex="0" role="button">
+      <div class="food-image"><img src="assets/img/food/nyonya-kuih.jpg" alt="Nyonya Kuih" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Peranakan</div>
+        <h3>Nyonya Kuih</h3><p>Kuih-muih Peranakan berwarna-warni bersaiz kecil daripada kelapa, tepung beras dan pandan, memberikan rasa, warna dan tekstur tersendiri.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
     </article>
+    <article class="food-card" data-cat="noodle" data-modal="info" data-title="Penang Hokkien Mee" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Hokkien%20Mee%2C%20Georgetown%2C%20Penang%2C%20Malaysia.JPG?width=900" data-text="Juga dipanggil mi udang: mi kuning dan bihun dalam sup pekat dan pedas daripada kepala udang dan daging, dihias udang dan telur." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Hokkien%20Mee%2C%20Georgetown%2C%20Penang%2C%20Malaysia.JPG?width=900" alt="Penang Hokkien Mee" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Hokkien</div>
+        <h3>Penang Hokkien Mee</h3><p>Juga dipanggil mi udang: mi kuning dan bihun dalam sup pekat dan pedas daripada kepala udang dan daging, dihias udang dan telur.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="dessert" data-modal="info" data-title="Cendol" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Cendol%20penang.jpg?width=900" data-text="Semangkuk penyejuk daripada ais serut, santan, gula melaka pekat dan cendol hijau lembut — sesuai untuk cuaca panas Pulau Pinang." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Cendol%20penang.jpg?width=900" alt="Cendol" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Pencuci Mulut Sejuk</div>
+        <h3>Cendol</h3><p>Semangkuk penyejuk daripada ais serut, santan, gula melaka pekat dan cendol hijau lembut — sesuai untuk cuaca panas Pulau Pinang.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Pasembur" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Pasembur%20Penang.jpg?width=900" data-text="Salad Pulau Pinang daripada cucur rangup, sayur hiris, tauhu dan makanan laut, disiram sos kacang yang manis dan pedas." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pasembur%20Penang.jpg?width=900" alt="Pasembur" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">India-Muslim</div>
+        <h3>Pasembur</h3><p>Salad Pulau Pinang daripada cucur rangup, sayur hiris, tauhu dan makanan laut, disiram sos kacang yang manis dan pedas.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Roti Canai" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Roti%20Canai.JPG?width=900" data-text="Roti leper goreng berlapis, rangup di tepi dan lembut di dalam, dilempar dengan tangan dan dihidang dengan dhal atau kari untuk dicicah." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Roti%20Canai.JPG?width=900" alt="Roti Canai" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">India-Muslim</div>
+        <h3>Roti Canai</h3><p>Roti leper goreng berlapis, rangup di tepi dan lembut di dalam, dilempar dengan tangan dan dihidang dengan dhal atau kari untuk dicicah.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="noodle" data-modal="info" data-title="Chee Cheong Fun" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Chee%20cheong%20fun.jpg?width=900" data-text="Gulung mi beras kukus lembut dihidang cara Pulau Pinang dengan sos hae ko manis, cili dan bijan bakar — sarapan kegemaran." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Chee%20cheong%20fun.jpg?width=900" alt="Chee Cheong Fun" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Gulung Beras</div>
+        <h3>Chee Cheong Fun</h3><p>Gulung mi beras kukus lembut dihidang cara Pulau Pinang dengan sos hae ko manis, cili dan bijan bakar — sarapan kegemaran.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Apam Balik" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Apam%20Balik.jpg?width=900" data-text="Lempeng lipat — nipis dan rangup atau tebal dan gebu — diisi kacang tumbuk, gula dan jagung manis." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Apam%20Balik.jpg?width=900" alt="Apam Balik" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Snek Jalanan</div>
+        <h3>Apam Balik</h3><p>Lempeng lipat — nipis dan rangup atau tebal dan gebu — diisi kacang tumbuk, gula dan jagung manis.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Loh Bak" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Penang%20Loh%20Bak%20.jpg?width=900" data-text="Daging berperisa lima rempah digulung kulit tauhu dan digoreng, dihidang dengan pelbagai cucur dan sos cicah." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Penang%20Loh%20Bak%20.jpg?width=900" alt="Loh Bak" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Hokkien</div>
+        <h3>Loh Bak</h3><p>Daging berperisa lima rempah digulung kulit tauhu dan digoreng, dihidang dengan pelbagai cucur dan sos cicah.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Popiah" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Popiah.jpg?width=900" data-text="Popia basah tidak digoreng, membalut sengkuang masak, sayur, telur dan sedikit sos manis." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Popiah.jpg?width=900" alt="Popiah" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Hokkien</div>
+        <h3>Popiah</h3><p>Popia basah tidak digoreng, membalut sengkuang masak, sayur, telur dan sedikit sos manis.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Oyster Omelette" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Oyster%20omelette.jpg?width=900" data-text="Tiram gemuk digoreng bersama telur dan adunan kanji sehingga rangup dan keemasan di tepi — klasik Teochew yang berperisa." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Oyster%20omelette.jpg?width=900" alt="Oyster Omelette" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Teochew</div>
+        <h3>Oyster Omelette</h3><p>Tiram gemuk digoreng bersama telur dan adunan kanji sehingga rangup dan keemasan di tepi — klasik Teochew yang berperisa.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="noodle" data-modal="info" data-title="Mee Goreng" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Mee%20goreng%20Pulau%20Pinang.jpg?width=900" data-text="Mi kuning goreng gaya India-Muslim digaul dengan telur, kentang, tauhu dan sos tomato-cili yang masam manis." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Mee%20goreng%20Pulau%20Pinang.jpg?width=900" alt="Mee Goreng" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Kegemaran Penjaja</div>
+        <h3>Mee Goreng</h3><p>Mi kuning goreng gaya India-Muslim digaul dengan telur, kentang, tauhu dan sos tomato-cili yang masam manis.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="nyonya" data-modal="info" data-title="Kuih Talam" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Kuih%20talam.png?width=900" data-text="Kuih kukus dua lapisan menggandingkan dasar pandan hijau manis dengan lapisan santan yang masin." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Kuih%20talam.png?width=900" alt="Kuih Talam" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Kuih Tradisional</div>
+        <h3>Kuih Talam</h3><p>Kuih kukus dua lapisan menggandingkan dasar pandan hijau manis dengan lapisan santan yang masin.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="rice" data-modal="info" data-title="Nasi Lemak" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Nasi%20Lemak%20Traditional%2C%20Khas%20Pulau%20Pinang%2C%20Malaysia.jpg?width=900" data-text="Nasi wangi bersantan dihidang dengan sambal pedas, ikan bilis rangup, kacang, telur rebus dan timun." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nasi%20Lemak%20Traditional%2C%20Khas%20Pulau%20Pinang%2C%20Malaysia.jpg?width=900" alt="Nasi Lemak" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Warisan Melayu</div>
+        <h3>Nasi Lemak</h3><p>Nasi wangi bersantan dihidang dengan sambal pedas, ikan bilis rangup, kacang, telur rebus dan timun.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="dessert" data-modal="info" data-title="Pandan Cake" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Pandan%20cake.jpg?width=900" data-text="Kek span ringan dan gebu, diperisa dan berwarna hijau lembut daripada daun pandan wangi." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pandan%20cake.jpg?width=900" alt="Pandan Cake" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Pandan</div>
+        <h3>Pandan Cake</h3><p>Kek span ringan dan gebu, diperisa dan berwarna hijau lembut daripada daun pandan wangi.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="rice" data-modal="info" data-title="Hainan Chicken Rice" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Chee%20Meng%20Hainan%20Chicken%20Rice.jpg?width=900" data-text="Ayam rebus lembut dengan nasi dimasak dalam sup ayam, dihidang dengan sos cili dan halia — kegemaran Hainan." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Chee%20Meng%20Hainan%20Chicken%20Rice.jpg?width=900" alt="Hainan Chicken Rice" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Hainan</div>
+        <h3>Hainan Chicken Rice</h3><p>Ayam rebus lembut dengan nasi dimasak dalam sup ayam, dihidang dengan sos cili dan halia — kegemaran Hainan.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Tau Sar Piah" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/Tau%20sar%20piah.jpg?width=900" data-text="Pastri kecil berlapis diisi inti kacang hijau manis atau masin — snek cenderahati klasik Pulau Pinang." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tau%20sar%20piah.jpg?width=900" alt="Tau Sar Piah" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Pastri Pulau Pinang</div>
+        <h3>Tau Sar Piah</h3><p>Pastri kecil berlapis diisi inti kacang hijau manis atau masin — snek cenderahati klasik Pulau Pinang.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    <article class="food-card" data-cat="snack" data-modal="info" data-title="Rojak" data-img="https://commons.wikimedia.org/wiki/Special:FilePath/RojakPenang.jpg?width=900" data-text="Salad campuran buah dan sayur digaul dengan sos belacan pekat dan ditaburi kacang tumbuk." tabindex="0" role="button">
+      <div class="food-image"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/RojakPenang.jpg?width=900" alt="Rojak" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+      <div class="food-info"><div class="food-number">Salad Tempatan</div>
+        <h3>Rojak</h3><p>Salad campuran buah dan sayur digaul dengan sos belacan pekat dan ditaburi kacang tumbuk.</p><span class="food-more">Terokai kisahnya &rarr;</span></div>
+    </article>
+    </div>
+  </section>
+  <section class="food-feature">
+    <div class="ff-grid">
+      <div class="ff-text"><div class="kicker gold">Ikon Pulau Pinang</div>
+        <h2>Jiwa Laksa Pulau Pinang</h2>
+        <p>Asam Laksa Pulau Pinang terkenal dengan keseimbangan rasa masam, pedas dan berlemak. Ikan kembung rebus disuir ke dalam sup asam jawa yang kaya dengan serai, bunga kantan dan pudina.</p>
+        <p>Ditambah nanas, timun dan sesudu hae ko manis, ia antara hidangan yang menjadikan pulau ini terkenal dalam kalangan pencinta makanan.</p>
+      </div>
+      <div class="ff-img"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Penang%20laksa.jpg?width=1000" alt="Asam Laksa Pulau Pinang" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA0MDAgMzAwJz48cmVjdCB3aWR0aD0nNDAwJyBoZWlnaHQ9JzMwMCcgZmlsbD0nIzBmMWY2NicvPjxjaXJjbGUgY3g9JzIwMCcgY3k9JzE0MCcgcj0nNjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2Y1YjQwMCcgc3Ryb2tlLXdpZHRoPSc3Jy8+PHBhdGggZD0nTTE1MCAxNDVhNTAgNTAgMCAwIDAgMTAwIDB6JyBmaWxsPScjZjViNDAwJy8+PHJlY3QgeD0nMTIwJyB5PScyMTInIHdpZHRoPScxNjAnIGhlaWdodD0nMTAnIHJ4PSc1JyBmaWxsPScjNGE2M2Q2Jy8+PC9zdmc+'"></div>
+    </div>
+  </section>
+  <section class="food-heritage">
+    <div class="kicker">Warisan Hidup</div>
+    <h2>Bandar Dibina Atas Budaya</h2>
+    <div class="ftimeline">
+      <div class="ftl-item"><div class="ftl-year">1786</div><h3>George Town bermula</h3><p>Diasaskan sebagai pelabuhan dagang di Pulau Pinang, menarik orang dari seluruh Asia.</p></div>
+      <div class="ftl-item"><div class="ftl-year">GENERASI</div><h3>Tradisi menjadi warisan</h3><p>Masyarakat mewariskan resipi, kraf, bahasa dan adat.</p></div>
+      <div class="ftl-item"><div class="ftl-year">2008</div><h3>Warisan Dunia UNESCO</h3><p>George Town dan Melaka disenaraikan sebagai Bandar Bersejarah Selat Melaka.</p></div>
+    </div>
+  </section>
+  <section class="food-locations">
+    <div class="kicker gold">Terokai George Town</div>
+    <h2>Di Mana Warisan Hidup</h2>
+    <p class="lead">Warisan tidak disimpan di muzium — ia hidup di jalanan, bangunan dan gerai makanan. Ketik kad untuk mengetahui lebih lanjut.</p>
+    <div class="loc-grid">
+      <div class="loc-card" data-modal="info" data-icon="&#127983;" data-title="Lebuh Chulia" data-text="Salah satu jalan tertua di George Town, lama menjadi tumpuan perdagangan dan kehidupan masyarakat. Kini ia meriah dengan rumah kedai warisan, kafe dan antara makanan jalanan terbaik di bandar." tabindex="0" role="button">
+        <div class="loc-icon">&#127983;</div><h3>Lebuh Chulia</h3><p>Salah satu jalan tertua di George Town, lama menjadi tumpuan perdagangan dan kehidupan masyarakat. Kini ia meriah dengan rumah kedai warisan, kafe dan antara makanan jalanan terbaik di bandar.</p><span class="loc-more">Ketik untuk terokai &rarr;</span></div>
+      <div class="loc-card" data-modal="info" data-icon="&#127963;&#65039;" data-title="Rumah Kedai Warisan" data-text="Rumah kedai sempit dengan kedai di bawah dan kediaman di atas; laluan kaki lima dan perincian campuran Cina-Eropah mencerminkan masa lampau berbilang budaya George Town." tabindex="0" role="button">
+        <div class="loc-icon">&#127963;&#65039;</div><h3>Rumah Kedai Warisan</h3><p>Rumah kedai sempit dengan kedai di bawah dan kediaman di atas; laluan kaki lima dan perincian campuran Cina-Eropah mencerminkan masa lampau berbilang budaya George Town.</p><span class="loc-more">Ketik untuk terokai &rarr;</span></div>
+      <div class="loc-card" data-modal="info" data-icon="&#127837;" data-title="Budaya Penjaja" data-text="Gerai penjaja ialah jantung hidup warisan makanan Pulau Pinang, mewariskan resipi seperti Char Kway Teow dan Asam Laksa dari satu generasi ke generasi seterusnya." tabindex="0" role="button">
+        <div class="loc-icon">&#127837;</div><h3>Budaya Penjaja</h3><p>Gerai penjaja ialah jantung hidup warisan makanan Pulau Pinang, mewariskan resipi seperti Char Kway Teow dan Asam Laksa dari satu generasi ke generasi seterusnya.</p><span class="loc-more">Ketik untuk terokai &rarr;</span></div>
     </div>
   </section>
   <section class="connection">
     <div class="connection-box">
-      <div class="kicker">Mengapa Makanan Penting</div>
-      <h2>Lebih Daripada Sekadar Makanan</h2>
-      <p>Makanan tradisional ialah ekspresi penting warisan berbilang budaya George Town. Daripada gerai penjaja hingga resipi keluarga, makanan menunjukkan bagaimana pelbagai masyarakat berkongsi tradisi turun-temurun, dan membantu mengekalkannya.</p>
+      <div class="kicker">Mengapa Ia Penting</div>
+      <h2>Makanan Ialah Warisan Hidup</h2>
+      <p>Bandar warisan bukan sekadar tentang bangunan lama. Ia tentang insan dan tradisi harian yang berterusan turun-temurun. Di George Town, sepinggan mi, semangkuk laksa atau sepotong kuih berwarna-warni boleh menceritakan kisah migrasi, perdagangan, budaya dan masyarakat.</p>
     </div>
   </section>
   <section class="fact-section">
@@ -94,9 +225,9 @@
     <p id="fact"></p>
   </section>
 </main>
-<script>window.FOOD_FACTS=["George Town dan Melaka diiktiraf bersama sebagai Tapak Warisan Dunia UNESCO pada tahun 2008.", "UNESCO menghuraikan makanan sebagai sebahagian daripada warisan hidup berbilang budaya di George Town.", "Budaya makanan Pulau Pinang mencerminkan interaksi antara kaum Melayu, Cina, India dan lain-lain.", "Char Kway Teow ialah salah satu makanan yang sangat dikaitkan dengan budaya penjaja Pulau Pinang.", "Asam Laksa terkenal dengan rasa masam dan pedasnya yang tersendiri.", "Masakan Nyonya mencerminkan sejarah budaya masyarakat Peranakan."];</script>
+<script>window.FOOD_FACTS=["George Town dan Melaka diiktiraf bersama sebagai Tapak Warisan Dunia UNESCO pada tahun 2008.", "UNESCO menghuraikan makanan sebagai sebahagian daripada warisan hidup berbilang budaya di George Town.", "Budaya makanan Pulau Pinang mencerminkan interaksi antara kaum Melayu, Cina, India dan lain-lain.", "Char Kway Teow paling sedap dengan “wok hei” — aroma berbara daripada kuali yang panas membara.", "Asam Laksa terkenal dengan rasa masam dan pedasnya yang tersendiri daripada asam jawa dan ikan kembung.", "Masakan Nyonya mencerminkan sejarah budaya masyarakat Peranakan.", "Penang Hokkien Mee juga dikenali sebagai “mi udang”.", "Kuah nasi kandar yang dicampur atas nasi dipanggil “banjir”.", "Banyak resipi penjaja Pulau Pinang telah dimasak di gerai yang sama selama beberapa generasi.", "Warna hijau cendol datang daripada daun pandan."];</script>
 <footer>
-  <div><a href="index-bm.html">Utama</a><a href="about-unesco-bm.html">UNESCO</a><a href="history-bm.html">Sejarah</a><a href="attractions-bm.html">Tapak</a><a href="food-bm.html">Makanan</a><a href="search-bm.html">Cari</a><a href="directions-bm.html">Arah</a><a href="route-bm.html">Laluan</a><a href="trivia-bm.html">Kuiz</a><a href="guide-bm.html">Panduan</a><a href="about-bm.html">Tentang</a><a href="gallery-bm.html">Galeri</a><a href="contact-bm.html">Hubungi</a></div>
+  <div><a href="index-bm.html">Utama</a><a href="about-unesco-bm.html">UNESCO</a><a href="history-bm.html">Sejarah</a><a href="attractions-bm.html">Tapak</a><a href="food-bm.html">Makanan</a><a href="games-bm.html">Permainan</a><a href="search-bm.html">Cari</a><a href="directions-bm.html">Arah</a><a href="route-bm.html">Laluan</a><a href="trivia-bm.html">Kuiz</a><a href="guide-bm.html">Panduan</a><a href="about-bm.html">Tentang</a><a href="gallery-bm.html">Galeri</a><a href="contact-bm.html">Hubungi</a></div>
   <p class="note">George Town Heritage &middot; Projek sekolah oleh pelajar SMJK Chung Ling &middot; Penghormatan pendidikan kepada Melaka &amp; George Town, Bandar Bersejarah Selat Melaka (Tapak Warisan Dunia UNESCO 1223).</p>
   <p class="disclaimer">&#9888; Penafian: Ini ialah projek pelajar yang dibuat untuk tujuan pendidikan. Maklumat mungkin mengandungi kesilapan dan mungkin tidak lengkap, terkini atau tepat sepenuhnya &mdash; sila semak butiran penting dengan sumber rasmi.</p>
 </footer>
