@@ -25,20 +25,40 @@
     <input class="gt-navchk" type="checkbox" id="gt-nav" aria-hidden="true">
     <label class="nav-toggle" for="gt-nav" title="Menu">&#9776;</label>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="about-unesco.html">UNESCO</a>
-      <a href="history.html">History</a>
-      <a href="attractions.html">Sites</a>
-      <a href="food.html">Food</a>
-      <a href="games.html">Games</a>
-      <a href="search.html">Search</a>
-      <a href="directions.html">Directions</a>
-      <a href="route.html">Route</a>
-      <a href="trivia.html">Trivia</a>
-      <a href="guide.html">Guide</a>
-      <a href="about.html">About</a>
-      <a class="active" href="gallery.html">Gallery</a>
-      <a href="contact.html">Contact</a>
+      <a class="navlink" href="index.html">Home</a>
+      <div class="nav-group">
+        <button class="nav-gl" type="button" aria-haspopup="true">Discover <i class="caret"></i></button>
+        <div class="nav-drop">
+          <a class="drop-link" href="about-unesco.html">UNESCO</a>
+          <a class="drop-link" href="history.html">History</a>
+          <a class="drop-link" href="attractions.html">Heritage Sites</a>
+          <a class="drop-link" href="guide.html">Guide</a>
+        </div>
+      </div>
+      <div class="nav-group">
+        <button class="nav-gl active" type="button" aria-haspopup="true">Experience <i class="caret"></i></button>
+        <div class="nav-drop">
+          <a class="drop-link" href="food.html">Food</a>
+          <a class="drop-link" href="games.html">Games</a>
+          <a class="drop-link" href="trivia.html">Trivia</a>
+          <a class="drop-link active" href="gallery.html">Gallery</a>
+        </div>
+      </div>
+      <div class="nav-group">
+        <button class="nav-gl" type="button" aria-haspopup="true">Visit <i class="caret"></i></button>
+        <div class="nav-drop">
+          <a class="drop-link" href="directions.html">Directions</a>
+          <a class="drop-link" href="route.html">Walking Route</a>
+        </div>
+      </div>
+      <div class="nav-group">
+        <button class="nav-gl" type="button" aria-haspopup="true">About <i class="caret"></i></button>
+        <div class="nav-drop">
+          <a class="drop-link" href="about.html">About Us</a>
+          <a class="drop-link" href="contact.html">Contact</a>
+        </div>
+      </div>
+      <a class="navlink nav-search" href="search.html">&#128269; Search</a>
     </nav>
   </div>
 </header>

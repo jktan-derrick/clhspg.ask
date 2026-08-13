@@ -904,3 +904,35 @@ header.nav.scrolled .nav-inner{padding-top:9px;padding-bottom:9px}
 @keyframes coasterShake{0%,100%{transform:none}20%{transform:translateX(-7px)}40%{transform:translate(6px,4px)}60%{transform:translate(-5px,6px)}80%{transform:translateX(5px)}}
 @keyframes cartFall{0%{transform:translateX(-50%)}45%{transform:translate(-50%,10px) rotate(-12deg)}100%{transform:translateX(-50%)}}
 @media (prefers-reduced-motion: reduce){.coaster.drop{animation:none}.cart{transition:none}}
+
+/* ============================================================
+   Grouped dropdown navigation (5 top-level menus)
+   ============================================================ */
+.nav-group{position:relative}
+.nav-gl{font-family:system-ui,sans-serif;font-size:.9rem;color:var(--ink);background:none;border:none;cursor:pointer;
+  margin-left:15px;padding:3px 0;border-bottom:2px solid transparent;display:inline-flex;align-items:center;gap:6px}
+.nav-gl:hover,.nav-group:hover .nav-gl,.nav-group:focus-within .nav-gl{color:var(--unesco)}
+.nav-gl.active{color:var(--unesco);border-bottom-color:var(--sun);border-bottom-width:3px}
+.caret{width:6px;height:6px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg);
+  margin-top:-3px;transition:transform .25s}
+.nav-group:hover .caret,.nav-group:focus-within .caret{transform:rotate(225deg);margin-top:2px}
+.nav-drop{position:absolute;top:100%;left:0;margin-top:6px;min-width:186px;background:var(--card);
+  border:1px solid var(--line);border-radius:13px;box-shadow:0 16px 38px rgba(0,30,80,.18);
+  padding:8px;display:none;flex-direction:column;gap:1px;z-index:60}
+.nav-group:hover .nav-drop,.nav-group:focus-within .nav-drop{display:flex}
+.nav-drop a{margin-left:0;padding:9px 13px;border-radius:9px;border-bottom:none;white-space:nowrap;color:var(--ink)}
+.nav-drop a:hover{background:var(--pale);border-color:transparent;color:var(--unesco)}
+.nav-drop a.active{color:var(--unesco);background:var(--pale);border-bottom:none;font-weight:600}
+.navlink.nav-search{margin-left:auto}
+
+@media(max-width:880px){
+  .nav-group{width:100%}
+  .nav-gl{width:100%;justify-content:space-between;margin-left:0;padding:11px 6px;
+    border-bottom:1px solid var(--line);font-weight:600;color:var(--head)}
+  .nav-gl.active{border-bottom:1px solid var(--line)}
+  .caret{display:none}
+  .nav-drop{position:static;display:flex;margin:0;padding:2px 0 8px 16px;background:transparent;
+    border:none;border-radius:0;box-shadow:none;min-width:0}
+  .nav-drop a{padding:9px 6px;border-bottom:1px solid var(--line)}
+  .navlink.nav-search{margin-left:0;width:100%;padding:11px 6px;border-bottom:1px solid var(--line)}
+}
