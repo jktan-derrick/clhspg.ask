@@ -164,6 +164,7 @@
     {icon:"🏛️",base:"attractions.html",title:t("All Heritage Sites","Semua Tapak Warisan"),snip:t("Browse all 17 temples, mosques, churches, clan houses and forts.","Layari kesemua 17 tokong, masjid, gereja, rumah kongsi dan kubu."),kw:"sites attractions list temples mosques churches clan houses forts tapak senarai tokong masjid"},
     {icon:"🍜",base:"food.html",title:t("Flavours of George Town","Rasa George Town"),snip:t("The hawker dishes that define Penang's food culture.","Hidangan penjaja yang mentakrifkan budaya makanan Pulau Pinang."),kw:"food hawker makanan penjaja cuisine dishes eat rasa hidangan char kway teow laksa nasi kandar nyonya cendol rojak"},
     {icon:"🎮",base:"games.html",title:t("Traditional Games","Permainan Tradisional"),snip:t("Congkak, Wau Bulan, Gasing and more Malaysian heritage games.","Congkak, Wau Bulan, Gasing dan lebih banyak permainan warisan Malaysia."),kw:"games traditional play congkak wau bulan gasing sepak takraw batu seremban permainan tradisional kanak main"},
+    {icon:"💃",base:"dance.html",title:t("Traditional Dances","Tarian Tradisional"),snip:t("Joget, Zapin, Sumazau, Ngajat and more — feel each dance's rhythm.","Joget, Zapin, Sumazau, Ngajat dan lagi — rasai rentak setiap tarian."),kw:"dance dances boria dondang sayang joget zapin inang kuda kepang sumazau ngajat mak yong bharatanatyam bhangra lion dance rhythm tarian tradisional rentak menari peranakan penang"},
     {icon:"🗺️",base:"directions.html",title:t("Maps & Directions","Peta & Arah"),snip:t("An interactive map of all 17 sites, with category filters and Find-me.","Peta interaktif kesemua 17 tapak, dengan penapis kategori dan Cari-saya."),kw:"map directions walking google maps find me location peta arah laluan penapis lokasi"},
     {icon:"🚶",base:"route.html",title:t("Walking Route","Laluan Berjalan"),snip:t("A suggested self-guided walk through the old town.","Cadangan laluan berjalan sendiri menerusi bandar lama."),kw:"route walking trail city walk itinerary self guided laluan berjalan bandar lama"},
     {icon:"🧠",base:"trivia.html",title:t("Heritage Trivia","Kuiz Warisan"),snip:t("Test yourself with a 10-question heritage quiz.","Uji diri dengan kuiz warisan 10 soalan."),kw:"trivia quiz questions game test score kuiz soalan permainan uji"},
@@ -279,51 +280,111 @@
   function initQuiz(){
     var host=document.getElementById("js-quiz"); if(!host||!window.QUIZ)return;
     var stat=document.querySelector(".static-quiz"); if(stat)stat.style.display="none";
-    var TOTAL=10, MAXLIVES=5;
-    var picked, idx, correct, lives, answered;
-    function start(){ picked=shuffle(window.QUIZ.slice()).slice(0,TOTAL).map(function(it){ var opts=shuffle([{t:it.a,c:true}].concat(it.w.map(function(w){return{t:w,c:false};}))); return {q:it.q,opts:opts,why:it.why}; });
-      idx=0; correct=0; lives=MAXLIVES; render(); }
+    var SVGNS="http://www.w3.org/2000/svg";
+    var TOTAL=10, MAXLIVES=5, TIMER=20000, DPATH="M8,92 C 70,92 70,34 132,34 S 194,98 256,92 S 320,30 382,46 S 470,96 520,60 L 592,28";
+    var picked, idx, correct, lives, streak, bestStreak, answered, curFrac;
+    var stage, path, pathLen, cart, dots, livesEl, streakEl, distEl, timerBar, qWrap, cardRef, timerId;
+    /* ---- sound (Web Audio, no files) ---- */
+    var AC=window.AudioContext||window.webkitAudioContext, actx=null;
+    var soundOn = lsGet("gt-sound")!=="off";
+    function ctxOn(){ if(!AC)return null; if(!actx){ try{actx=new AC();}catch(e){actx=null;} } if(actx&&actx.state==="suspended")actx.resume(); return actx; }
+    function beep(freq,dur,type,vol,when){ var c=ctxOn(); if(!c)return; var o=c.createOscillator(),g=c.createGain();
+      o.type=type||"sine"; o.frequency.value=freq; o.connect(g); g.connect(c.destination);
+      var s=c.currentTime+(when||0); g.gain.setValueAtTime(vol||0.12,s); g.gain.exponentialRampToValueAtTime(0.0001,s+(dur||0.15));
+      o.start(s); o.stop(s+(dur||0.15)+0.02); }
+    function sfx(k){ if(!soundOn)return;
+      if(k==="correct"){ beep(660,0.12,"sine",0.14,0); beep(990,0.14,"sine",0.12,0.1); }
+      else if(k==="wrong"){ beep(220,0.28,"sawtooth",0.15,0); beep(140,0.32,"sawtooth",0.12,0.06); }
+      else if(k==="win"){ [523,659,784,1047].forEach(function(f,i){ beep(f,0.2,"triangle",0.13,i*0.13); }); }
+      else if(k==="click"){ beep(760,0.05,"square",0.05,0); } }
+    /* ---- track geometry ---- */
+    function mk(tag,a){ var e=document.createElementNS(SVGNS,tag); for(var k in a)e.setAttribute(k,a[k]); return e; }
+    function ptAt(f){ f=Math.max(0,Math.min(1,f)); return path.getPointAtLength(f*pathLen); }
+    function placeCart(f,extraY,rot){ var p=ptAt(f); cart.setAttribute("transform","translate("+p.x.toFixed(1)+","+(p.y+(extraY||0)).toFixed(1)+")"+(rot?" rotate("+rot+")":"")); }
+    function moveCart(to){ var done=false; function settle(){ if(done)return; done=true; curFrac=to; placeCart(to); }
+      if(reduce){ settle(); return; } var from=curFrac,st=null;
+      (function step(ts){ if(done)return; if(!st)st=ts; var pr=Math.min((ts-st)/650,1),e=1-Math.pow(1-pr,3); placeCart(from+(to-from)*e); if(pr<1)requestAnimationFrame(step); else settle(); })(performance.now());
+      setTimeout(settle,750); }
+    function launchCart(cb){ var done=false; function fin(){ if(done)return; done=true; cb(); }
+      if(reduce){ fin(); return; } var st=null, end=ptAt(1);
+      (function step(ts){ if(done)return; if(!st)st=ts; var pr=Math.min((ts-st)/750,1);
+        var x=end.x+pr*90, y=end.y-Math.sin(pr*Math.PI)*95-pr*30; cart.setAttribute("transform","translate("+x.toFixed(1)+","+y.toFixed(1)+") rotate("+(pr*45).toFixed(0)+")");
+        if(pr<1)requestAnimationFrame(step); else fin(); })(performance.now());
+      setTimeout(fin,850); }
+    /* ---- confetti ---- */
+    function confetti(){ if(reduce)return; var c=document.createElement("canvas"); c.className="gt-confetti";
+      document.body.appendChild(c); var g=c.getContext("2d"), W=c.width=innerWidth, H=c.height=innerHeight;
+      var cols=["#1c34a0","#f5b400","#c0392b","#157f74","#8296f0"], P=[];
+      for(var i=0;i<130;i++)P.push({x:Math.random()*W,y:-20-Math.random()*H*0.4,r:4+Math.random()*5,c:cols[i%cols.length],vy:2+Math.random()*3,vx:-1.5+Math.random()*3,rot:Math.random()*6,vr:-0.25+Math.random()*0.5});
+      var t0=performance.now();
+      (function frame(ts){ g.clearRect(0,0,W,H); P.forEach(function(p){ p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr;
+        g.save(); g.translate(p.x,p.y); g.rotate(p.rot); g.fillStyle=p.c; g.fillRect(-p.r,-p.r,p.r*2,p.r*1.4); g.restore(); });
+        if(ts-t0<2300)requestAnimationFrame(frame); else c.remove(); })(t0); }
+    /* ---- timer ---- */
+    function startTimer(){ if(!timerBar)return; timerBar.classList.remove("low");
+      timerBar.style.transition="none"; timerBar.style.width="100%"; void timerBar.offsetWidth;
+      timerBar.style.transition="width "+TIMER+"ms linear"; timerBar.style.width="0%";
+      clearTimeout(timerId); timerId=setTimeout(function(){ timerBar&&timerBar.classList.add("low"); }, TIMER*0.55);
+      timerId=setTimeout(function(){ if(!answered)timeUp(); }, TIMER); }
+    function stopTimer(){ clearTimeout(timerId); if(timerBar){ var w=getComputedStyle(timerBar).width; timerBar.style.transition="none"; timerBar.style.width=w; } }
+    /* ---- HUD ---- */
     function heartsHTML(){ var s=""; for(var i=0;i<MAXLIVES;i++) s+='<span class="life'+(i<lives?"":" lost")+'">'+(i<lives?"❤️":"🖤")+'</span>'; return s; }
-    function tiesHTML(){ var s=""; for(var i=0;i<TOTAL;i++) s+='<span class="tie'+(i<correct?" done":"")+(i===idx?" cur":"")+'"></span>'; return s; }
-    function render(){ answered=false; var it=picked[idx];
-      host.innerHTML="";
-      var co=el("div","coaster");
-      co.innerHTML='<div class="coaster-hud"><div class="lives" title="'+t("Lives","Nyawa")+'">'+heartsHTML()+'</div>'
-        +'<div class="dist">🎢 '+t("Station ","Stesen ")+(idx+1)+"/"+TOTAL+'</div></div>'
-        +'<div class="track"><div class="rail"></div><div class="ties">'+tiesHTML()+'</div>'
-        +'<div class="cart" style="left:'+(correct/TOTAL*100)+'%">🎢</div></div>';
-      host.appendChild(co);
+    function updateHUD(){ livesEl.innerHTML=heartsHTML(); distEl.textContent="🎢 "+t("Station ","Stesen ")+Math.min(idx+1,TOTAL)+"/"+TOTAL;
+      if(streak>=2){ streakEl.textContent="🔥 "+t("Streak ","Rentetan ")+streak; streakEl.classList.add("show","bump"); setTimeout(function(){ streakEl.classList.remove("bump"); },220); }
+      else { streakEl.classList.remove("show"); streakEl.textContent=""; } }
+    /* ---- flow ---- */
+    function start(){
+      picked=shuffle(window.QUIZ.slice()).slice(0,TOTAL).map(function(it){ var opts=shuffle([{t:it.a,c:true}].concat(it.w.map(function(w){return{t:w,c:false};}))); return {q:it.q,opts:opts,why:it.why}; });
+      idx=0; correct=0; lives=MAXLIVES; streak=0; bestStreak=0; curFrac=0;
+      var svg='<svg class="c2-track" viewBox="0 0 600 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true">'
+        +'<defs><linearGradient id="railgrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1c34a0"/><stop offset="1" stop-color="#f5b400"/></linearGradient></defs>'
+        +'<path class="c2-rail" d="'+DPATH+'"/><g class="c2-dots"></g>'
+        +'<g class="cart2"><text text-anchor="middle" dy="-6">🎢</text></g></svg>';
+      host.innerHTML='<div class="coaster2"><div class="c2-hud">'
+        +'<div class="lives" title="'+t("Lives","Nyawa")+'">'+heartsHTML()+'</div>'
+        +'<div class="c2-mid"><span class="streak"></span></div>'
+        +'<div class="c2-right"><span class="dist">🎢 '+t("Station ","Stesen ")+'1/'+TOTAL+'</span>'
+        +'<button class="c2-mute" type="button" aria-label="'+t("Toggle sound","Togol bunyi")+'"></button></div>'
+        +'</div><div class="c2-stage">'+svg+'</div>'
+        +'<div class="c2-timer" aria-hidden="true"><i></i></div></div><div id="quiz-q"></div>';
+      stage=host.querySelector(".c2-stage"); path=host.querySelector(".c2-rail"); pathLen=path.getTotalLength();
+      cart=host.querySelector(".cart2"); livesEl=host.querySelector(".c2-hud .lives");
+      streakEl=host.querySelector(".streak"); distEl=host.querySelector(".dist"); timerBar=host.querySelector(".c2-timer i");
+      var mute=host.querySelector(".c2-mute"); mute.textContent=soundOn?"🔊":"🔇";
+      mute.addEventListener("click",function(){ soundOn=!soundOn; lsSet("gt-sound",soundOn?"on":"off"); mute.textContent=soundOn?"🔊":"🔇"; if(soundOn)sfx("click"); });
+      var dg=host.querySelector(".c2-dots"); dots={};
+      for(var k=1;k<=TOTAL;k++){ var p=ptAt(k/TOTAL); dots[k]=mk("circle",{cx:p.x,cy:p.y,r:5,"class":"c2-dot"}); dg.appendChild(dots[k]); }
+      placeCart(0); qWrap=host.querySelector("#quiz-q"); renderQuestion();
+    }
+    function renderQuestion(){ answered=false; var it=picked[idx]; updateHUD(); qWrap.innerHTML="";
       var card=el("div","cq is-in"); card.appendChild(el("p","q",it.q));
       var opts=el("div","opts");
       it.opts.forEach(function(o){ var lab=el("button","opt"+(o.c?" is-correct":"")); lab.type="button"; lab.innerHTML="<span>"+o.t+"</span>";
-        lab.addEventListener("click",function(){ choose(o,lab,card,co); }); opts.appendChild(lab); });
+        lab.addEventListener("click",function(){ choose(o,lab,card); }); opts.appendChild(lab); });
       card.appendChild(opts);
-      var ex=el("p","ex"); ex.textContent="✓ "+it.why; card.appendChild(ex);
-      host.appendChild(card);
-      var next=el("button","next", t("Next →","Seterusnya →")); next.type="button"; next.style.display="none";
-      next.addEventListener("click",function(){ if(lives<=0){ results(); return; } idx++; if(idx>=TOTAL)results(); else render(); });
-      card._next=next; host.appendChild(next);
-    }
-    function choose(o,lab,card,co){ if(answered)return; answered=true;
-      var all=card.querySelectorAll(".opt"); all.forEach(function(b){ b.disabled=true; if(b.classList.contains("is-correct"))b.classList.add("correct"); });
-      var cart=co.querySelector(".cart"), tie=co.querySelectorAll(".tie")[idx];
-      if(o.c){ correct++; if(cart)cart.style.left=(correct/TOTAL*100)+"%"; if(tie)tie.classList.add("done"); }
-      else { lab.classList.add("wrong"); lives--;
-        co.classList.add("drop"); if(tie){ tie.classList.remove("cur"); tie.classList.add("broken"); }
-        var lifeEls=co.querySelectorAll(".life"); if(lifeEls[lives]){ lifeEls[lives].classList.add("lost"); lifeEls[lives].textContent="🖤"; }
-        setTimeout(function(){ co.classList.remove("drop"); },600);
-      }
-      card.querySelector(".ex").classList.add("show");
-      var last=(idx===TOTAL-1)||(lives<=0);
+      var ex=el("p","ex"); ex.textContent="✓ "+it.why; card.appendChild(ex); qWrap.appendChild(card);
+      var next=el("button","next",t("Next →","Seterusnya →")); next.type="button"; next.style.display="none";
+      next.addEventListener("click",goNext); card._next=next; qWrap.appendChild(next);
+      cardRef=card; startTimer(); }
+    function reveal(card){ var all=card.querySelectorAll(".opt"); all.forEach(function(b){ b.disabled=true; if(b.classList.contains("is-correct"))b.classList.add("correct"); });
+      card.querySelector(".ex").classList.add("show"); }
+    function derail(){ var d=dots[correct+1]; if(d)d.classList.add("broken"); if(stage){ stage.classList.add("shake"); setTimeout(function(){ stage.classList.remove("shake"); },520); } }
+    function finalize(card){ var last=(idx===TOTAL-1)||(lives<=0);
       card._next.textContent = lives<=0 ? t("The track collapsed →","Landasan runtuh →") : (last?t("Finish the ride →","Tamat perjalanan →"):t("Next →","Seterusnya →"));
-      card._next.style.display="inline-block";
-    }
+      card._next.style.display="inline-block"; }
+    function choose(o,lab,card){ if(answered)return; answered=true; stopTimer(); reveal(card);
+      if(o.c){ correct++; streak++; if(streak>bestStreak)bestStreak=streak; sfx("correct"); if(dots[correct])dots[correct].classList.add("done"); moveCart(correct/TOTAL); }
+      else { lab.classList.add("wrong"); lives--; streak=0; sfx("wrong"); derail(); }
+      updateHUD(); finalize(card); }
+    function timeUp(){ if(answered)return; answered=true; stopTimer(); reveal(cardRef);
+      lives--; streak=0; sfx("wrong"); derail(); updateHUD(); finalize(cardRef); }
+    function goNext(){ stopTimer(); if(lives<=0){ results(); return; } idx++; if(idx>=TOTAL) finish(); else renderQuestion(); }
+    function finish(){ if(lives>0){ sfx("win"); launchCart(function(){ confetti(); results(); }); } else results(); }
     function results(){ host.innerHTML="";
       var dist=correct, survived=lives>0;
       var medal = survived&&dist>=9?"🏆": dist>=7?"🥇": dist>=5?"🥈":"🎢";
       var prev=parseInt(lsGet("gt-quiz-best")||"0",10); if(isNaN(prev))prev=0;
-      var isBest=dist>prev, best=Math.max(dist,prev);
-      if(isBest)lsSet("gt-quiz-best",String(best));
+      var isBest=dist>prev, best=Math.max(dist,prev); if(isBest)lsSet("gt-quiz-best",String(best));
       var head = !survived ? t("Out of lives — the track collapsed!","Kehabisan nyawa — landasan runtuh!")
         : dist>=9?t("Heritage Master! A perfect ride!","Sifu Warisan! Perjalanan sempurna!")
         : dist>=7?t("Heritage Expert","Pakar Warisan")
@@ -331,13 +392,12 @@
       var r=el("div","q-result is-in");
       r.innerHTML='<div class="medal">'+medal+'</div><div class="score">'+dist+'/'+TOTAL+'</div><p>'+head+'</p>'
         +'<div class="q-best">'+(isBest?'<span class="q-newbest">🎉 '+t("New personal best!","Rekod peribadi baharu!")+'</span>':'')
-        +'<span class="q-bestline">'+t("Furthest: ","Terjauh: ")+best+'/'+TOTAL+' · '+t("Lives left: ","Nyawa: ")+Math.max(lives,0)+'</span></div>';
+        +'<span class="q-bestline">'+t("Furthest: ","Terjauh: ")+best+'/'+TOTAL+' · '+t("Best streak: ","Rentetan terbaik: ")+'🔥'+bestStreak+' · '+t("Lives left: ","Nyawa: ")+Math.max(lives,0)+'</span></div>';
       var row=el("div","q-actions");
       var again=el("button","again",t("Ride Again (new track)","Naik Semula (landasan baharu)")); again.type="button"; again.addEventListener("click",start);
       var share=el("button","share-btn","🔗 "+t("Share score","Kongsi skor")); share.type="button"; share.addEventListener("click",function(){ shareScore(dist,share); });
-      row.appendChild(again); row.appendChild(share);
-      r.appendChild(row); host.appendChild(r);
-    }
+      row.appendChild(again); row.appendChild(share); r.appendChild(row); host.appendChild(r); }
+    window.addEventListener("pagehide",function(){ clearTimeout(timerId); });
     start();
   }
 
@@ -557,6 +617,13 @@
           +'<span>'+t("Feels","Terasa")+' '+Math.round(c.apparent_temperature)+'°</span>'
           +'<span>💧 '+Math.round(c.relative_humidity_2m)+'%</span>'
           +'<span>🌬️ '+Math.round(c.wind_speed_10m)+' km/h</span></div>';
+      // 3. Rainy-day suggestions — reuse the weather to point at indoor sites
+      var rainy=[51,53,55,56,57,61,63,65,66,67,80,81,82,95,96,99].indexOf(c.weather_code)>-1;
+      if(rainy && window.SITES){
+        var indoor=["penang-state-museum","cheong-fatt-tze-mansion","pinang-peranakan-mansion","sun-yat-sen-museum","khoo-kongsi"];
+        var links=indoor.map(function(id){ var s=byId(id); return s?'<a href="'+pfx()+siteUrl(s)+'">'+s.name+'</a>':''; }).filter(Boolean).slice(0,3).join(" · ");
+        if(links){ var tip=el("div","wx-tip"); tip.innerHTML="☔ "+t("Rainy now — great indoor picks: ","Hujan sekarang — pilihan dalam: ")+links; host.appendChild(tip); }
+      }
     }).catch(function(){ host.remove(); });
   }
 
@@ -604,6 +671,220 @@
     }); });
   }
 
+  /* ---------- Dance page: "Feel the rhythm" beat player (Web Audio, no files) ---------- */
+  function initDanceRhythm(){
+    var cards=[].slice.call(document.querySelectorAll(".dance-card")); if(!cards.length)return;
+    var AC=window.AudioContext||window.webkitAudioContext; if(!AC)return;
+    var ctx=null, current=null;
+    function tick(freq,vol){ if(!ctx)return; var o=ctx.createOscillator(), g=ctx.createGain();
+      o.type="sine"; o.frequency.value=freq; o.connect(g); g.connect(ctx.destination);
+      var t=ctx.currentTime; g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(0.0001,t+0.13);
+      o.start(t); o.stop(t+0.14); }
+    function stop(){ if(!current)return; clearInterval(current.timer);
+      current.btn.classList.remove("playing"); current.btn.querySelector(".rb-ic").innerHTML="&#9654;";
+      current.dots.forEach(function(d){ d.classList.remove("on"); }); current=null; }
+    cards.forEach(function(card){
+      var btn=card.querySelector(".rhythm-btn"); if(!btn)return;
+      var dots=[].slice.call(card.querySelectorAll(".beat-dots i"));
+      var bpm=parseInt(btn.getAttribute("data-bpm"),10)||100;
+      btn.addEventListener("click",function(){
+        if(current&&current.btn===btn){ stop(); return; }
+        stop();
+        try{ if(!ctx)ctx=new AC(); if(ctx.state==="suspended")ctx.resume(); }catch(e){ return; }
+        var beat=0;
+        btn.classList.add("playing"); btn.querySelector(".rb-ic").innerHTML="&#10074;&#10074;";
+        function step(){ var i=beat%dots.length, down=(i===0);
+          dots.forEach(function(d,k){ d.classList.toggle("on", k===i); });
+          tick(down?880:560, down?0.16:0.08); beat++; }
+        step(); var timer=setInterval(step, 60000/bpm);
+        current={btn:btn,timer:timer,dots:dots};
+      });
+    });
+    window.addEventListener("pagehide",stop);
+  }
+
+  /* ============================================================
+     Visitor UX feature pack
+     ============================================================ */
+  function pfx(){ return location.pathname.indexOf("/sites/")>-1 ? "../" : ""; }
+  function currentSiteId(){ var m=location.pathname.match(/\/sites\/([^\/]+?)(?:-bm)?\.html$/); return m?m[1]:null; }
+
+  /* ---- 1. Favourites + "My Visit" walking route ---- */
+  var visitBtn=null, visitPanel=null;
+  function favGet(){ try{ return JSON.parse(lsGet("gt-favs")||"[]"); }catch(e){ return []; } }
+  function favSet(a){ lsSet("gt-favs", JSON.stringify(a)); updateVisitBtn(); }
+  function favHas(id){ return favGet().indexOf(id)>-1; }
+  function favToggle(id){ var a=favGet(), i=a.indexOf(id); if(i>-1)a.splice(i,1); else a.push(id); favSet(a); return i<0; }
+  function updateVisitBtn(){ if(!visitBtn)return; var n=favGet().length; visitBtn.innerHTML="🗺️ "+t("My Visit","Lawatan")+(n?' <span class="vp-count">'+n+"</span>":""); }
+  function syncStars(){ [].slice.call(document.querySelectorAll(".fav-star,.btn-fav")).forEach(function(b){ var id=b.getAttribute("data-id"); if(!id)return; var on=favHas(id); b.classList.toggle("on",on);
+    if(b.classList.contains("fav-star")) b.innerHTML=on?"★":"☆"; else b.innerHTML=(on?"★ ":"☆ ")+t("Save to My Visit","Simpan ke Lawatan"); }); }
+  function initFavourites(){
+    if(!window.SITES)return;
+    visitBtn=el("button","visit-fab"); visitBtn.type="button"; document.body.appendChild(visitBtn);
+    visitPanel=el("div","visit-panel");
+    visitPanel.innerHTML='<div class="vp-head"><b>🗺️ '+t("My Visit","Lawatan Saya")+'</b><button class="vp-x" type="button" aria-label="'+t("Close","Tutup")+'">✕</button></div><div class="vp-list"></div><div class="vp-foot"></div>';
+    document.body.appendChild(visitPanel);
+    visitBtn.addEventListener("click",function(){ renderVisit(); visitPanel.classList.toggle("open"); });
+    visitPanel.querySelector(".vp-x").addEventListener("click",function(){ visitPanel.classList.remove("open"); });
+    updateVisitBtn();
+    [].slice.call(document.querySelectorAll("a.site[href*='sites/']")).forEach(function(a){
+      var m=a.getAttribute("href").match(/sites\/([^\/]+?)(?:-bm)?\.html/); if(!m)return; var id=m[1];
+      var top=a.querySelector(".top")||a; top.style.position="relative";
+      var b=el("button","fav-star"+(favHas(id)?" on":""),favHas(id)?"★":"☆"); b.type="button"; b.setAttribute("data-id",id); b.title=t("Save to My Visit","Simpan ke Lawatan Saya");
+      b.addEventListener("click",function(e){ e.preventDefault(); e.stopPropagation(); var on=favToggle(id); b.classList.toggle("on",on); b.innerHTML=on?"★":"☆"; }); top.appendChild(b);
+    });
+    var acts=document.querySelector(".site-hero .site-actions"), sid=currentSiteId();
+    if(acts&&sid&&byId(sid)){ var fb=el("button","btn-fav"+(favHas(sid)?" on":""),(favHas(sid)?"★ ":"☆ ")+t("Save to My Visit","Simpan ke Lawatan")); fb.type="button"; fb.setAttribute("data-id",sid);
+      fb.addEventListener("click",function(){ var on=favToggle(sid); fb.classList.toggle("on",on); fb.innerHTML=(on?"★ ":"☆ ")+t("Save to My Visit","Simpan ke Lawatan"); }); acts.appendChild(fb); }
+  }
+  function renderVisit(){
+    var favs=favGet(), list=visitPanel.querySelector(".vp-list"), foot=visitPanel.querySelector(".vp-foot");
+    if(!favs.length){ list.innerHTML='<p class="vp-empty">'+t("No sites saved yet. Tap ☆ on any heritage site to add it to your visit.","Belum ada tapak. Ketik ☆ pada mana-mana tapak untuk menambahnya ke lawatan anda.")+"</p>"; foot.innerHTML=""; return; }
+    list.innerHTML=favs.map(function(id){ var s=byId(id); if(!s)return ""; return '<div class="vp-item"><a href="'+pfx()+siteUrl(s)+'">'+s.name+'</a><button class="vp-rm" type="button" data-id="'+id+'" aria-label="'+t("Remove","Buang")+'">✕</button></div>'; }).join("");
+    var pts=favs.map(function(id){ var s=byId(id); return s?s.lat+","+s.lng:null; }).filter(Boolean);
+    var dest=pts[pts.length-1], way=pts.slice(0,-1).join("|");
+    var url="https://www.google.com/maps/dir/?api=1&travelmode=walking&destination="+dest+(way?"&waypoints="+way:"");
+    foot.innerHTML='<a class="vp-route" target="_blank" rel="noopener" href="'+url+'">🧭 '+t("Walking route in Google Maps","Laluan berjalan di Google Maps")+'</a><button class="vp-clear" type="button">'+t("Clear all","Kosongkan")+"</button>";
+    list.querySelectorAll(".vp-rm").forEach(function(b){ b.addEventListener("click",function(){ favToggle(b.getAttribute("data-id")); renderVisit(); syncStars(); }); });
+    foot.querySelector(".vp-clear").addEventListener("click",function(){ favSet([]); renderVisit(); syncStars(); });
+  }
+
+  /* ---- 2. Visitor info + Open-now (site pages) ---- */
+  var VISIT={
+    "cheong-fatt-tze-mansion":{o:9.5,c:17,fe:"RM25 (guided tour)",fm:"RM25 (lawatan berpandu)"},
+    "khoo-kongsi":{o:9,c:17,fe:"RM15",fm:"RM15"},"cheah-kongsi":{o:9,c:17,fe:"RM10",fm:"RM10"},
+    "goddess-of-mercy-temple":{o:6,c:19,fe:"Free",fm:"Percuma"},"han-jiang-ancestral-temple":{o:9,c:17,fe:"Free",fm:"Percuma"},
+    "chew-jetty":{o:8,c:19,fe:"Free",fm:"Percuma"},"pinang-peranakan-mansion":{o:9.5,c:17,fe:"RM25",fm:"RM25"},
+    "sun-yat-sen-museum":{o:9,c:17,fe:"RM5",fm:"RM5"},"sri-mahamariamman-temple":{o:6,c:21,fe:"Free",fm:"Percuma"},
+    "little-india":{o:0,c:24,fe:"Free",fm:"Percuma"},"nagore-dargha-sheriff":{o:9,c:18,fe:"Free",fm:"Percuma"},
+    "kapitan-keling-mosque":{o:9,c:17,fe:"Free (outside prayer times)",fm:"Percuma (luar waktu solat)"},
+    "acheen-street-malay-mosque":{o:9,c:17,fe:"Free",fm:"Percuma"},"fort-cornwallis":{o:9,c:19,fe:"RM20",fm:"RM20"},
+    "st-georges-church":{o:9,c:17,fe:"Free",fm:"Percuma"},"penang-state-museum":{o:9,c:17,fe:"RM1",fm:"RM1"},
+    "street-art-trail":{o:0,c:24,fe:"Free",fm:"Percuma"}
+  };
+  function fmtH(h){ var hh=Math.floor(h), mm=Math.round((h-hh)*60), ap=hh<12?"am":"pm", d=hh%12; if(d===0)d=12; return d+(mm?":"+(mm<10?"0"+mm:mm):"")+" "+ap; }
+  function initVisitInfo(){
+    var sid=currentSiteId(); if(!sid)return; var v=VISIT[sid], s=byId(sid), main=document.querySelector(".site-main"); if(!v||!s||!main)return;
+    var now=new Date(), h=now.getHours()+now.getMinutes()/60, always=(v.o===0&&v.c===24), open=always||(h>=v.o&&h<v.c);
+    var hrs=always?t("Open area — always accessible","Kawasan terbuka — sentiasa boleh dilawati"):fmtH(v.o)+" – "+fmtH(v.c);
+    var badge=open?'<span class="vi-badge open">● '+t("Open now","Buka sekarang")+"</span>":'<span class="vi-badge closed">● '+t("Closed now","Tutup sekarang")+"</span>";
+    var box=el("section","visit-info");
+    box.innerHTML='<h2>'+t("Plan your visit","Rancang lawatan anda")+" "+badge+"</h2><div class=\"vi-grid\">"
+      +"<div><b>"+t("Hours","Waktu")+"</b><span>"+hrs+"</span></div>"
+      +"<div><b>"+t("Entry","Masuk")+"</b><span>"+t(v.fe,v.fm)+"</span></div>"
+      +'<div><b>'+t("Getting there","Cara ke sana")+'</b><span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination='+s.lat+","+s.lng+'&travelmode=walking">'+t("Walking directions","Arah berjalan")+"</a></span></div></div>"
+      +'<p class="vi-note">'+t("Hours and fees are a guide only (based on your device time) — please check official sources before you go.","Waktu dan bayaran sebagai panduan sahaja (mengikut masa peranti anda) — sila semak sumber rasmi sebelum pergi.")+"</p>";
+    var qf=main.querySelector(".quickfacts"); if(qf)qf.parentNode.insertBefore(box,qf.nextSibling); else main.insertBefore(box,main.firstChild);
+  }
+
+  /* ---- 4. Sort sites by nearest ---- */
+  function initNearMe(){
+    var cards=[].slice.call(document.querySelectorAll("a.site[href*='sites/']")); if(cards.length<3||!window.SITES)return;
+    var grid=cards[0].parentNode;
+    var bar=el("div","nearme-bar"), btn=el("button","nearme-btn","📍 "+t("Sort by nearest","Susun ikut terdekat")); btn.type="button"; bar.appendChild(btn);
+    grid.parentNode.insertBefore(bar,grid);
+    btn.addEventListener("click",function(){
+      if(!navigator.geolocation){ alert(t("Location is not available on this device.","Lokasi tidak tersedia.")); return; }
+      btn.disabled=true; btn.textContent="⏳ "+t("Locating…","Mencari…");
+      navigator.geolocation.getCurrentPosition(function(pos){
+        var la=pos.coords.latitude, ln=pos.coords.longitude;
+        cards.map(function(a){ var m=a.getAttribute("href").match(/sites\/([^\/]+?)(?:-bm)?\.html/), s=m?byId(m[1]):null; return {a:a,d:s?haversine(la,ln,s.lat,s.lng):1e12}; })
+          .sort(function(x,y){return x.d-y.d;})
+          .forEach(function(o){ grid.appendChild(o.a);
+            var dtxt=o.d<1000?Math.round(o.d)+" m":(o.d/1000).toFixed(1)+" km", mins=Math.max(1,Math.round(o.d/80));
+            var badge=o.a.querySelector(".dist-badge"); if(!badge){ badge=el("span","dist-badge"); (o.a.querySelector(".top-inner")||o.a).appendChild(badge); }
+            badge.textContent="📍 "+dtxt+" · "+mins+" "+t("min walk","min jalan"); });
+        btn.disabled=false; btn.textContent="✓ "+t("Nearest first","Terdekat dahulu");
+      },function(){ btn.disabled=false; btn.textContent="📍 "+t("Sort by nearest","Susun ikut terdekat"); alert(t("Could not get your location. Please allow location access.","Tidak dapat lokasi anda.")); },{enableHighAccuracy:true,timeout:10000});
+    });
+  }
+
+  /* ---- 5. Accessibility toolbar (text size + contrast) ---- */
+  function getScale(){ var v=parseFloat(lsGet("gt-fontscale")||"1"); return isNaN(v)?1:v; }
+  function applyFont(v){ document.documentElement.style.fontSize=(v*100)+"%"; }
+  function setScale(v){ v=Math.max(0.9,Math.min(1.4,Math.round(v*10)/10)); lsSet("gt-fontscale",String(v)); applyFont(v); }
+  function initA11y(){
+    applyFont(getScale()); if(lsGet("gt-contrast")==="1")root.classList.add("hc");
+    var body=document.querySelector(".set-body"); if(!body)return;
+    var box=el("div","set-a11y");
+    box.innerHTML="<h4>"+t("Accessibility","Kebolehcapaian")+"</h4><div class=\"set-opts a11y-size\"><button type=\"button\" class=\"a11y-dec\">A−</button><span class=\"a11y-val\"></span><button type=\"button\" class=\"a11y-inc\">A+</button></div><div class=\"set-opts\"><label class=\"a11y-hc\"><input type=\"checkbox\" class=\"hc-check\"> "+t("High contrast","Kontras tinggi")+"</label></div>";
+    body.appendChild(box);
+    var val=box.querySelector(".a11y-val"); function show(){ val.textContent=Math.round(getScale()*100)+"%"; } show();
+    box.querySelector(".a11y-dec").addEventListener("click",function(){ setScale(getScale()-0.1); show(); });
+    box.querySelector(".a11y-inc").addEventListener("click",function(){ setScale(getScale()+0.1); show(); });
+    var hc=box.querySelector(".hc-check"); hc.checked=lsGet("gt-contrast")==="1";
+    hc.addEventListener("change",function(){ root.classList.toggle("hc",hc.checked); lsSet("gt-contrast",hc.checked?"1":"0"); });
+  }
+
+  /* ---- 6. Share + QR (site pages) ---- */
+  var qrLoading=false;
+  function loadQR(cb){ if(window.QRCode){ cb(true); return; } if(qrLoading){ setTimeout(function(){cb(!!window.QRCode);},500); return; } qrLoading=true;
+    var s=document.createElement("script"); s.src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"; s.onload=function(){cb(true);}; s.onerror=function(){cb(false);}; document.body.appendChild(s); }
+  function initShareQR(){
+    var acts=document.querySelector(".site-hero .site-actions"); if(!acts)return; var url=location.href.split("#")[0];
+    var sb=el("button","btn-share","🔗 "+t("Share","Kongsi")); sb.type="button";
+    sb.addEventListener("click",function(){ if(navigator.share){ navigator.share({title:document.title,url:url}).catch(function(){}); }
+      else if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(function(){ flashBtn(sb,"✓ "+t("Link copied","Pautan disalin")); },function(){}); } });
+    acts.appendChild(sb);
+    var qb=el("button","btn-qr","🔳 "+t("QR code","Kod QR")); qb.type="button";
+    var pop=el("div","qr-pop"); pop.innerHTML='<div class="qr-inner"><div class="qr-box"></div><small>'+t("Scan to open this page","Imbas untuk buka halaman ini")+"</small></div>"; document.body.appendChild(pop);
+    qb.addEventListener("click",function(){ if(pop.classList.contains("open")){ pop.classList.remove("open"); return; } pop.classList.add("open");
+      var box=pop.querySelector(".qr-box"); if(box.getAttribute("data-done"))return;
+      loadQR(function(ok){ if(ok&&window.QRCode){ box.innerHTML=""; new window.QRCode(box,{text:url,width:190,height:190,colorDark:"#0f1f66",colorLight:"#ffffff"}); box.setAttribute("data-done","1"); }
+        else box.innerHTML='<span class="qr-fail">'+t("QR code needs an internet connection.","Kod QR memerlukan sambungan internet.")+"</span>"; }); });
+    acts.appendChild(qb);
+    pop.addEventListener("click",function(e){ if(e.target===pop)pop.classList.remove("open"); });
+    document.addEventListener("keydown",function(e){ if(e.key==="Escape")pop.classList.remove("open"); });
+  }
+
+  /* ---- 7. On-this-page table of contents (site story pages) ---- */
+  function initTOC(){
+    var main=document.querySelector(".site-main"); if(!main)return;
+    var hs=[].slice.call(main.querySelectorAll("h2")); if(hs.length<3)return;
+    hs.forEach(function(h,i){ if(!h.id)h.id="sec-"+i; });
+    var toc=el("nav","page-toc"); toc.setAttribute("aria-label",t("On this page","Di halaman ini"));
+    toc.innerHTML='<b class="toc-title">'+t("On this page","Di halaman ini")+"</b>"+hs.map(function(h){ return '<a href="#'+h.id+'">'+(h.textContent||"").replace(/[&<>]/g,"")+"</a>"; }).join("");
+    document.body.appendChild(toc);
+    var links=[].slice.call(toc.querySelectorAll("a"));
+    if("IntersectionObserver" in window){ var io=new IntersectionObserver(function(en){ en.forEach(function(x){ if(x.isIntersecting){ links.forEach(function(a){ a.classList.toggle("cur",a.getAttribute("href")==="#"+x.target.id); }); } }); },{rootMargin:"0px 0px -72% 0px"}); hs.forEach(function(h){io.observe(h);}); }
+  }
+
+  /* ---- 8. Voice search ---- */
+  function initVoiceSearch(){
+    var input=document.getElementById("site-search"); if(!input)return;
+    var SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR)return;
+    var mic=el("button","voice-btn","🎤"); mic.type="button"; mic.title=t("Search by voice","Cari dengan suara");
+    input.parentNode.appendChild(mic);
+    var rec=new SR(); rec.lang=LANG==="ms"?"ms-MY":"en-US"; rec.interimResults=false; rec.maxAlternatives=1;
+    mic.addEventListener("click",function(){ try{ mic.classList.add("listening"); rec.start(); }catch(e){} });
+    rec.onresult=function(e){ input.value=e.results[0][0].transcript; input.dispatchEvent(new Event("input",{bubbles:true})); };
+    rec.onend=function(){ mic.classList.remove("listening"); };
+    rec.onerror=function(){ mic.classList.remove("listening"); };
+  }
+
+  /* ---- 9. Recently viewed ---- */
+  function recentGet(){ try{ return JSON.parse(lsGet("gt-recent")||"[]"); }catch(e){ return []; } }
+  function initRecent(){
+    var sid=currentSiteId();
+    if(sid&&byId(sid)){ var a=recentGet().filter(function(x){return x!==sid;}); a.unshift(sid); lsSet("gt-recent",JSON.stringify(a.slice(0,6))); }
+    if(!window.SITES)return;
+    var recent=recentGet().filter(function(id){ return byId(id)&&id!==sid; }); if(recent.length<2)return;
+    var strip=el("section","recent-strip");
+    strip.innerHTML="<h2>"+t("Recently viewed","Baru dilihat")+'</h2><div class="recent-row">'
+      +recent.slice(0,6).map(function(id){ var s=byId(id); return '<a href="'+pfx()+siteUrl(s)+'"><img src="'+pfx()+"assets/img/"+id+'.jpg" alt="" loading="lazy"><span>'+s.name+"</span></a>"; }).join("")+"</div>";
+    var firstCard=document.querySelector("a.site[href*='sites/']");
+    if(firstCard){ var g=firstCard.parentNode; g.parentNode.insertBefore(strip,g); }
+    else { var pn=document.querySelector(".site-main .prevnext"); if(pn)pn.parentNode.insertBefore(strip,pn); }
+  }
+
+  /* ---- 10. Print / Save-as-PDF route ---- */
+  function initPrint(){
+    var rl=document.querySelector(".route-list"); if(!rl)return;
+    var b=el("button","print-btn","🖨️ "+t("Print / Save as PDF","Cetak / Simpan PDF")); b.type="button";
+    b.addEventListener("click",function(){ window.print(); });
+    var head=document.querySelector(".page-head"); if(head)head.appendChild(b); else rl.parentNode.insertBefore(b,rl);
+  }
+
   /* ---------- Food page: random fact reveal ---------- */
   function initFacts(){
     var btn=document.getElementById("fact-btn"), out=document.getElementById("fact");
@@ -621,7 +902,8 @@
     initTheme(); initLangMemory(); initReveal(); initCounters(); initTopBtn();
     initSearch(); initChatInput(); initQuiz(); initForms(); initLightbox(); initMap(); initSW(); initFacts();
     initSitePhoto(); initAudioGuide(); initWeather();
-    initInfoModal(); initFoodFilters();
+    initInfoModal(); initFoodFilters(); initDanceRhythm();
+    initFavourites(); initVisitInfo(); initNearMe(); initA11y(); initShareQR(); initTOC(); initVoiceSearch(); initRecent(); initPrint();
     initProgress(); initHeader(); initRipple(); initTilt();
   });
 })();
