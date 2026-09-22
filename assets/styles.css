@@ -1133,3 +1133,32 @@ header.nav.scrolled .nav-inner{padding-top:9px;padding-bottom:9px}
   .route-list li{break-inside:avoid;border:1px solid #ccc}
   a[href]:after{content:""}
 }
+
+/* Real photos in game cards (object-fit) + graceful fallback */
+.game-visual img.card-visual,.im-visual img.card-visual{object-fit:cover}
+.game-visual.noimg{background:linear-gradient(135deg,#14245e,#0a1330)}
+
+/* ============================================================
+   Lanes & Streets page
+   ============================================================ */
+.lane-section{max-width:1100px;margin:0 auto;padding:44px 22px}
+.lane-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.lane-card{background:var(--card);border:1px solid var(--line);border-left:4px solid #8a1e5a;border-radius:16px;
+  padding:22px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
+.lane-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.lane-ic{font-size:1.7rem;line-height:1}
+.lane-card h3{font-family:"Georgia",serif;color:var(--unesco);font-size:1.3rem;margin:0}
+.lane-sub{font-family:system-ui,sans-serif;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#8a1e5a}
+.lane-card p{color:var(--text);line-height:1.6;font-size:.93rem;flex-grow:1}
+.lane-dir{margin-top:14px;align-self:flex-start;font-family:system-ui,sans-serif;font-weight:700;font-size:.83rem;
+  color:var(--unesco);text-decoration:none;border:1.5px solid var(--line);border-radius:30px;padding:8px 14px}
+.lane-dir:hover{border-color:var(--unesco);background:var(--pale)}
+
+/* Food modal: Wikipedia link + Dance: Watch on YouTube link */
+.im-wiki{display:inline-block;margin-top:14px;font-family:system-ui,sans-serif;font-weight:700;font-size:.86rem;
+  color:var(--unesco);text-decoration:none;border:1.5px solid var(--unesco);border-radius:30px;padding:9px 16px}
+.im-wiki:hover{background:var(--unesco);color:#fff}
+.dance-watch{display:inline-flex;align-items:center;gap:6px;margin-top:12px;align-self:flex-start;
+  font-family:system-ui,sans-serif;font-weight:700;font-size:.82rem;color:#c0392b;text-decoration:none;
+  border:1.5px solid var(--line);border-radius:30px;padding:8px 14px}
+.dance-watch:hover{background:#c0392b;color:#fff;border-color:#c0392b}

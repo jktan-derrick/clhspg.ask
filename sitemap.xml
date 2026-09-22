@@ -10,6 +10,7 @@
   <url><loc>search.html</loc></url>
   <url><loc>directions.html</loc></url>
   <url><loc>route.html</loc></url>
+  <url><loc>lanes.html</loc></url>
   <url><loc>trivia.html</loc></url>
   <url><loc>guide.html</loc></url>
   <url><loc>about.html</loc></url>
@@ -43,6 +44,7 @@
   <url><loc>search-bm.html</loc></url>
   <url><loc>directions-bm.html</loc></url>
   <url><loc>route-bm.html</loc></url>
+  <url><loc>lanes-bm.html</loc></url>
   <url><loc>trivia-bm.html</loc></url>
   <url><loc>guide-bm.html</loc></url>
   <url><loc>about-bm.html</loc></url>

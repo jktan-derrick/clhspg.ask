@@ -167,6 +167,7 @@
     {icon:"💃",base:"dance.html",title:t("Traditional Dances","Tarian Tradisional"),snip:t("Joget, Zapin, Sumazau, Ngajat and more — feel each dance's rhythm.","Joget, Zapin, Sumazau, Ngajat dan lagi — rasai rentak setiap tarian."),kw:"dance dances boria dondang sayang joget zapin inang kuda kepang sumazau ngajat mak yong bharatanatyam bhangra lion dance rhythm tarian tradisional rentak menari peranakan penang"},
     {icon:"🗺️",base:"directions.html",title:t("Maps & Directions","Peta & Arah"),snip:t("An interactive map of all 17 sites, with category filters and Find-me.","Peta interaktif kesemua 17 tapak, dengan penapis kategori dan Cari-saya."),kw:"map directions walking google maps find me location peta arah laluan penapis lokasi"},
     {icon:"🚶",base:"route.html",title:t("Walking Route","Laluan Berjalan"),snip:t("A suggested self-guided walk through the old town.","Cadangan laluan berjalan sendiri menerusi bandar lama."),kw:"route walking trail city walk itinerary self guided laluan berjalan bandar lama"},
+    {icon:"🛣️",base:"lanes.html",title:t("Lanes & Streets","Lorong & Jalan"),snip:t("Love Lane, Armenian Street, Chulia Street and more famous George Town lanes.","Lorong Love, Lebuh Armenian, Lebuh Chulia dan lebih banyak lorong terkenal George Town."),kw:"lanes streets love lane armenian chulia muntri cannon stewart beach acheen lorong jalan lebuh street"},
     {icon:"🧠",base:"trivia.html",title:t("Heritage Trivia","Kuiz Warisan"),snip:t("Test yourself with a 10-question heritage quiz.","Uji diri dengan kuiz warisan 10 soalan."),kw:"trivia quiz questions game test score kuiz soalan permainan uji"},
     {icon:"🧭",base:"guide.html",title:t("Visitor Guide","Panduan Pelawat"),snip:t("Practical tips for planning your visit.","Petua praktikal untuk merancang lawatan anda."),kw:"guide tips visit plan hours advice panduan pelawat petua lawatan"},
     {icon:"📷",base:"gallery.html",title:t("Photo Gallery","Galeri Foto"),snip:t("Photos of George Town — and submit your own scenery.","Foto George Town — dan hantar pemandangan anda sendiri."),kw:"gallery photos images pictures upload submit scenery galeri foto gambar hantar pemandangan"},
@@ -508,6 +509,13 @@
     {en:"Street Art",ms:"Seni Jalanan",c:"#f5b400"}
   ];
   function catInfo(cat){ for(var i=0;i<CATS.length;i++) if(CATS[i].en===cat||CATS[i].ms===cat) return CATS[i]; return {en:cat,ms:cat,c:"#1c34a0"}; }
+  var LANE_C="#8a1e5a";
+  var LANES=[
+    {name:"Love Lane",lat:5.4200,lng:100.3372},{name:"Armenian Street",lat:5.4148,lng:100.3383},
+    {name:"Chulia Street",lat:5.4157,lng:100.3363},{name:"Muntri Street",lat:5.4187,lng:100.3363},
+    {name:"Cannon Street",lat:5.4152,lng:100.3379},{name:"Stewart Lane",lat:5.4165,lng:100.3376},
+    {name:"Beach Street",lat:5.4176,lng:100.3402},{name:"Acheen Street",lat:5.4151,lng:100.3361}
+  ];
   function haversine(la1,ln1,la2,ln2){ var R=6371000,r=Math.PI/180,
     dLa=(la2-la1)*r, dLn=(ln2-ln1)*r,
     a=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(la1*r)*Math.cos(la2*r)*Math.sin(dLn/2)*Math.sin(dLn/2);
@@ -516,13 +524,17 @@
     var host=document.getElementById("leaflet-map"); if(!host||!window.SITES)return;
     function build(){ if(!window.L)return;
       var tools=el("div","map-tools");
-      var active={}; CATS.forEach(function(ci){ active[ci.en]=true; });
+      var active={}; CATS.forEach(function(ci){ active[ci.en]=true; }); active["Lanes"]=true;
       CATS.forEach(function(ci){
         var b=el("button","map-chip"); b.type="button"; b.style.setProperty("--c",ci.c);
         b.innerHTML='<i></i>'+(LANG==="ms"?ci.ms:ci.en);
         b.addEventListener("click",function(){ active[ci.en]=!active[ci.en]; b.classList.toggle("off",!active[ci.en]); refresh(); });
         tools.appendChild(b);
       });
+      var lb=el("button","map-chip"); lb.type="button"; lb.style.setProperty("--c",LANE_C);
+      lb.innerHTML='<i></i>'+t("Lanes","Lorong");
+      lb.addEventListener("click",function(){ active["Lanes"]=!active["Lanes"]; lb.classList.toggle("off",!active["Lanes"]); refresh(); });
+      tools.appendChild(lb);
       var findBtn=el("button","map-find","&#128205; "+t("Find me","Cari saya")); findBtn.type="button"; tools.appendChild(findBtn);
       host.parentNode.insertBefore(tools,host);
 
@@ -538,6 +550,12 @@
         m.bindPopup('<b>'+s.name+'</b><br>'+s.area+'<br><a href="'+siteUrl(s)+'">'+t("Details","Butiran")+'</a>');
         m.__cat=ci.en; return m;
       });
+      markers=markers.concat(LANES.map(function(l){
+        var icon=L.divIcon({className:"gt-pin",html:'<span style="background:'+LANE_C+'"></span>',iconSize:[20,20],iconAnchor:[10,10],popupAnchor:[0,-11]});
+        var m=L.marker([l.lat,l.lng],{icon:icon});
+        m.bindPopup('<b>'+l.name+'</b><br>'+t("Heritage lane","Lorong warisan")+'<br><a href="'+pageUrl("lanes.html")+'">'+t("See lanes","Lihat lorong")+'</a>');
+        m.__cat="Lanes"; return m;
+      }));
       function refresh(){ layer.clearLayers(); markers.forEach(function(m){ if(active[m.__cat]) layer.addLayer(m); }); }
       refresh();
       map.fitBounds(L.latLngBounds(window.SITES.map(function(s){ return [s.lat,s.lng]; })).pad(0.12));
@@ -627,6 +645,39 @@
     }).catch(function(){ host.remove(); });
   }
 
+  /* Longer descriptions shown when a food card is opened (card keeps the short text) */
+  var FOOD_LONG={
+    "Char Kway Teow":["Char Kway Teow is Penang's most iconic hawker dish — flat rice noodles seared over a roaring flame to capture 'wok hei', the prized smoky aroma. It's tossed with prawns, cockles, bean sprouts, chives and egg, and traditionally cooked one plate at a time so each portion gets the cook's full attention.","Char Kway Teow ialah hidangan penjaja paling ikonik di Pulau Pinang — mi beras leper digoreng atas api membara untuk menangkap 'wok hei', aroma berbara yang dihargai. Ia digaul bersama udang, kerang, taugeh, kucai dan telur, dan dimasak sepinggan demi sepinggan."],
+    "Asam Laksa":["A bold, tangy noodle soup built on flaked mackerel and tamarind, brightened with lemongrass, ginger flower, mint, pineapple and cucumber. A spoonful of thick prawn paste (hae ko) is stirred in at the end for a sweet-savoury finish that makes it one of the world's most talked-about soups.","Sup mi yang berani dan masam berasaskan ikan kembung dan asam jawa, disegarkan dengan serai, bunga kantan, pudina, nanas dan timun. Sesudu hae ko dikacau di akhir untuk rasa manis-masin yang menjadikannya antara sup paling terkenal di dunia."],
+    "Nasi Kandar":["Nasi kandar began with Indian-Muslim porters who carried pots of rice and curry on a 'kandar' pole. Today it's a feast of steamed rice topped with a mix of curries poured together ('banjir'), fried chicken, squid, okra and more — every stall guarding its own recipe.","Nasi kandar bermula dengan penjaja India-Muslim yang memikul periuk nasi dan kari pada pengandar. Kini ia jamuan nasi kukus dengan campuran kari yang dicurah bersama ('banjir'), ayam goreng, sotong, bendi dan banyak lagi — setiap gerai menyimpan resipinya sendiri."],
+    "Nyonya Kuih":["Nyonya kuih are the colourful bite-sized sweets of the Peranakan community, made by hand from rice flour, coconut and pandan. Their jewel-like colours often come from nature — blue from butterfly-pea flowers, green from pandan — and each has its own texture, from soft and chewy to layered and steamed.","Kuih Nyonya ialah kuih berwarna-warni bersaiz kecil masyarakat Peranakan, dibuat dengan tangan daripada tepung beras, kelapa dan pandan. Warnanya datang daripada alam — biru daripada bunga telang, hijau daripada pandan — dan setiap satu punya teksturnya sendiri."],
+    "Penang Hokkien Mee":["Known locally as 'prawn noodles', Penang Hokkien Mee is a deep, spicy soup simmered for hours from prawn shells and pork bones. It's served with yellow noodles and rice vermicelli, topped with prawns, pork slices, egg and a dollop of fiery sambal.","Dikenali sebagai 'mi udang', Hokkien Mee Pulau Pinang ialah sup pekat dan pedas yang direneh berjam-jam daripada kepala udang dan tulang. Ia dihidang dengan mi kuning dan bihun, ditambah udang, hirisan daging, telur dan sesudu sambal."],
+    "Cendol":["Cendol is Penang's favourite way to beat the tropical heat: finely shaved ice drenched in creamy coconut milk and dark palm-sugar syrup. Green pandan-flavoured rice-flour 'worms' and sweet red beans hide beneath, making every spoonful cool, sweet and fragrant.","Cendol ialah cara kegemaran Pulau Pinang melawan cuaca panas: ais serut halus dituang santan pekat dan sirap gula melaka. Cendol hijau berperisa pandan dan kacang merah manis tersembunyi di bawah, menjadikan setiap suapan sejuk, manis dan wangi."],
+    "Pasembur":["Pasembur turns a plate of odds and ends into something special: crispy fritters, prawn cakes, boiled potato, cucumber, tofu and sometimes cuttlefish, all cut up and drowned in a thick, sweet-and-spicy nutty sauce.","Pasembur mengubah pinggan pelbagai bahan menjadi sesuatu istimewa: cucur rangup, kek udang, kentang rebus, timun, tauhu dan kadang sotong, dihiris dan disiram sos kacang yang pekat, manis dan pedas."],
+    "Roti Canai":["Roti canai is a flaky, pan-fried flatbread of Indian-Muslim origin, its dough stretched paper-thin, folded and griddled until crisp outside and soft within. Eaten any time of day, it's usually torn by hand and dipped into dhal or curry.","Roti canai ialah roti leper goreng berlapis berasal India-Muslim, doughnya ditarik nipis, dilipat dan digoreng sehingga rangup di luar dan lembut di dalam. Ia biasanya dikoyak dengan tangan dan dicicah dhal atau kari."],
+    "Chee Cheong Fun":["Chee cheong fun are silky steamed rice-noodle rolls. In Penang they're served the local way — smothered in a sweet, dark prawn-paste sauce (hae ko) with chilli, sesame seeds and fried shallots — quite different from the dim-sum version.","Chee cheong fun ialah gulung mi beras kukus yang lembut. Di Pulau Pinang ia dihidang cara tempatan — disiram sos hae ko manis dan gelap dengan cili, bijan dan bawang goreng — berbeza daripada versi dim sum."],
+    "Apam Balik":["Apam balik is a folded griddle pancake sold from roadside carts. It comes two ways — thin and lacy-crisp, or thick and fluffy — both filled with crushed peanuts, sugar and buttery sweetcorn before being folded over.","Apam balik ialah lempeng lipat yang dijual dari gerai tepi jalan. Ia hadir dua cara — nipis dan rangup, atau tebal dan gebu — kedua-duanya diisi kacang tumbuk, gula dan jagung manis sebelum dilipat."],
+    "Loh Bak":["Loh bak is a Penang Hokkien snack of pork seasoned with five-spice powder, wrapped in beancurd skin and deep-fried into crisp rolls. It's served as a platter with prawn fritters, century egg and other bites, plus a starchy dipping sauce and chilli.","Loh bak ialah snek Hokkien Pulau Pinang; daging berperisa lima rempah dibalut kulit tauhu dan digoreng menjadi gulung rangup. Ia dihidang sebagai sepinggan dengan cucur udang, telur pindang dan lain-lain, serta sos cicah dan cili."],
+    "Popiah":["Popiah is a fresh, un-fried spring roll — a soft wheat skin wrapped around slow-cooked shredded turnip, with egg, lettuce, bean sprouts, ground peanuts and a smear of sweet sauce. Making the paper-thin skins is a craft in itself.","Popiah ialah popia basah yang tidak digoreng — kulit gandum lembut membalut sengkuang masak perlahan, dengan telur, salad, taugeh, kacang tumbuk dan sapuan sos manis. Membuat kulit nipis itu satu seni tersendiri."],
+    "Oyster Omelette":["Oyster omelette (or 'oh chien') fries plump oysters into a batter of egg and sweet-potato starch until the edges turn crisp and lacy while the centre stays soft. A squeeze of chilli-garlic sauce cuts through the richness.","Oyster omelette ('oh chien') menggoreng tiram gemuk dalam adunan telur dan tepung keledek sehingga tepinya rangup manakala tengahnya lembut. Sos cili-bawang putih memberi keseimbangan rasa."],
+    "Mee Goreng":["Penang-style mee goreng is an Indian-Muslim stir-fry of yellow noodles tossed with potato, tofu, egg and bean sprouts in a tangy tomato-chilli sauce. It's sweet, spicy and a little smoky — a hawker-stall staple.","Mee goreng gaya Pulau Pinang ialah gorengan India-Muslim; mi kuning digaul dengan kentang, tauhu, telur dan taugeh dalam sos tomato-cili. Rasanya manis, pedas dan sedikit berbara."],
+    "Kuih Talam":["Kuih talam is a traditional two-layer steamed cake: a sweet green pandan base topped with a smooth, faintly salty coconut-cream layer. The contrast of sweet and salty, and the gentle wobble of the set custard, are half the pleasure.","Kuih talam ialah kuih kukus dua lapisan tradisional: dasar pandan hijau manis dengan lapisan santan yang licin dan sedikit masin. Kontras manis-masin dan teksturnya menjadi separuh keseronokan."],
+    "Nasi Lemak":["Often called Malaysia's national dish, nasi lemak is fragrant rice steamed with coconut milk and pandan, served with fiery sambal, crispy anchovies, roasted peanuts, boiled egg and cucumber — a humble breakfast people happily eat any time of day.","Sering digelar hidangan kebangsaan Malaysia, nasi lemak ialah nasi wangi yang dikukus dengan santan dan pandan, dihidang dengan sambal pedas, ikan bilis rangup, kacang, telur rebus dan timun."],
+    "Pandan Cake":["Pandan cake is a light, airy chiffon sponge coloured a soft green and perfumed by pandan leaves, the 'vanilla of Southeast Asia'. Its cloud-like texture and gentle fragrance make it a favourite teatime treat.","Kek pandan ialah kek span chiffon yang ringan dan gebu, berwarna hijau lembut dan wangi daun pandan, 'vanila Asia Tenggara'. Teksturnya seperti awan dan wanginya menjadikannya kegemaran waktu petang."],
+    "Hainan Chicken Rice":["Hainanese chicken rice features chicken gently poached until silky, served with rice cooked in the same fragrant chicken stock with ginger and garlic. It comes with chilli, ginger and dark-soy sauces and a bowl of clear soup — simple, comforting and deeply satisfying.","Nasi ayam Hainan menampilkan ayam yang direbus lembut, dihidang dengan nasi yang dimasak dalam sup ayam wangi bersama halia dan bawang putih. Ia disertai sos cili, halia dan kicap serta semangkuk sup jernih."],
+    "Tau Sar Piah":["Tau sar piah are small, flaky pastries traditionally filled with sweet or savoury mung-bean paste. A speciality of Penang bakeries, they're a classic edible souvenir, sold in neat paper-wrapped stacks.","Tau sar piah ialah pastri kecil berlapis yang diisi inti kacang hijau manis atau masin. Istimewa dari kedai roti Pulau Pinang, ia cenderahati klasik yang boleh dimakan."],
+    "Rojak":["Penang rojak is a bold fruit-and-vegetable salad — pineapple, guava, cucumber and turnip — tossed in a thick, funky dressing of dark prawn paste, tamarind, sugar and chilli, then showered with crushed peanuts. Sweet, sour, salty and spicy all at once.","Rojak Pulau Pinang ialah salad buah dan sayur yang berani — nanas, jambu, timun dan sengkuang — digaul dengan sos belacan pekat, asam jawa, gula dan cili, kemudian ditaburi kacang tumbuk."]
+  };
+  var WPBASE="https://en.wikipedia.org/wiki/";
+  var FOOD_WIKI={
+    "Char Kway Teow":"Char_kway_teow","Asam Laksa":"Asam_laksa","Nasi Kandar":"Nasi_kandar",
+    "Nyonya Kuih":"Kuih","Penang Hokkien Mee":"Hokkien_mee","Cendol":"Cendol","Pasembur":"Pasembur",
+    "Roti Canai":"Roti_canai","Chee Cheong Fun":"Chee_cheong_fun","Apam Balik":"Apam_balik",
+    "Loh Bak":"Ngo_hiang","Popiah":"Popiah","Oyster Omelette":"Oyster_omelette","Mee Goreng":"Mee_goreng",
+    "Kuih Talam":"Kuih","Nasi Lemak":"Nasi_lemak","Pandan Cake":"Pandan_cake",
+    "Hainan Chicken Rice":"Hainanese_chicken_rice","Tau Sar Piah":"Tau_sar_pia","Rojak":"Rojak"
+  };
+
   /* ---------- Info modal (food dishes, locations, games) ---------- */
   function initInfoModal(){
     var triggers=[].slice.call(document.querySelectorAll('[data-modal="info"]')); if(!triggers.length)return;
@@ -634,13 +685,16 @@
     ov.innerHTML='<div class="im-card"><button class="im-x" aria-label="'+t("Close","Tutup")+'">&#10005;</button>'
       +'<div class="im-visual"></div><div class="im-body"><h2 class="im-title"></h2>'
       +'<div class="im-fact"><span class="im-fact-label">'+t("Cultural Note","Nota Budaya")+'</span><p class="im-fact-text"></p></div>'
-      +'<p class="im-text"></p></div></div>';
+      +'<p class="im-text"></p><a class="im-wiki" target="_blank" rel="noopener"></a></div></div>';
     document.body.appendChild(ov);
     var vis=ov.querySelector(".im-visual"), ttl=ov.querySelector(".im-title"), txt=ov.querySelector(".im-text"),
-        factBox=ov.querySelector(".im-fact"), factTxt=ov.querySelector(".im-fact-text");
+        factBox=ov.querySelector(".im-fact"), factTxt=ov.querySelector(".im-fact-text"), wiki=ov.querySelector(".im-wiki");
     function open(tr){
       ttl.textContent=tr.getAttribute("data-title")||"";
-      txt.textContent=tr.getAttribute("data-text")||"";
+      var _fl=FOOD_LONG[tr.getAttribute("data-title")];
+      txt.textContent=(_fl ? _fl[LANG==="ms"?1:0] : tr.getAttribute("data-text")) || "";
+      var _art=FOOD_WIKI[tr.getAttribute("data-title")];
+      if(_art){ wiki.href=WPBASE+_art; wiki.innerHTML="&#128214; "+t("Read the full story on Wikipedia","Baca kisah penuh di Wikipedia")+" &rarr;"; wiki.style.display=""; } else wiki.style.display="none";
       var fact=tr.getAttribute("data-fact");
       if(fact){ factTxt.textContent=fact; factBox.style.display=""; } else factBox.style.display="none";
       vis.innerHTML=""; vis.classList.remove("icon-only");
@@ -661,17 +715,37 @@
   }
 
   /* ---------- Food page: category filters ---------- */
+  var FOOD_MODERN={"Hainan Chicken Rice":1,"Pandan Cake":1,"Mee Goreng":1};
   function initFoodFilters(){
     var btns=[].slice.call(document.querySelectorAll(".food-filter")); if(!btns.length)return;
     var cards=[].slice.call(document.querySelectorAll(".food-card"));
+    // inject a "Traditional" filter (heritage dishes only — excludes the more modern ones)
+    var allBtn=btns.filter(function(b){return b.getAttribute("data-filter")==="all";})[0];
+    if(allBtn){ var trad=el("button","food-filter"); trad.type="button"; trad.setAttribute("data-filter","traditional");
+      trad.textContent=t("Traditional","Tradisional");
+      allBtn.parentNode.insertBefore(trad, allBtn.nextSibling); btns.splice(1,0,trad); }
     btns.forEach(function(b){ b.addEventListener("click",function(){
       btns.forEach(function(x){ x.classList.remove("active"); }); b.classList.add("active");
       var f=b.getAttribute("data-filter");
-      cards.forEach(function(c){ c.style.display=(f==="all"||c.getAttribute("data-cat")===f)?"":"none"; });
+      cards.forEach(function(c){
+        var show = f==="all" ? true : f==="traditional" ? !FOOD_MODERN[c.getAttribute("data-title")] : c.getAttribute("data-cat")===f;
+        c.style.display = show ? "" : "none";
+      });
     }); });
   }
 
   /* ---------- Dance page: "Feel the rhythm" beat player (Web Audio, no files) ---------- */
+  /* ---------- Dance page: "Watch on YouTube" link per dance ---------- */
+  function initDanceWatch(){
+    var cards=[].slice.call(document.querySelectorAll(".dance-card")); if(!cards.length)return;
+    cards.forEach(function(card){
+      var h=card.querySelector("h3"); if(!h||card.querySelector(".dance-watch"))return;
+      var name=(h.textContent||"").trim();
+      var a=el("a","dance-watch"); a.href="https://www.youtube.com/results?search_query="+encodeURIComponent(name+" traditional dance Malaysia");
+      a.target="_blank"; a.rel="noopener"; a.innerHTML="&#9654;&#65039; "+t("Watch on YouTube","Tonton di YouTube");
+      card.appendChild(a);
+    });
+  }
   function initDanceRhythm(){
     var cards=[].slice.call(document.querySelectorAll(".dance-card")); if(!cards.length)return;
     var AC=window.AudioContext||window.webkitAudioContext; if(!AC)return;
@@ -902,7 +976,7 @@
     initTheme(); initLangMemory(); initReveal(); initCounters(); initTopBtn();
     initSearch(); initChatInput(); initQuiz(); initForms(); initLightbox(); initMap(); initSW(); initFacts();
     initSitePhoto(); initAudioGuide(); initWeather();
-    initInfoModal(); initFoodFilters(); initDanceRhythm();
+    initInfoModal(); initFoodFilters(); initDanceRhythm(); initDanceWatch();
     initFavourites(); initVisitInfo(); initNearMe(); initA11y(); initShareQR(); initTOC(); initVoiceSearch(); initRecent(); initPrint();
     initProgress(); initHeader(); initRipple(); initTilt();
   });
