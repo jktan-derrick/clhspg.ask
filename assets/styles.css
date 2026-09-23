@@ -1171,3 +1171,20 @@ header.nav.scrolled .nav-inner{padding-top:9px;padding-bottom:9px}
 .lane-photo.noimg{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#8a1e5a,#4a1236)}
 .lane-photo.noimg span{font-size:2.8rem}
 .lane-body{padding:20px;display:flex;flex-direction:column;flex-grow:1}
+
+/* ============================================================
+   Traditional Costumes page
+   ============================================================ */
+.costume-section{max-width:1200px;margin:0 auto;padding:52px 22px}
+.costume-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.costume-card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s}
+.costume-card:hover{transform:translateY(-8px);box-shadow:0 22px 50px rgba(0,60,110,.2)}
+.costume-photo{height:280px;overflow:hidden;background:var(--pale)}
+.costume-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.costume-card:hover .costume-photo img{transform:scale(1.05)}
+.costume-photo.noimg{background:linear-gradient(135deg,#1c34a0,#0f1f66)}
+.costume-body{padding:22px;display:flex;flex-direction:column}
+.costume-tag{font-family:system-ui,sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+.costume-body h3{font-family:"Georgia",serif;color:var(--unesco);font-size:1.4rem;margin:6px 0 10px}
+.costume-body p{color:var(--text);line-height:1.65;font-size:.94rem}
