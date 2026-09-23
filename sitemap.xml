@@ -2,6 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>index.html</loc></url>
   <url><loc>about-unesco.html</loc></url>
+  <url><loc>heritage-day.html</loc></url>
   <url><loc>history.html</loc></url>
   <url><loc>attractions.html</loc></url>
   <url><loc>food.html</loc></url>
@@ -37,6 +38,7 @@
   <url><loc>sites/street-art-trail.html</loc></url>
   <url><loc>index-bm.html</loc></url>
   <url><loc>about-unesco-bm.html</loc></url>
+  <url><loc>heritage-day-bm.html</loc></url>
   <url><loc>history-bm.html</loc></url>
   <url><loc>attractions-bm.html</loc></url>
   <url><loc>food-bm.html</loc></url>
