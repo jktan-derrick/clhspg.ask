@@ -1188,3 +1188,58 @@ header.nav.scrolled .nav-inner{padding-top:9px;padding-bottom:9px}
 .costume-tag{font-family:system-ui,sans-serif;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
 .costume-body h3{font-family:"Georgia",serif;color:var(--unesco);font-size:1.4rem;margin:6px 0 10px}
 .costume-body p{color:var(--text);line-height:1.65;font-size:.94rem}
+
+/* ============================================================
+   Design polish batch (#6–#17)
+   ============================================================ */
+/* #17 Toast */
+.gt-toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(18px);z-index:9999;
+  background:var(--unesco-dark);color:#fff;font-family:system-ui,sans-serif;font-weight:600;font-size:.9rem;
+  padding:12px 20px;border-radius:30px;box-shadow:0 14px 34px rgba(0,0,0,.32);opacity:0;pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease;max-width:88vw;text-align:center}
+.gt-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* #6 + #13 Reserve image space (skeleton block) so photos don't cause layout shift */
+.food-image,.game-visual,.costume-photo,.lane-photo,.im-visual,.recent-row img{background:var(--pale)}
+
+/* #12 Cap line length on long text for readability */
+.blk p,.lead,.section-description,.vi-note,.food-intro .lead,.dance-note,.whatsinside .lead{max-width:72ch}
+main.narrow{max-width:840px}
+
+/* #7 Unified button feel (shared transition + press feedback; colours unchanged) */
+.btn,.btn-solid,.food-cta,.nearme-btn,.print-btn,.map-find,.fact-button,.rhythm-btn,.game-explore,
+.lane-dir,.vp-route,.share-btn,.again,.q-result .share-btn{
+  transition:transform .18s ease,box-shadow .2s ease,background .2s ease,color .2s ease,filter .2s ease}
+.btn:active,.btn-solid:active,.food-cta:active,.nearme-btn:active,.print-btn:active,.fact-button:active,
+.rhythm-btn:active,.share-btn:active,.again:active{transform:scale(.97)}
+
+/* #8 Consistent card lift on hover for lane + costume cards */
+.lane-card{transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.lane-card:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(0,60,110,.16)}
+
+/* #10 Dark-mode contrast tweaks */
+:root[data-theme="dark"] .vi-note,html:has(#gt-theme-dark:checked) .vi-note{color:#9aa6d6}
+:root[data-theme="dark"] .costume-tag,html:has(#gt-theme-dark:checked) .costume-tag{color:#9aa6d6}
+:root[data-theme="dark"] .lane-sub,html:has(#gt-theme-dark:checked) .lane-sub{color:#d07db0}
+
+/* #14 Tap-to-open nav dropdowns (works on touch/tablet, alongside hover) */
+.nav-group.open .nav-drop{display:flex}
+@media(min-width:881px){.nav-group.open .caret{transform:rotate(225deg);margin-top:2px}}
+
+/* #15 Site-wide print styles */
+@media print{
+  header.nav,.set-fab,.set-panel,.gt-fab,.gt-panel,.to-top,.scroll-progress,.visit-fab,.visit-panel,
+  .weather,.wx-tip,.page-toc,.print-btn,.gt-navchk,.nav-toggle,.nearme-bar,.dist-badge,.fav-star,.btn-fav,
+  .btn-share,.btn-qr,.btn-listen,.btn-photo,.food-filters,.voice-btn,.gt-toast,.backlinks,.qr-pop,footer .note{display:none!important}
+  *{color:#000!important;background:#fff!important;box-shadow:none!important;text-shadow:none!important}
+  a[href^="http"]:after{content:" (" attr(href) ")";font-size:.75em;color:#555!important}
+  .page-head,.hero,.food-hero,.site-hero,.about-hero{padding:14px 0!important;border:none!important}
+  .food-grid,.game-grid,.costume-grid,.lane-grid,.dance-grid{display:block!important}
+  article,.blk,.route-list li{break-inside:avoid;page-break-inside:avoid}
+}
+
+/* #9 Inline SVG icon sizing (nav search, hamburger, back-to-top) */
+.ico{width:1.05em;height:1.05em;vertical-align:-0.16em;display:inline-block;flex:none}
+.nav-search .ico{width:1em;height:1em}
+.nav-toggle .ico{width:22px;height:22px;vertical-align:middle}
+.to-top .ico{width:20px;height:20px;vertical-align:middle}

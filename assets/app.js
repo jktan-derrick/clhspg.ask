@@ -10,6 +10,10 @@
      merely "interactive" — otherwise a later deferred data script isn't loaded yet. */
   function onReady(fn){ if(document.readyState==="complete") fn(); else document.addEventListener("DOMContentLoaded",fn); }
   function el(tag, cls, html){ var e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; }
+  var _toastEl=null,_toastT=null;
+  function toast(msg){ if(!_toastEl){ _toastEl=el("div","gt-toast"); document.body.appendChild(_toastEl); }
+    _toastEl.innerHTML=msg; _toastEl.classList.add("show"); clearTimeout(_toastT);
+    _toastT=setTimeout(function(){ _toastEl.classList.remove("show"); },2000); }
   function norm(s){ return (s||"").toLowerCase().replace(/[^a-z0-9À-ɏ ]/g," ").replace(/\s+/g," ").trim(); }
 
   /* ---------- Theme persistence ---------- */
@@ -113,7 +117,7 @@
 
   /* ---------- Back to top ---------- */
   function initTopBtn(){
-    var b=el("button","to-top","&#8593;"); b.setAttribute("aria-label",t("Back to top","Kembali ke atas")); document.body.appendChild(b);
+    var b=el("button","to-top",'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6 12l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'); b.setAttribute("aria-label",t("Back to top","Kembali ke atas")); document.body.appendChild(b);
     b.addEventListener("click",function(){ window.scrollTo({top:0,behavior:reduce?"auto":"smooth"}); });
     var tick=false; window.addEventListener("scroll",function(){ if(!tick){ requestAnimationFrame(function(){ b.classList.toggle("show",window.scrollY>500); tick=false; }); tick=true; } },{passive:true});
   }
@@ -807,11 +811,11 @@
       var m=a.getAttribute("href").match(/sites\/([^\/]+?)(?:-bm)?\.html/); if(!m)return; var id=m[1];
       var top=a.querySelector(".top")||a; top.style.position="relative";
       var b=el("button","fav-star"+(favHas(id)?" on":""),favHas(id)?"★":"☆"); b.type="button"; b.setAttribute("data-id",id); b.title=t("Save to My Visit","Simpan ke Lawatan Saya");
-      b.addEventListener("click",function(e){ e.preventDefault(); e.stopPropagation(); var on=favToggle(id); b.classList.toggle("on",on); b.innerHTML=on?"★":"☆"; }); top.appendChild(b);
+      b.addEventListener("click",function(e){ e.preventDefault(); e.stopPropagation(); var on=favToggle(id); b.classList.toggle("on",on); b.innerHTML=on?"★":"☆"; toast(on?"⭐ "+t("Saved to My Visit","Disimpan ke Lawatan"):t("Removed from My Visit","Dibuang dari Lawatan")); }); top.appendChild(b);
     });
     var acts=document.querySelector(".site-hero .site-actions"), sid=currentSiteId();
     if(acts&&sid&&byId(sid)){ var fb=el("button","btn-fav"+(favHas(sid)?" on":""),(favHas(sid)?"★ ":"☆ ")+t("Save to My Visit","Simpan ke Lawatan")); fb.type="button"; fb.setAttribute("data-id",sid);
-      fb.addEventListener("click",function(){ var on=favToggle(sid); fb.classList.toggle("on",on); fb.innerHTML=(on?"★ ":"☆ ")+t("Save to My Visit","Simpan ke Lawatan"); }); acts.appendChild(fb); }
+      fb.addEventListener("click",function(){ var on=favToggle(sid); fb.classList.toggle("on",on); fb.innerHTML=(on?"★ ":"☆ ")+t("Save to My Visit","Simpan ke Lawatan"); toast(on?"⭐ "+t("Saved to My Visit","Disimpan ke Lawatan"):t("Removed from My Visit","Dibuang dari Lawatan")); }); acts.appendChild(fb); }
   }
   function renderVisit(){
     var favs=favGet(), list=visitPanel.querySelector(".vp-list"), foot=visitPanel.querySelector(".vp-foot");
@@ -841,7 +845,7 @@
   function fmtH(h){ var hh=Math.floor(h), mm=Math.round((h-hh)*60), ap=hh<12?"am":"pm", d=hh%12; if(d===0)d=12; return d+(mm?":"+(mm<10?"0"+mm:mm):"")+" "+ap; }
   function initVisitInfo(){
     var sid=currentSiteId(); if(!sid)return; var v=VISIT[sid], s=byId(sid), main=document.querySelector(".site-main"); if(!v||!s||!main)return;
-    var now=new Date(), h=now.getHours()+now.getMinutes()/60, always=(v.o===0&&v.c===24), open=always||(h>=v.o&&h<v.c);
+    var now=new Date(), h=(now.getUTCHours()+8+now.getUTCMinutes()/60)%24, always=(v.o===0&&v.c===24), open=always||(h>=v.o&&h<v.c);
     var hrs=always?t("Open area — always accessible","Kawasan terbuka — sentiasa boleh dilawati"):fmtH(v.o)+" – "+fmtH(v.c);
     var badge=open?'<span class="vi-badge open">● '+t("Open now","Buka sekarang")+"</span>":'<span class="vi-badge closed">● '+t("Closed now","Tutup sekarang")+"</span>";
     var box=el("section","visit-info");
@@ -849,7 +853,7 @@
       +"<div><b>"+t("Hours","Waktu")+"</b><span>"+hrs+"</span></div>"
       +"<div><b>"+t("Entry","Masuk")+"</b><span>"+t(v.fe,v.fm)+"</span></div>"
       +'<div><b>'+t("Getting there","Cara ke sana")+'</b><span><a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination='+s.lat+","+s.lng+'&travelmode=walking">'+t("Walking directions","Arah berjalan")+"</a></span></div></div>"
-      +'<p class="vi-note">'+t("Hours and fees are a guide only (based on your device time) — please check official sources before you go.","Waktu dan bayaran sebagai panduan sahaja (mengikut masa peranti anda) — sila semak sumber rasmi sebelum pergi.")+"</p>";
+      +'<p class="vi-note">'+t("Hours and fees are a guide only (open/closed shown in Penang time) — please check official sources before you go.","Waktu dan bayaran sebagai panduan sahaja (buka/tutup mengikut masa Pulau Pinang) — sila semak sumber rasmi sebelum pergi.")+"</p>";
     var qf=main.querySelector(".quickfacts"); if(qf)qf.parentNode.insertBefore(box,qf.nextSibling); else main.insertBefore(box,main.firstChild);
   }
 
@@ -974,12 +978,32 @@
     });
   }
 
+  /* ---------- Image fade-in (loading polish, #13) ---------- */
+  function initImgFade(){
+    if(reduce)return;
+    [].slice.call(document.querySelectorAll(".food-image img,.game-visual img,.costume-photo img,.lane-photo img")).forEach(function(im){
+      if(im.complete && im.naturalWidth>0)return;
+      im.style.opacity="0"; im.style.transition="opacity .45s ease";
+      im.addEventListener("load",function(){ im.style.opacity="1"; });
+      im.addEventListener("error",function(){ im.style.opacity="1"; });
+    });
+  }
+  /* ---------- Tap-to-open nav dropdowns (touch/tablet, #14) ---------- */
+  function initNavTap(){
+    var groups=[].slice.call(document.querySelectorAll(".nav-group"));
+    groups.forEach(function(g){ var btn=g.querySelector(".nav-gl"); if(!btn)return;
+      btn.addEventListener("click",function(e){ e.preventDefault(); var was=g.classList.contains("open");
+        groups.forEach(function(x){ x.classList.remove("open"); }); if(!was)g.classList.add("open"); });
+    });
+    document.addEventListener("click",function(e){ if(!e.target.closest(".nav-group")) groups.forEach(function(x){ x.classList.remove("open"); }); });
+  }
   onReady(function(){
     initTheme(); initLangMemory(); initReveal(); initCounters(); initTopBtn();
     initSearch(); initChatInput(); initQuiz(); initForms(); initLightbox(); initMap(); initSW(); initFacts();
     initSitePhoto(); initAudioGuide(); initWeather();
     initInfoModal(); initFoodFilters(); initDanceRhythm(); initDanceWatch();
     initFavourites(); initVisitInfo(); initNearMe(); initA11y(); initShareQR(); initTOC(); initVoiceSearch(); initRecent(); initPrint();
+    initImgFade(); initNavTap();
     initProgress(); initHeader(); initRipple(); initTilt();
   });
 })();
