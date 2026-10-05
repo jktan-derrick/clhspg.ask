@@ -717,6 +717,42 @@
     }).catch(function(){ host.remove(); });
   }
 
+  /* ---------- Home: live Penang clock + open-now (#10) and featured festival (#9) ---------- */
+  var HOME_EVENTS=[
+    {m:1,ic:"🪔",en:"Thaipusam",ms:"Thaipusam",we:"January – February",wm:"Januari – Februari"},
+    {m:2,ic:"🧧",en:"Chinese New Year",ms:"Tahun Baru Cina",we:"January – February",wm:"Januari – Februari"},
+    {m:7,ic:"🏛️",en:"George Town Heritage Day",ms:"Hari Warisan George Town",we:"7 July",wm:"7 Julai"},
+    {m:7,ic:"🎎",en:"George Town Festival",ms:"Pesta George Town",we:"July",wm:"Julai"},
+    {m:8,ic:"🕯️",en:"Hungry Ghost Festival",ms:"Perayaan Hantu Lapar",we:"August",wm:"Ogos"},
+    {m:10,ic:"🪔",en:"Deepavali",ms:"Deepavali",we:"October – November",wm:"Oktober – November"}
+  ];
+  function initHomeExtras(){
+    var hero=document.querySelector(".hero"); if(!hero)return;
+    var inner=hero.querySelector(".hero-inner");
+    if(inner){
+      var strip=el("div","hero-today"); inner.appendChild(strip);
+      function tick(){
+        var d=new Date(), mins=d.getUTCMinutes(), h=(d.getUTCHours()+8)%24;
+        var hh=(h%12)||12, ap=h<12?"AM":"PM", clock=hh+":"+(mins<10?"0":"")+mins+" "+ap, open=h>=9&&h<18;
+        strip.innerHTML='<span class="ht-dot'+(open?"":" shut")+'"></span><span>George Town</span>'
+          +'<b>'+clock+'</b><span class="ht-sep">·</span>'
+          +'<span>'+(open?t("Most sites open now","Kebanyakan tapak buka"):t("Most sites closed now","Kebanyakan tapak tutup"))+'</span>';
+      }
+      tick(); setInterval(tick,30000);
+    }
+    var cm=new Date().getMonth()+1, next=null, best=99;
+    HOME_EVENTS.forEach(function(e){ var gap=(e.m-cm+12)%12; if(gap<best){ best=gap; next=e; } });
+    if(next){
+      var ev=next, url=pfx()+"events.html";
+      var ban=el("div","home-event");
+      ban.innerHTML='<span class="he-ic">'+ev.ic+'</span><div class="he-body">'
+        +'<div class="he-k">'+(best===0?t("Happening this month","Berlangsung bulan ini"):t("Coming up","Akan datang"))+'</div>'
+        +'<div class="he-t">'+(LANG==="ms"?ev.ms:ev.en)+' <span class="he-when">· '+(LANG==="ms"?ev.wm:ev.we)+'</span></div></div>'
+        +'<a class="he-go" href="'+url+'">'+t("See all events","Lihat semua acara")+' &rarr;</a>';
+      hero.parentNode.insertBefore(ban,hero.nextSibling);
+    }
+  }
+
   /* Longer descriptions shown when a food card is opened (card keeps the short text) */
   var FOOD_LONG={
     "Char Kway Teow":["Char Kway Teow is Penang's most iconic hawker dish — flat rice noodles seared over a roaring flame to capture 'wok hei', the prized smoky aroma. It's tossed with prawns, cockles, bean sprouts, chives and egg, and traditionally cooked one plate at a time so each portion gets the cook's full attention.","Char Kway Teow ialah hidangan penjaja paling ikonik di Pulau Pinang — mi beras leper digoreng atas api membara untuk menangkap 'wok hei', aroma berbara yang dihargai. Ia digaul bersama udang, kerang, taugeh, kucai dan telur, dan dimasak sepinggan demi sepinggan."],
@@ -1134,7 +1170,7 @@
     initSitePhoto(); initAudioGuide(); initWeather();
     initInfoModal(); initFoodFilters(); initDanceRhythm(); initDanceWatch();
     initFavourites(); initVisitInfo(); initNearMe(); initA11y(); initShareQR(); initTOC(); initVoiceSearch(); initRecent(); initPrint();
-    initImgFade(); initNavTap(); initCurrency(); initPhrasebook();
+    initImgFade(); initNavTap(); initCurrency(); initPhrasebook(); initHomeExtras();
     initProgress(); initHeader(); initRipple(); initTilt();
   });
 })();
