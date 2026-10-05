@@ -165,6 +165,13 @@
   function searchPages(){ return [
     {icon:"🌏",base:"about-unesco.html",title:t("UNESCO Objectives","Objektif UNESCO"),snip:t("Why George Town was inscribed as a World Heritage Site in 2008.","Mengapa George Town disenaraikan sebagai Tapak Warisan Dunia pada 2008."),kw:"unesco world heritage objectives 2008 outstanding universal value warisan dunia objektif nilai sejagat"},
     {icon:"🎉",base:"heritage-day.html",title:t("George Town Heritage Day","Hari Warisan George Town"),snip:t("7 July — the day George Town became a UNESCO World Heritage City in 2008.","7 Julai — hari George Town menjadi Bandar Warisan Dunia UNESCO pada 2008."),kw:"heritage day 7 july george town world heritage city day 2008 celebration public holiday esplanade padang kota hari warisan sambutan cuti julai"},
+    {icon:"🧳",base:"essentials.html",title:t("Travel Essentials","Panduan Asas"),snip:t("Money, costs, SIM cards, safety and emergency numbers for visitors.","Wang, kos, kad SIM, keselamatan dan nombor kecemasan untuk pelawat."),kw:"essentials travel tips money currency ringgit rm cost budget sim card internet wifi safety emergency 999 police hospital converter panduan asas wang kos keselamatan kecemasan polis"},
+    {icon:"🚌",base:"getting-around.html",title:t("Getting Around","Pengangkutan"),snip:t("Airport, free CAT shuttle, Rapid Penang buses, Grab, trishaw and ferry.","Lapangan terbang, bas CAT percuma, Rapid Penang, Grab, beca dan feri."),kw:"getting around transport airport cat free shuttle bus rapid penang grab taxi trishaw beca ferry feri pengangkutan bas lapangan terbang"},
+    {icon:"📅",base:"itineraries.html",title:t("Itineraries","Jadual Perjalanan"),snip:t("Ready-made plans: a perfect day, two days, half day, rainy day and foodie day.","Pelan siap: hari sempurna, dua hari, separuh hari, hari hujan dan hari makan."),kw:"itineraries itinerary plan day trip perfect two days half rainy foodie schedule route jadual perjalanan pelan hari lawatan"},
+    {icon:"💬",base:"phrasebook.html",title:t("Phrasebook","Buku Frasa"),snip:t("Handy Malay phrases with tap-to-hear pronunciation.","Frasa Melayu berguna dengan sebutan tekan-untuk-dengar."),kw:"phrasebook phrases malay bahasa melayu speak pronunciation greetings numbers hello thank you buku frasa sebutan ucapan nombor terima kasih"},
+    {icon:"🎊",base:"events.html",title:t("Festivals & Events","Perayaan & Acara"),snip:t("When to see Thaipusam, Chinese New Year, Hari Raya, Deepavali and the George Town Festival.","Bila nak lihat Thaipusam, Tahun Baru Cina, Hari Raya, Deepavali dan Pesta George Town."),kw:"events festivals calendar thaipusam chinese new year cny hari raya deepavali hungry ghost george town festival heritage day perayaan acara kalendar tahun baru cina"},
+    {icon:"📸",base:"photo-spots.html",title:t("Photo Spots","Lokasi Bergambar"),snip:t("The most photogenic corners of George Town and how to find them.","Sudut paling cantik di George Town dan cara mencarinya."),kw:"photo spots instagram photogenic street art mural kids on bicycle chew jetty blue mansion khoo kongsi love lane clan jetties lokasi bergambar foto mural seni jalanan"},
+    {icon:"🎟️",base:"fees.html",title:t("Entry Fees & Hours","Yuran & Waktu"),snip:t("Admission fees and opening hours for all 17 heritage sites.","Yuran masuk dan waktu buka untuk kesemua 17 tapak warisan."),kw:"fees entry admission price ticket opening hours free sites temples museums yuran masuk harga tiket waktu buka percuma tapak"},
     {icon:"📜",base:"history.html",title:t("History","Sejarah"),snip:t("Over 500 years of trade, migration and colonial rule.","Lebih 500 tahun perdagangan, migrasi dan pemerintahan kolonial."),kw:"history timeline francis light british colonial founding trading port sejarah masa lampau kolonial"},
     {icon:"🏛️",base:"attractions.html",title:t("All Heritage Sites","Semua Tapak Warisan"),snip:t("Browse all 17 temples, mosques, churches, clan houses and forts.","Layari kesemua 17 tokong, masjid, gereja, rumah kongsi dan kubu."),kw:"sites attractions list temples mosques churches clan houses forts tapak senarai tokong masjid"},
     {icon:"🍜",base:"food.html",title:t("Flavours of George Town","Rasa George Town"),snip:t("The hawker dishes that define Penang's food culture.","Hidangan penjaja yang mentakrifkan budaya makanan Pulau Pinang."),kw:"food hawker makanan penjaja cuisine dishes eat rasa hidangan char kway teow laksa nasi kandar nyonya cendol rojak"},
@@ -238,6 +245,25 @@
   }
 
   /* ---------- Typed chatbot ---------- */
+  function titleCaseWords(s){ return s.replace(/\b\w/g,function(c){return c.toUpperCase();}); }
+  /* Recognise foods, games, dances, costumes and lanes so the helper knows more than the 17 sites */
+  function chatTopic(q){
+    var nm;
+    if(typeof FOOD_LONG!=="undefined"){ for(nm in FOOD_LONG){ if(q.indexOf(norm(nm))>-1){
+      var d=FOOD_LONG[nm][LANG==="ms"?1:0], w=(typeof FOOD_WIKI!=="undefined")?FOOD_WIKI[nm]:null;
+      return "<b>"+nm+"</b> — "+d+"<br>"+lnk("food.html",t("See the Food page","Lihat Makanan"))
+        +(w?' &middot; <a target="_blank" rel="noopener" href="'+WPBASE+w+'">Wikipedia</a>':""); } } }
+    var topics=[
+      {n:["congkak","wau bulan","gasing","sepak takraw","batu seremban","sepak bulu ayam","teng teng","galah panjang","tarik upih","baling selipar"],p:"games.html",k:t("a traditional Malaysian game","permainan tradisional Malaysia"),l:t("See the Games page","Lihat Permainan")},
+      {n:["boria","dondang sayang","joget","zapin","mak inang","kuda kepang","sumazau","ngajat","datun julud","mak yong","bharatanatyam","bhangra","lion dance","tarian lilin"],p:"dance.html",k:t("a traditional dance","tarian tradisional"),l:t("See the Dances page","Lihat Tarian")},
+      {n:["kebaya","baju kurung","baju melayu","cheongsam","qipao","saree","sari","songket"],p:"costume.html",k:t("a traditional costume","pakaian tradisional"),l:t("See the Costumes page","Lihat Pakaian")},
+      {n:["love lane","armenian street","lebuh armenian","chulia street","lebuh chulia","muntri street","cannon street","stewart lane","beach street","lebuh pantai","acheen street","lebuh acheh"],p:"lanes.html",k:t("a heritage street of George Town","lorong warisan George Town"),l:t("See the Lanes page","Lihat Lorong")}
+    ];
+    for(var i=0;i<topics.length;i++) for(var j=0;j<topics[i].n.length;j++) if(q.indexOf(topics[i].n[j])>-1)
+      return "<b>"+titleCaseWords(topics[i].n[j])+"</b> — "+topics[i].k+". "+lnk(topics[i].p,topics[i].l)+".";
+    if(/heritage day|hari warisan|7 july|7 julai/.test(q)) return t("George Town World Heritage Day is celebrated on 7 July. ","Hari Warisan Dunia George Town disambut pada 7 Julai. ")+lnk("heritage-day.html",t("Learn more","Ketahui lanjut"));
+    return null;
+  }
   function chatReply(raw){
     var q=norm(raw);
     if(!q) return t("Ask me anything about George Town!","Tanya saya apa sahaja tentang George Town!");
@@ -245,12 +271,13 @@
     if(/(thank|terima kasih)/.test(q)) return t("You're welcome! Enjoy George Town.","Sama-sama! Selamat menjelajah George Town.");
     if(/unesco|world heritage|warisan dunia/.test(q)) return t("UNESCO named George Town a World Heritage Site in 2008. ","UNESCO menamakan George Town Tapak Warisan Dunia pada 2008. ")+lnk("about-unesco.html",t("Learn more","Ketahui lanjut"));
     if(/(oldest|tertua)/.test(q)){ var g=byId("goddess-of-mercy-temple"); return t("The oldest Chinese temple is the ","Tokong Cina tertua ialah ")+(g?bubbleLink(g):"")+" (1728)."; }
-    if(/(food|makan|laksa|char)/.test(q)) return t("Try char kway teow, assam laksa and Nyonya food! ","Cuba char kuey teow, asam laksa dan makanan Nyonya! ")+lnk("sites/little-india"+(LANG==="ms"?"-bm":"")+".html","Little India");
+    var topic=chatTopic(q); if(topic) return topic;
+    if(/(food|makan|laksa|char|hungry|lapar)/.test(q)) return t("Penang is famous for its hawker food! Try char kway teow, assam laksa, nasi kandar and Nyonya kuih. ","Pulau Pinang terkenal dengan makanan penjaja! Cuba char kway teow, asam laksa, nasi kandar dan kuih Nyonya. ")+lnk("food.html",t("See all 20 dishes","Lihat 20 hidangan"));
     if(/(direction|arah|how.*get|map|peta|route|laluan)/.test(q)){ var s0=bestSite(q); if(s0) return t("To reach ","Untuk ke ")+"<b>"+s0.name+"</b> ("+s0.area+"), "+'<a target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination='+s0.lat+","+s0.lng+'&travelmode=walking">'+t("open Google Maps","buka Google Maps")+"</a>."; return t("Use the ","Guna halaman ")+lnk("directions.html",t("Directions page","Arah"))+"."; }
     if(/(trivia|quiz|kuiz)/.test(q)) return t("Try the ","Cuba ")+lnk("trivia.html",t("Heritage Trivia quiz","Kuiz Warisan"))+"!";
     var s=bestSite(q);
     if(s) return bubbleLink(s)+" ("+s.cat+", "+t("built ","dibina ")+s.year+"). "+s.short+"<br>"+lnk_s(s,t("Read the full story","Baca kisah penuh"));
-    return t("Sorry, I don't know that one. Try a site name, UNESCO, history, food or directions.","Maaf, saya tidak tahu itu. Cuba nama tapak, UNESCO, sejarah, makanan atau arah.");
+    return t("Sorry, I don't know that one. Try a heritage site, a dish (e.g. roti canai), a game, a dance, or ask about UNESCO, history or directions.","Maaf, saya tidak tahu itu. Cuba nama tapak, hidangan (cth. roti canai), permainan, tarian, atau tanya tentang UNESCO, sejarah atau arah.");
   }
   function lnk(base,label){ return '<a href="'+pageUrl(base)+'">'+label+"</a>"; }
   function lnk_s(s,label){ return '<a href="'+siteUrl(s)+'">'+label+"</a>"; }
@@ -489,13 +516,25 @@
     var text=parts.join(" "); if(!text)return;
     // split into sentence chunks to dodge the long-utterance cutoff in some browsers
     var chunks=text.match(/[^.!?]+[.!?]*/g)||[text];
-    var lang=LANG==="ms"?"ms-MY":"en-GB";
+    // Pick the best available voice. Malay (ms) voices are rare, so fall back to
+    // Indonesian (id) — linguistically very close — rather than an English voice.
+    var voices=[];
+    function loadVoices(){ try{ voices=window.speechSynthesis.getVoices()||[]; }catch(e){ voices=[]; } }
+    loadVoices(); try{ window.speechSynthesis.onvoiceschanged=loadVoices; }catch(e){}
+    function pickVoice(){ if(!voices.length)loadVoices();
+      var prefs = LANG==="ms" ? ["ms","id"] : ["en-gb","en-us","en"];
+      for(var p=0;p<prefs.length;p++){ for(var i=0;i<voices.length;i++){
+        if((voices[i].lang||"").toLowerCase().replace(/_/g,"-").indexOf(prefs[p])===0) return voices[i]; } }
+      return null; }
+    var fallbackLang = LANG==="ms" ? "id-ID" : "en-GB";
     var btn=el("button","btn-listen","&#128266; "+t("Listen","Dengar")); btn.type="button"; acts.appendChild(btn);
     var playing=false, qi=0;
     function idle(){ playing=false; btn.classList.remove("playing"); btn.innerHTML="&#128266; "+t("Listen","Dengar"); }
     function stop(){ window.speechSynthesis.cancel(); idle(); }
     function speakNext(){ if(!playing)return; if(qi>=chunks.length){ idle(); return; }
-      var u=new SpeechSynthesisUtterance(chunks[qi++].trim()); u.lang=lang; u.rate=0.98;
+      var u=new SpeechSynthesisUtterance(chunks[qi++].trim());
+      var v=pickVoice(); if(v){ u.voice=v; u.lang=v.lang; } else { u.lang=fallbackLang; }
+      u.rate=LANG==="ms"?0.92:0.98;
       u.onend=speakNext; u.onerror=idle; window.speechSynthesis.speak(u); }
     btn.addEventListener("click",function(){
       if(playing){ stop(); return; }
@@ -548,6 +587,33 @@
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap"}).addTo(map);
       var layer = L.markerClusterGroup ? L.markerClusterGroup({maxClusterRadius:36,showCoverageOnHover:false}) : L.layerGroup();
       map.addLayer(layer);
+
+      // ---- Tourist POI layers (lazy-loaded from OpenStreetMap on toggle) ----
+      var poiLayer=L.layerGroup().addTo(map), poiLoaded={}, poiMarkers={};
+      var POIS=[{key:"atm",c:"#2b7a0b",ic:"&#127975;",en:"ATMs",ms:"ATM"},
+                {key:"toilets",c:"#1565c0",ic:"&#128703;",en:"Toilets",ms:"Tandas"},
+                {key:"pharmacy",c:"#c0392b",ic:"&#10133;",en:"Pharmacies",ms:"Farmasi"}];
+      function removePOI(k){ (poiMarkers[k]||[]).forEach(function(m){ poiLayer.removeLayer(m); }); }
+      function loadPOI(poi,btn){
+        if(poiLoaded[poi.key]){ (poiMarkers[poi.key]||[]).forEach(function(m){ poiLayer.addLayer(m); }); return; }
+        btn.classList.add("loading");
+        var q='[out:json][timeout:20];node["amenity"="'+poi.key+'"](5.408,100.328,5.426,100.347);out 70;';
+        fetch("https://overpass-api.de/api/interpreter?data="+encodeURIComponent(q)).then(function(r){return r.json();}).then(function(d){
+          btn.classList.remove("loading"); poiLoaded[poi.key]=true; poiMarkers[poi.key]=[];
+          (d.elements||[]).forEach(function(n){ if(!n.lat)return;
+            var nm=(n.tags&&(n.tags.name||n.tags["name:en"]))||"";
+            var icon=L.divIcon({className:"gt-poi",html:'<span style="background:'+poi.c+'">'+poi.ic+'</span>',iconSize:[24,24],iconAnchor:[12,12]});
+            var m=L.marker([n.lat,n.lon],{icon:icon}).bindPopup('<b>'+poi.ic+' '+(nm||(LANG==="ms"?poi.ms:poi.en))+'</b>'); poiLayer.addLayer(m); poiMarkers[poi.key].push(m); });
+        }).catch(function(){ btn.classList.remove("loading"); btn.classList.add("off"); });
+      }
+      POIS.forEach(function(poi){
+        var b=el("button","map-chip poi off"); b.type="button"; b.style.setProperty("--c",poi.c);
+        b.innerHTML='<i></i>'+(LANG==="ms"?poi.ms:poi.en);
+        b.addEventListener("click",function(){ if(b.classList.contains("off")){ b.classList.remove("off"); loadPOI(poi,b); } else { b.classList.add("off"); removePOI(poi.key); } });
+        tools.insertBefore(b,findBtn);
+      });
+      L.marker([5.4203,100.3419],{icon:L.divIcon({className:"gt-poi",html:'<span style="background:#6a1b9a">&#8505;</span>',iconSize:[24,24],iconAnchor:[12,12]})})
+        .bindPopup('<b>&#8505; '+t("Tourist Information","Pusat Pelancongan")+'</b><br>Penang Global Tourism').addTo(poiLayer);
 
       var markers=window.SITES.map(function(s){
         var ci=catInfo(s.cat);
@@ -683,6 +749,29 @@
     "Kuih Talam":"Kuih","Nasi Lemak":"Nasi_lemak","Pandan Cake":"Pandan_cake",
     "Hainan Chicken Rice":"Hainanese_chicken_rice","Tau Sar Piah":"Tau_sar_pia","Rojak":"Rojak"
   };
+  // Where to try it, rough price, and dietary flags (halal / vegetarian-friendly on request)
+  var FOOD_META={
+    "Char Kway Teow":{p:"RM 7–12",halal:0,veg:0,w:["Siam Road / Lorong Selamat hawker stalls","Gerai penjaja Jalan Siam / Lorong Selamat"]},
+    "Asam Laksa":{p:"RM 5–9",halal:0,veg:0,w:["Air Itam market, near the Kek Lok Si foot","Pasar Air Itam, berdekatan kaki Kek Lok Si"]},
+    "Nasi Kandar":{p:"RM 8–18",halal:1,veg:0,w:["Line Clear or Deen on Penang Road","Line Clear atau Deen di Jalan Penang"]},
+    "Nyonya Kuih":{p:"RM 1–3 each",halal:0,veg:1,w:["Pasar Pulau Tikus morning market","Pasar pagi Pulau Tikus"]},
+    "Penang Hokkien Mee":{p:"RM 6–10",halal:0,veg:0,w:["Any kopitiam in the old town","Mana-mana kopitiam di pekan lama"]},
+    "Cendol":{p:"RM 3–6",halal:0,veg:1,w:["Penang Road Famous Teochew Cendol, Lebuh Keng Kwee","Cendol Teochew Terkenal Jalan Penang, Lebuh Keng Kwee"]},
+    "Pasembur":{p:"RM 6–12",halal:1,veg:0,w:["Padang Kota Lama (Esplanade) stalls","Gerai Padang Kota Lama (Esplanade)"]},
+    "Roti Canai":{p:"RM 1.50–5",halal:1,veg:1,w:["Transfer Road / Argus Lane mamak shops at breakfast","Kedai mamak Jalan Transfer / Lorong Argus waktu sarapan"]},
+    "Chee Cheong Fun":{p:"RM 4–7",halal:0,veg:0,w:["Morning hawker centres across the island","Pusat penjaja pagi di seluruh pulau"]},
+    "Apam Balik":{p:"RM 2–5",halal:1,veg:1,w:["Roadside carts, especially in the evening","Gerai tepi jalan, terutama waktu petang"]},
+    "Loh Bak":{p:"RM 6–12",halal:0,veg:0,w:["Kimberley Street (Lebuh Kimberley) night stalls","Gerai malam Lebuh Kimberley"]},
+    "Popiah":{p:"RM 3–6",halal:0,veg:0,w:["Padang Brown and Pulau Tikus food courts","Medan selera Padang Brown dan Pulau Tikus"]},
+    "Oyster Omelette":{p:"RM 8–15",halal:0,veg:0,w:["Lebuh Kimberley and Chulia Street night stalls","Gerai malam Lebuh Kimberley dan Lebuh Chulia"]},
+    "Mee Goreng":{p:"RM 5–9",halal:1,veg:0,w:["Esplanade and Bangkok Lane mamak stalls","Gerai mamak Esplanade dan Lorong Bangkok"]},
+    "Kuih Talam":{p:"RM 1–3 each",halal:0,veg:1,w:["Wet markets and kuih stalls islandwide","Pasar basah dan gerai kuih seluruh pulau"]},
+    "Nasi Lemak":{p:"RM 2–8",halal:1,veg:0,w:["Morning stalls everywhere; mamak shops all day","Gerai pagi di merata tempat; kedai mamak sepanjang hari"]},
+    "Pandan Cake":{p:"RM 3–6 slice",halal:1,veg:1,w:["Bakeries and cafés across George Town","Kedai roti dan kafe di seluruh George Town"]},
+    "Hainan Chicken Rice":{p:"RM 6–12",halal:0,veg:0,w:["Old-town kopitiams around Cintra Street","Kopitiam pekan lama sekitar Lebuh Cintra"]},
+    "Tau Sar Piah":{p:"RM 1–2 each",halal:0,veg:1,w:["Him Heang / Ghee Hiang bakeries (famous souvenir)","Kedai Him Heang / Ghee Hiang (cenderahati terkenal)"]},
+    "Rojak":{p:"RM 5–9",halal:0,veg:0,w:["Gurney Drive and Padang Kota evening stalls","Gerai petang Gurney Drive dan Padang Kota"]}
+  };
 
   /* ---------- Info modal (food dishes, locations, games) ---------- */
   function initInfoModal(){
@@ -691,14 +780,20 @@
     ov.innerHTML='<div class="im-card"><button class="im-x" aria-label="'+t("Close","Tutup")+'">&#10005;</button>'
       +'<div class="im-visual"></div><div class="im-body"><h2 class="im-title"></h2>'
       +'<div class="im-fact"><span class="im-fact-label">'+t("Cultural Note","Nota Budaya")+'</span><p class="im-fact-text"></p></div>'
-      +'<p class="im-text"></p><a class="im-wiki" target="_blank" rel="noopener"></a></div></div>';
+      +'<p class="im-text"></p><div class="im-meta"></div><a class="im-wiki" target="_blank" rel="noopener"></a></div></div>';
     document.body.appendChild(ov);
     var vis=ov.querySelector(".im-visual"), ttl=ov.querySelector(".im-title"), txt=ov.querySelector(".im-text"),
-        factBox=ov.querySelector(".im-fact"), factTxt=ov.querySelector(".im-fact-text"), wiki=ov.querySelector(".im-wiki");
+        factBox=ov.querySelector(".im-fact"), factTxt=ov.querySelector(".im-fact-text"), wiki=ov.querySelector(".im-wiki"), meta=ov.querySelector(".im-meta");
     function open(tr){
       ttl.textContent=tr.getAttribute("data-title")||"";
       var _fl=FOOD_LONG[tr.getAttribute("data-title")];
       txt.textContent=(_fl ? _fl[LANG==="ms"?1:0] : tr.getAttribute("data-text")) || "";
+      var _m=FOOD_META[tr.getAttribute("data-title")];
+      if(_m){ var diet=[]; if(_m.halal)diet.push(t("Halal","Halal")); if(_m.veg)diet.push(t("Veg-friendly","Mesra vegetarian"));
+        meta.innerHTML='<div class="im-m"><span class="im-m-l">'+t("Where to try","Di mana nak cuba")+'</span><span>&#128205; '+_m.w[LANG==="ms"?1:0]+'</span></div>'
+          +'<div class="im-m"><span class="im-m-l">'+t("Typical price","Harga biasa")+'</span><span>&#128176; '+_m.p+'</span></div>'
+          +(diet.length?'<div class="im-m"><span class="im-m-l">'+t("Dietary","Pemakanan")+'</span><span>&#9989; '+diet.join(" · ")+'</span></div>':'');
+        meta.style.display=""; } else meta.style.display="none";
       var _art=FOOD_WIKI[tr.getAttribute("data-title")];
       if(_art){ wiki.href=WPBASE+_art; wiki.innerHTML="&#128214; "+t("Read the full story on Wikipedia","Baca kisah penuh di Wikipedia")+" &rarr;"; wiki.style.display=""; } else wiki.style.display="none";
       var fact=tr.getAttribute("data-fact");
@@ -727,14 +822,22 @@
     var cards=[].slice.call(document.querySelectorAll(".food-card"));
     // inject a "Traditional" filter (heritage dishes only — excludes the more modern ones)
     var allBtn=btns.filter(function(b){return b.getAttribute("data-filter")==="all";})[0];
-    if(allBtn){ var trad=el("button","food-filter"); trad.type="button"; trad.setAttribute("data-filter","traditional");
-      trad.textContent=t("Traditional","Tradisional");
-      allBtn.parentNode.insertBefore(trad, allBtn.nextSibling); btns.splice(1,0,trad); }
+    function addFilter(key,label,after){ var b=el("button","food-filter"); b.type="button"; b.setAttribute("data-filter",key);
+      b.textContent=label; after.parentNode.insertBefore(b, after.nextSibling); return b; }
+    if(allBtn){ var trad=addFilter("traditional",t("Traditional","Tradisional"),allBtn);
+      var veg=addFilter("veg",t("Veg-friendly","Mesra vegetarian"),trad);
+      var hal=addFilter("halal",t("Halal","Halal"),veg);
+      btns.splice(1,0,trad,veg,hal); }
     btns.forEach(function(b){ b.addEventListener("click",function(){
       btns.forEach(function(x){ x.classList.remove("active"); }); b.classList.add("active");
       var f=b.getAttribute("data-filter");
       cards.forEach(function(c){
-        var show = f==="all" ? true : f==="traditional" ? !FOOD_MODERN[c.getAttribute("data-title")] : c.getAttribute("data-cat")===f;
+        var nm=c.getAttribute("data-title"), m=FOOD_META[nm];
+        var show = f==="all" ? true
+          : f==="traditional" ? !FOOD_MODERN[nm]
+          : f==="halal" ? !!(m&&m.halal)
+          : f==="veg" ? !!(m&&m.veg)
+          : c.getAttribute("data-cat")===f;
         c.style.display = show ? "" : "none";
       });
     }); });
@@ -978,6 +1081,34 @@
     });
   }
 
+  /* ---------- Live currency converter (Travel Tips page) ---------- */
+  function initCurrency(){
+    var box=document.getElementById("fx"); if(!box)return;
+    var amt=document.getElementById("fx-amount"), cur=document.getElementById("fx-cur"), out=document.getElementById("fx-out"), note=document.getElementById("fx-note");
+    var rates=null, stamp=null;
+    try{ var c=JSON.parse(lsGet("gt-fx")||"null"); if(c){ rates=c.rates; stamp=c.t; } }catch(e){}
+    function render(){ if(!rates){ out.textContent=t("Enter an amount (live rate unavailable).","Masukkan jumlah (kadar langsung tiada)."); return; }
+      var a=parseFloat(amt.value)||0, k=cur.value, r=rates[k]; if(!r){ out.textContent="—"; return; }
+      out.innerHTML=a+" "+k+" &asymp; <b>RM "+(a/r).toFixed(2)+"</b><br>RM "+a+" &asymp; "+(a*r).toFixed(2)+" "+k; }
+    function setNote(live){ note.textContent=(live?t("Live rate","Kadar langsung"):t("Saved rate","Kadar disimpan"))+(stamp?" · "+new Date(stamp).toLocaleDateString():""); }
+    amt.addEventListener("input",render); cur.addEventListener("change",render);
+    if(rates){ render(); setNote(false); }
+    fetch("https://open.er-api.com/v6/latest/MYR").then(function(r){return r.json();}).then(function(d){
+      if(d&&d.rates){ rates=d.rates; stamp=Date.now(); try{lsSet("gt-fx",JSON.stringify({rates:rates,t:stamp}));}catch(e){} render(); setNote(true); }
+    }).catch(function(){ if(!rates)out.textContent=t("Couldn't load live rates (offline?).","Tidak dapat kadar langsung (luar talian?)."); });
+  }
+
+  /* ---------- Phrasebook: tap-to-hear Malay (Phrasebook page) ---------- */
+  function initPhrasebook(){
+    var btns=[].slice.call(document.querySelectorAll(".say")); if(!btns.length||!("speechSynthesis" in window))return;
+    var voices=[]; function lv(){ try{ voices=window.speechSynthesis.getVoices()||[]; }catch(e){ voices=[]; } } lv();
+    try{ window.speechSynthesis.onvoiceschanged=lv; }catch(e){}
+    function pick(){ if(!voices.length)lv(); var prefs=["ms","id"]; for(var p=0;p<prefs.length;p++)for(var i=0;i<voices.length;i++){ if((voices[i].lang||"").toLowerCase().replace(/_/g,"-").indexOf(prefs[p])===0)return voices[i]; } return null; }
+    btns.forEach(function(b){ b.addEventListener("click",function(){ var txt=b.getAttribute("data-say"); if(!txt)return;
+      try{ window.speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(txt); var v=pick(); if(v){ u.voice=v; u.lang=v.lang; } else u.lang="id-ID"; u.rate=0.88;
+        b.classList.add("speaking"); u.onend=function(){ b.classList.remove("speaking"); }; u.onerror=function(){ b.classList.remove("speaking"); }; window.speechSynthesis.speak(u); }catch(e){} }); });
+  }
+
   /* ---------- Image fade-in (loading polish, #13) ---------- */
   function initImgFade(){
     if(reduce)return;
@@ -1003,7 +1134,7 @@
     initSitePhoto(); initAudioGuide(); initWeather();
     initInfoModal(); initFoodFilters(); initDanceRhythm(); initDanceWatch();
     initFavourites(); initVisitInfo(); initNearMe(); initA11y(); initShareQR(); initTOC(); initVoiceSearch(); initRecent(); initPrint();
-    initImgFade(); initNavTap();
+    initImgFade(); initNavTap(); initCurrency(); initPhrasebook();
     initProgress(); initHeader(); initRipple(); initTilt();
   });
 })();
