@@ -719,12 +719,17 @@
 
   /* ---------- Home: live Penang clock + open-now (#10) and featured festival (#9) ---------- */
   var HOME_EVENTS=[
-    {m:1,ic:"🪔",en:"Thaipusam",ms:"Thaipusam",we:"January – February",wm:"Januari – Februari"},
-    {m:2,ic:"🧧",en:"Chinese New Year",ms:"Tahun Baru Cina",we:"January – February",wm:"Januari – Februari"},
-    {m:7,ic:"🏛️",en:"George Town Heritage Day",ms:"Hari Warisan George Town",we:"7 July",wm:"7 Julai"},
-    {m:7,ic:"🎎",en:"George Town Festival",ms:"Pesta George Town",we:"July",wm:"Julai"},
-    {m:8,ic:"🕯️",en:"Hungry Ghost Festival",ms:"Perayaan Hantu Lapar",we:"August",wm:"Ogos"},
-    {m:10,ic:"🪔",en:"Deepavali",ms:"Deepavali",we:"October – November",wm:"Oktober – November"}
+    {ic:"🪔",en:"Thaipusam",ms:"Thaipusam",s:"2026-02-01",e:"2026-02-01",de:"1 Feb 2026",dm:"1 Feb 2026"},
+    {ic:"🧧",en:"Chinese New Year",ms:"Tahun Baru Cina",s:"2026-02-17",e:"2026-02-18",de:"17–18 Feb 2026",dm:"17–18 Feb 2026"},
+    {ic:"🌙",en:"Hari Raya Aidilfitri",ms:"Hari Raya Aidilfitri",s:"2026-03-21",e:"2026-03-22",de:"21 Mar 2026",dm:"21 Mac 2026"},
+    {ic:"🌸",en:"Wesak Day",ms:"Hari Wesak",s:"2026-05-31",e:"2026-05-31",de:"31 May 2026",dm:"31 Mei 2026"},
+    {ic:"🏛️",en:"George Town Heritage Day",ms:"Hari Warisan George Town",s:"2026-07-07",e:"2026-07-07",de:"7 Jul 2026",dm:"7 Jul 2026"},
+    {ic:"🎎",en:"George Town Festival",ms:"George Town Festival",s:"2026-08-01",e:"2026-08-09",de:"1–9 Aug 2026",dm:"1–9 Ogo 2026"},
+    {ic:"🕯️",en:"Hungry Ghost Festival",ms:"Festival Hantu Lapar",s:"2026-08-27",e:"2026-08-27",de:"27 Aug 2026",dm:"27 Ogo 2026"},
+    {ic:"🥮",en:"Mid-Autumn Festival",ms:"Pertengahan Musim Luruh",s:"2026-09-25",e:"2026-09-25",de:"25 Sep 2026",dm:"25 Sep 2026"},
+    {ic:"🏮",en:"Nine Emperor Gods Festival",ms:"Sembilan Maharaja Dewa",s:"2026-10-10",e:"2026-10-18",de:"10–18 Oct 2026",dm:"10–18 Okt 2026"},
+    {ic:"🪔",en:"Deepavali",ms:"Deepavali",s:"2026-11-08",e:"2026-11-08",de:"8 Nov 2026",dm:"8 Nov 2026"},
+    {ic:"🎄",en:"Christmas",ms:"Krismas",s:"2026-12-25",e:"2026-12-25",de:"25 Dec 2026",dm:"25 Dis 2026"}
   ];
   function initHomeExtras(){
     var hero=document.querySelector(".hero"); if(!hero)return;
