@@ -745,15 +745,21 @@
       }
       tick(); setInterval(tick,30000);
     }
-    var cm=new Date().getMonth()+1, next=null, best=99;
-    HOME_EVENTS.forEach(function(e){ var gap=(e.m-cm+12)%12; if(gap<best){ best=gap; next=e; } });
-    if(next){
-      var ev=next, url=pfx()+"events.html";
+    var DAY=86400000, pen=new Date(Date.now()+8*DAY/24), today=Date.UTC(pen.getUTCFullYear(),pen.getUTCMonth(),pen.getUTCDate());
+    var ev=null, gap=1e9;
+    HOME_EVENTS.forEach(function(e){
+      var s=Date.parse(e.s), en2=Date.parse(e.e||e.s), g;
+      if(today>=s&&today<=en2)g=0; else if(s>today)g=Math.round((s-today)/DAY); else g=Math.round((s+365*DAY-today)/DAY);
+      if(g<gap){ gap=g; ev=e; }
+    });
+    if(ev){
+      var lbl=gap===0?t("Happening now","Berlangsung sekarang"):gap===1?t("Tomorrow","Esok"):gap<=7?t("This week","Minggu ini"):t("Coming up","Akan datang");
+      var cd=gap<=0?"":" · "+(LANG==="ms"?("dalam "+gap+" hari"):("in "+gap+" day"+(gap===1?"":"s")));
       var ban=el("div","home-event");
       ban.innerHTML='<span class="he-ic">'+ev.ic+'</span><div class="he-body">'
-        +'<div class="he-k">'+(best===0?t("Happening this month","Berlangsung bulan ini"):t("Coming up","Akan datang"))+'</div>'
-        +'<div class="he-t">'+(LANG==="ms"?ev.ms:ev.en)+' <span class="he-when">· '+(LANG==="ms"?ev.wm:ev.we)+'</span></div></div>'
-        +'<a class="he-go" href="'+url+'">'+t("See all events","Lihat semua acara")+' &rarr;</a>';
+        +'<div class="he-k">'+lbl+'</div>'
+        +'<div class="he-t">'+(LANG==="ms"?ev.ms:ev.en)+' <span class="he-when">· '+(LANG==="ms"?ev.dm:ev.de)+cd+'</span></div></div>'
+        +'<a class="he-go" href="'+pfx()+'festivals.html">'+t("All 2026 dates","Semua tarikh 2026")+' &rarr;</a>';
       hero.parentNode.insertBefore(ban,hero.nextSibling);
     }
   }
