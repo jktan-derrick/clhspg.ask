@@ -172,6 +172,7 @@
     {icon:"🎊",base:"festivals.html",title:t("Festival Calendar 2026","Kalendar Perayaan 2026"),snip:t("Exact 2026 dates for Thaipusam, Chinese New Year, Hari Raya, Wesak, Heritage Day, George Town Festival, Mid-Autumn, Deepavali and more.","Tarikh tepat 2026 untuk Thaipusam, Tahun Baru Cina, Hari Raya, Wesak, Hari Warisan, George Town Festival, Pertengahan Musim Luruh, Deepavali dan lagi."),kw:"events festivals calendar 2026 dates thaipusam chinese new year cny chap goh meh hari raya aidilfitri wesak deepavali hungry ghost mid autumn mooncake lantern nine emperor gods george town festival heritage day christmas wesak perayaan acara kalendar tarikh tahun baru cina pertengahan musim luruh sembilan maharaja dewa krismas"},
     {icon:"📸",base:"photo-spots.html",title:t("Photo Spots","Lokasi Bergambar"),snip:t("The most photogenic corners of George Town and how to find them.","Sudut paling cantik di George Town dan cara mencarinya."),kw:"photo spots instagram photogenic street art mural kids on bicycle chew jetty blue mansion khoo kongsi love lane clan jetties lokasi bergambar foto mural seni jalanan"},
     {icon:"🎟️",base:"fees.html",title:t("Entry Fees & Hours","Yuran & Waktu"),snip:t("Admission fees and opening hours for all 17 heritage sites.","Yuran masuk dan waktu buka untuk kesemua 17 tapak warisan."),kw:"fees entry admission price ticket opening hours free sites temples museums yuran masuk harga tiket waktu buka percuma tapak"},
+    {icon:"🛣️",base:"named-roads.html",title:t("Streets Named After People","Jalan Sempena Nama Tokoh"),snip:t("Who George Town's roads are named after — Lim Chong Eu, Karpal Singh, Francis Light, Gurney, P. Ramlee and more.","Siapa di sebalik nama jalan George Town — Lim Chong Eu, Karpal Singh, Francis Light, Gurney, P. Ramlee dan lagi."),kw:"streets roads named after people lim chong eu expressway karpal singh drive francis light street gurney drive p ramlee macalister leith anson yeap chor ee ramanathan colonial names jalan lebuh lebuhraya persiaran dinamakan sempena nama tokoh jalan"},
     {icon:"📜",base:"history.html",title:t("History","Sejarah"),snip:t("Over 500 years of trade, migration and colonial rule.","Lebih 500 tahun perdagangan, migrasi dan pemerintahan kolonial."),kw:"history timeline francis light british colonial founding trading port sejarah masa lampau kolonial"},
     {icon:"🏛️",base:"attractions.html",title:t("All Heritage Sites","Semua Tapak Warisan"),snip:t("Browse all 17 temples, mosques, churches, clan houses and forts.","Layari kesemua 17 tokong, masjid, gereja, rumah kongsi dan kubu."),kw:"sites attractions list temples mosques churches clan houses forts tapak senarai tokong masjid"},
     {icon:"🍜",base:"food.html",title:t("Flavours of George Town","Rasa George Town"),snip:t("The hawker dishes that define Penang's food culture.","Hidangan penjaja yang mentakrifkan budaya makanan Pulau Pinang."),kw:"food hawker makanan penjaja cuisine dishes eat rasa hidangan char kway teow laksa nasi kandar nyonya cendol rojak"},
@@ -731,6 +732,13 @@
     {ic:"🪔",en:"Deepavali",ms:"Deepavali",s:"2026-11-08",e:"2026-11-08",de:"8 Nov 2026",dm:"8 Nov 2026"},
     {ic:"🎄",en:"Christmas",ms:"Krismas",s:"2026-12-25",e:"2026-12-25",de:"25 Dec 2026",dm:"25 Dis 2026"}
   ];
+  /* ---------- Named-roads page: whole card opens Wikipedia ---------- */
+  function initRoadCards(){
+    [].slice.call(document.querySelectorAll(".road-clickable[data-wiki]")).forEach(function(c){
+      c.addEventListener("click",function(e){ if(e.target.closest("a"))return;
+        var u=c.getAttribute("data-wiki"); if(u)window.open(u,"_blank","noopener"); });
+    });
+  }
   function initHomeExtras(){
     var hero=document.querySelector(".hero"); if(!hero)return;
     var inner=hero.querySelector(".hero-inner");
@@ -1159,7 +1167,7 @@
   /* ---------- Image fade-in (loading polish, #13) ---------- */
   function initImgFade(){
     if(reduce)return;
-    [].slice.call(document.querySelectorAll(".food-image img,.game-visual img,.costume-photo img,.lane-photo img")).forEach(function(im){
+    [].slice.call(document.querySelectorAll(".food-image img,.game-visual img,.costume-photo img,.lane-photo img,.rf-photo,.rc-photo")).forEach(function(im){
       if(im.complete && im.naturalWidth>0)return;
       im.style.opacity="0"; im.style.transition="opacity .45s ease";
       im.addEventListener("load",function(){ im.style.opacity="1"; });
@@ -1181,7 +1189,7 @@
     initSitePhoto(); initAudioGuide(); initWeather();
     initInfoModal(); initFoodFilters(); initDanceRhythm(); initDanceWatch();
     initFavourites(); initVisitInfo(); initNearMe(); initA11y(); initShareQR(); initTOC(); initVoiceSearch(); initRecent(); initPrint();
-    initImgFade(); initNavTap(); initCurrency(); initPhrasebook(); initHomeExtras();
+    initImgFade(); initNavTap(); initCurrency(); initPhrasebook(); initHomeExtras(); initRoadCards();
     initProgress(); initHeader(); initRipple(); initTilt();
   });
 })();
