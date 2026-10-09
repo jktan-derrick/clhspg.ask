@@ -166,11 +166,15 @@ p{color:var(--body)}
   padding:6px 0 6px 20px;margin:26px 0}
 .quote small{display:block;font-style:normal;font-size:.82rem;font-family:system-ui,sans-serif;
   color:var(--text);margin-top:8px;letter-spacing:.5px}
-.timeline{border-left:3px solid var(--unesco);margin:30px 0 10px;padding-left:26px}
-.tl{position:relative;margin-bottom:30px}
-.tl:before{content:"";position:absolute;left:-35px;top:4px;width:14px;height:14px;border-radius:50%;
-  background:var(--sun);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--unesco)}
-.tl .yr{font-family:system-ui,sans-serif;font-weight:700;color:var(--unesco);font-size:.95rem;letter-spacing:.5px}
+.timeline{border-left:3px solid var(--unesco);margin:30px 0 10px;padding-left:30px}
+.tl{position:relative;margin-bottom:24px;background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:16px 20px;box-shadow:var(--shadow);transition:transform .18s ease,box-shadow .18s ease}
+.tl:hover{transform:translateX(4px);box-shadow:0 14px 30px rgba(0,70,130,.14)}
+.tl:before{content:"";position:absolute;left:-39px;top:20px;width:16px;height:16px;border-radius:50%;
+  background:var(--sun);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--unesco);transition:box-shadow .18s ease}
+.tl:hover:before{box-shadow:0 0 0 4px var(--unesco),0 0 0 8px rgba(245,180,0,.3)}
+.tl .yr{display:inline-block;font-family:system-ui,sans-serif;font-weight:800;color:#fff;background:var(--unesco);
+  font-size:.76rem;letter-spacing:.5px;padding:3px 12px;border-radius:30px;margin-bottom:8px}
 .tl h3{font-size:1.15rem;margin:2px 0 6px;color:var(--ink)}
 .tl p{font-size:.98rem;margin-bottom:0}
 .callout{background:var(--pale);border:1px solid var(--line);border-radius:16px;padding:26px 28px;
@@ -1430,3 +1434,65 @@ main.narrow{max-width:840px}
 .road-clickable:hover{border-color:var(--unesco);box-shadow:0 12px 30px rgba(0,70,130,.14)}
 .road-feature.road-clickable:hover{transform:translateY(-2px)}
 .road-card.road-clickable:hover{transform:translateY(-3px)}
+
+/* ===== Trip planner (My Visit) upgrade ===== */
+.vp-stat{font-family:system-ui,sans-serif;font-size:.86rem;font-weight:700;color:var(--unesco);
+  background:var(--pale);border-radius:10px;padding:8px 12px;margin-bottom:10px;text-align:center}
+.vp-foot-row{display:flex;gap:8px;margin-top:8px}
+.vp-share,.vp-clear{flex:1;font-family:system-ui,sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;
+  border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:9px 10px}
+.vp-share:hover{border-color:var(--unesco);color:var(--unesco)}
+.vp-clear:hover{border-color:var(--red,#c0392b);color:var(--red,#c0392b)}
+
+/* ===== Weather: best-time tip + 3-day forecast ===== */
+.wx-besttime{flex-basis:100%;width:100%;font-family:system-ui,sans-serif;font-size:.9rem;color:var(--body);
+  background:var(--pale);border-radius:12px;padding:11px 14px;margin-top:12px;line-height:1.5}
+.wx-besttime b{color:var(--unesco)}
+.wx-forecast{flex-basis:100%;width:100%;display:flex;gap:8px;margin-top:12px}
+.wf-day{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:system-ui,sans-serif;
+  background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 6px}
+.wf-d{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.wf-ic{font-size:1.5rem;line-height:1}
+.wf-t{font-size:.92rem;font-weight:700;color:var(--ink)}
+.wf-t small{color:var(--muted);font-weight:400}
+.wf-r{font-size:.74rem;color:var(--sky)}
+
+/* ===== Accessibility: honour reduced-motion everywhere ===== */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .hero:before{animation:none!important}
+}
+
+/* ===== Street-name finder ===== */
+.finder-sec{margin:28px 0}
+.finder-sec h2{margin-bottom:4px}
+#road-finder-input{width:100%;font-family:system-ui,sans-serif;font-size:1rem;padding:13px 16px;margin-top:10px;
+  border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+#road-finder-input:focus{outline:none;border-color:var(--unesco);box-shadow:0 0 0 3px rgba(28,52,160,.14)}
+#road-finder-list{margin-top:14px;display:grid;gap:8px;max-height:420px;overflow:auto}
+.rfind-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.rfind-rd{font-family:system-ui,sans-serif;font-weight:800;color:var(--unesco);font-size:.95rem}
+.rfind-pp{font-family:system-ui,sans-serif;font-size:.9rem;color:var(--body);line-height:1.5;margin-top:3px}
+.rfind-pp b{color:var(--ink)}
+.rfind-none{font-family:system-ui,sans-serif;color:var(--muted);padding:8px 2px}
+
+/* ===== Audio walking tour (route page) ===== */
+.tour{margin:10px 0 30px}
+.tour h2{margin-bottom:4px}
+.tour-lead{font-family:system-ui,sans-serif;color:var(--muted);font-size:.92rem;margin-bottom:12px}
+.tour-map{height:340px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);z-index:0}
+.tour-bar{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.tour-play{font-family:system-ui,sans-serif;font-weight:800;font-size:.92rem;cursor:pointer;border:none;
+  background:var(--sun);color:#0f1f66;border-radius:30px;padding:11px 20px}
+.tour-play:hover{filter:brightness(1.05)}
+.tour-prev,.tour-next{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);
+  color:var(--unesco);font-size:1rem;cursor:pointer}
+.tour-prev:hover,.tour-next:hover{border-color:var(--unesco)}
+.tour-prog{font-family:system-ui,sans-serif;font-weight:700;color:var(--muted);font-size:.86rem}
+.tour-now{margin-top:12px;background:var(--pale);border-radius:12px;padding:12px 16px;font-family:system-ui,sans-serif}
+.tour-now b{display:block;color:var(--unesco);font-size:1.05rem}
+.tour-now span{color:var(--body);font-size:.88rem}
+.tour-pin span{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;
+  background:var(--unesco);color:#fff;font-weight:800;font-size:.82rem;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.tour-pin.on span{background:var(--sun);color:#0f1f66;transform:scale(1.25);transition:transform .2s}

@@ -262,6 +262,38 @@
     ];
     for(var i=0;i<topics.length;i++) for(var j=0;j<topics[i].n.length;j++) if(q.indexOf(topics[i].n[j])>-1)
       return "<b>"+titleCaseWords(topics[i].n[j])+"</b> — "+topics[i].k+". "+lnk(topics[i].p,topics[i].l)+".";
+    // Roads named after people
+    var ROADS=[
+      {k:["lim chong eu","chong eu expressway","tun dr lim"],en:"Tun Dr Lim Chong Eu was Penang's 2nd Chief Minister (1969–1990). The coastal expressway (once the Jelutong Expressway) was renamed after him when he died in 2010.",ms:"Tun Dr Lim Chong Eu ialah Ketua Menteri Pulau Pinang kedua (1969–1990). Lebuh raya pantai (dahulu Lebuhraya Jelutong) dinamakan sempena beliau selepas kematiannya pada 2010."},
+      {k:["karpal singh"],en:"Karpal Singh, the \"Tiger of Jelutong\", was a famous lawyer and DAP leader. The Bandar Sri Pinang seafront was renamed Karpal Singh Drive after he died in 2014.",ms:"Karpal Singh, \"Harimau Jelutong\", peguam dan pemimpin DAP terkenal. Promenad Bandar Sri Pinang dinamakan Persiaran Karpal Singh selepas kematiannya pada 2014."},
+      {k:["francis light","light street","lebuh light"],en:"Captain Francis Light founded British Penang in 1786 and named Light Street after himself.",ms:"Kapten Francis Light mengasaskan Pulau Pinang British pada 1786 dan menamakan Lebuh Light sempena dirinya."},
+      {k:["gurney"],en:"Gurney Drive is named after Sir Henry Gurney, the British High Commissioner assassinated in 1951.",ms:"Persiaran Gurney dinamakan sempena Sir Henry Gurney, Pesuruhjaya Tinggi British yang dibunuh pada 1951."},
+      {k:["p ramlee","p. ramlee","ramlee"],en:"Jalan P. Ramlee honours Tan Sri P. Ramlee (1929–1973), Malaysia's greatest entertainer, who was born on this Penang street.",ms:"Jalan P. Ramlee memperingati Tan Sri P. Ramlee (1929–1973), penghibur teragung Malaysia, yang dilahirkan di jalan Pulau Pinang ini."},
+      {k:["macalister"],en:"Macalister Road is named after Colonel Norman Macalister, a Governor of Penang (1807–1810).",ms:"Jalan Macalister dinamakan sempena Kolonel Norman Macalister, Gabenor Pulau Pinang (1807–1810)."},
+      {k:["yeap chor ee"],en:"Yeap Chor Ee Road honours Yeap Chor Ee (1867–1952), the \"Grand Old Man of Penang\", an immigrant barber who became a banker and philanthropist.",ms:"Jalan Yeap Chor Ee memperingati Yeap Chor Ee (1867–1952), \"Orang Tua Agung Pulau Pinang\", pendatang tukang gunting yang menjadi jurubank dan dermawan."},
+      {k:["leith","lebuh leith"],en:"Leith Street is named after Sir George Leith, Lieutenant-Governor of Penang (1800–1803); the Cheong Fatt Tze Mansion stands on it.",ms:"Lebuh Leith dinamakan sempena Sir George Leith, Leftenan Gabenor Pulau Pinang (1800–1803); Rumah Agam Cheong Fatt Tze terletak di sini."},
+      {k:["anson"],en:"Anson Road is named after Sir Archibald Anson, Lieutenant-Governor of Penang (1867–1882).",ms:"Jalan Anson dinamakan sempena Sir Archibald Anson, Leftenan Gabenor Pulau Pinang (1867–1882)."},
+      {k:["ramanathan","scott road"],en:"Jalan D. S. Ramanathan (once Scott Road) honours D. S. Ramanathan, George Town's first elected Mayor (1957).",ms:"Jalan D. S. Ramanathan (dahulu Scott Road) memperingati D. S. Ramanathan, Datuk Bandar pertama George Town yang dipilih (1957)."}
+    ];
+    for(i=0;i<ROADS.length;i++) for(var r=0;r<ROADS[i].k.length;r++) if(q.indexOf(ROADS[i].k[r])>-1)
+      return (LANG==="ms"?ROADS[i].ms:ROADS[i].en)+"<br>"+lnk("named-roads.html",t("More roads named after people","Lagi jalan sempena nama tokoh"));
+    if(/named after|street name|road name|dinamakan sempena|nama jalan/.test(q))
+      return t("Many George Town roads are named after people — founders, chief ministers, lawyers and more. ","Banyak jalan George Town dinamakan sempena tokoh — pengasas, ketua menteri, peguam dan lagi. ")+lnk("named-roads.html",t("See Street Names","Lihat Nama Jalan"));
+    // Festival dates (2026)
+    if(typeof HOME_EVENTS!=="undefined"){
+      var fk=[["thaipusam","Thaipusam"],["chinese new year","Chinese New Year"],["cny","Chinese New Year"],["tahun baru cina","Chinese New Year"],
+        ["hari raya","Hari Raya Aidilfitri"],["aidilfitri","Hari Raya Aidilfitri"],["eid","Hari Raya Aidilfitri"],
+        ["wesak","Wesak Day"],["vesak","Wesak Day"],["george town festival","George Town Festival"],
+        ["hungry ghost","Hungry Ghost Festival"],["hantu lapar","Hungry Ghost Festival"],
+        ["mid-autumn","Mid-Autumn Festival"],["mid autumn","Mid-Autumn Festival"],["mooncake","Mid-Autumn Festival"],["lantern","Mid-Autumn Festival"],["musim luruh","Mid-Autumn Festival"],
+        ["nine emperor","Nine Emperor Gods Festival"],["maharaja dewa","Nine Emperor Gods Festival"],
+        ["deepavali","Deepavali"],["diwali","Deepavali"],["christmas","Christmas"],["krismas","Christmas"]];
+      for(i=0;i<fk.length;i++) if(q.indexOf(fk[i][0])>-1){
+        for(var e2=0;e2<HOME_EVENTS.length;e2++) if(HOME_EVENTS[e2].en===fk[i][1]){ var ev=HOME_EVENTS[e2];
+          return t("In 2026, ","Pada 2026, ")+"<b>"+(LANG==="ms"?ev.ms:ev.en)+"</b> "+t("falls on ","jatuh pada ")+(LANG==="ms"?ev.dm:ev.de)+". "+lnk("festivals.html",t("See all festival dates","Lihat semua tarikh perayaan")); }
+      }
+    }
+    if(/festival|perayaan|celebration|sambutan/.test(q)) return t("George Town celebrates year-round. ","George Town meraikan sepanjang tahun. ")+lnk("festivals.html",t("See the 2026 festival calendar","Lihat kalendar perayaan 2026"));
     if(/heritage day|hari warisan|7 july|7 julai/.test(q)) return t("George Town World Heritage Day is celebrated on 7 July. ","Hari Warisan Dunia George Town disambut pada 7 Julai. ")+lnk("heritage-day.html",t("Learn more","Ketahui lanjut"));
     return null;
   }
@@ -666,6 +698,70 @@
     var js=document.createElement("script"); js.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"; js.onload=boot; document.body.appendChild(js);
   }
 
+  /* ---------- Self-guided audio walking tour (route page) ---------- */
+  function ensureLeaflet(cb){ if(window.L){ cb(); return; }
+    var css=el("link"); css.rel="stylesheet"; css.href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"; document.head.appendChild(css);
+    var js=document.createElement("script"); js.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"; js.onload=cb; js.onerror=function(){}; document.body.appendChild(js); }
+  function initWalkingTour(){
+    var ol=document.querySelector(".route-list"); if(!ol)return;
+    var stops=[].slice.call(ol.querySelectorAll("li")).map(function(li){
+      var name=((li.querySelector("b")||{}).textContent||"").trim();
+      var a=li.querySelector("a[href*='destination=']"), m=a?/destination=([-\d.]+),([-\d.]+)/.exec(a.getAttribute("href")):null;
+      if(!m)return null;
+      var s=null; if(window.SITES){ for(var i=0;i<window.SITES.length;i++) if(norm(window.SITES[i].name)===norm(name)){ s=window.SITES[i]; break; } }
+      return {name:name, lat:+m[1], lng:+m[2], short:s?s.short:""};
+    }).filter(Boolean);
+    if(stops.length<2)return;
+    // Build UI
+    var sec=el("section","tour");
+    sec.innerHTML='<h2>🎧 '+t("Audio walking tour","Lawatan berjalan beraudio")+'</h2>'
+      +'<p class="tour-lead">'+t("Press play and let the guide walk you through each stop, or step through them yourself.","Tekan main dan biar pemandu membawa anda ke setiap hentian, atau layari sendiri.")+'</p>'
+      +'<div class="tour-map" id="tour-map"></div>'
+      +'<div class="tour-bar"><button class="tour-play" type="button">▶ '+t("Start audio tour","Mula lawatan audio")+'</button>'
+      +'<button class="tour-prev" type="button" aria-label="'+t("Previous stop","Hentian sebelum")+'">◀</button>'
+      +'<span class="tour-prog"></span>'
+      +'<button class="tour-next" type="button" aria-label="'+t("Next stop","Hentian seterusnya")+'">▶</button></div>'
+      +'<div class="tour-now"><b></b><span></span></div>';
+    ol.parentNode.insertBefore(sec,ol);
+    var playBtn=sec.querySelector(".tour-play"), prevBtn=sec.querySelector(".tour-prev"), nextBtn=sec.querySelector(".tour-next"),
+        prog=sec.querySelector(".tour-prog"), nowB=sec.querySelector(".tour-now b"), nowS=sec.querySelector(".tour-now span");
+    var n=stops.length, cur=0, playing=false, map=null, markers=[];
+    // voice
+    var voices=[]; function lv(){ try{voices=window.speechSynthesis.getVoices()||[];}catch(e){voices=[];} }
+    if("speechSynthesis" in window){ lv(); try{window.speechSynthesis.onvoiceschanged=lv;}catch(e){} } else playBtn.style.display="none";
+    function pickVoice(){ if(!voices.length)lv(); var prefs=LANG==="ms"?["ms","id"]:["en-gb","en-us","en"];
+      for(var p=0;p<prefs.length;p++)for(var i=0;i<voices.length;i++){ if((voices[i].lang||"").toLowerCase().replace(/_/g,"-").indexOf(prefs[p])===0)return voices[i]; } return null; }
+    function speak(txt,onEnd){ if(!("speechSynthesis" in window)){ if(onEnd)setTimeout(onEnd,500); return; }
+      window.speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(txt); var v=pickVoice(); if(v){u.voice=v;u.lang=v.lang;} else u.lang=LANG==="ms"?"id-ID":"en-GB";
+      u.rate=LANG==="ms"?0.92:0.98; u.onend=function(){ if(onEnd)onEnd(); }; u.onerror=function(){ if(onEnd)onEnd(); }; window.speechSynthesis.speak(u); }
+    function icon(k,on){ return L.divIcon({className:"tour-pin"+(on?" on":""),html:"<span>"+(k+1)+"</span>",iconSize:[28,28],iconAnchor:[14,14]}); }
+    function goTo(i,doSpeak){ cur=Math.max(0,Math.min(n-1,i));
+      if(map){ markers.forEach(function(mk,k){ mk.setIcon(icon(k,k===cur)); }); map.panTo([stops[cur].lat,stops[cur].lng]); }
+      prog.textContent=t("Stop ","Hentian ")+(cur+1)+t(" of "," / ")+n;
+      nowB.textContent=(cur+1)+". "+stops[cur].name;
+      if(cur<n-1){ var nx=stops[cur+1], d=haversine(stops[cur].lat,stops[cur].lng,nx.lat,nx.lng), mins=Math.max(1,Math.round(d/80)), dt=d<1000?Math.round(d)+" m":(d/1000).toFixed(1)+" km";
+        nowS.innerHTML=t("Next: ","Seterusnya: ")+nx.name+" · "+dt+" · "+mins+" "+t("min walk","min jalan"); }
+      else nowS.textContent=t("Final stop — enjoy George Town!","Hentian terakhir — selamat menjelajah George Town!");
+      if(doSpeak&&playing){ speak(t("Stop ","Hentian ")+(cur+1)+". "+stops[cur].name+". "+(stops[cur].short||""),function(){
+        if(playing){ if(cur<n-1) setTimeout(function(){ if(playing)goTo(cur+1,true); },700); else stopTour(); } }); }
+    }
+    function startTour(){ playing=true; playBtn.innerHTML="⏸ "+t("Pause","Jeda"); goTo(cur,true); }
+    function stopTour(){ playing=false; playBtn.innerHTML="▶ "+t("Start audio tour","Mula lawatan audio"); if("speechSynthesis" in window)window.speechSynthesis.cancel(); }
+    playBtn.addEventListener("click",function(){ if(playing)stopTour(); else startTour(); });
+    prevBtn.addEventListener("click",function(){ goTo(cur-1,playing); });
+    nextBtn.addEventListener("click",function(){ goTo(cur+1,playing); });
+    window.addEventListener("pagehide",function(){ if("speechSynthesis" in window)window.speechSynthesis.cancel(); });
+    ensureLeaflet(function(){ if(!window.L)return;
+      map=L.map("tour-map",{scrollWheelZoom:false}).setView([stops[0].lat,stops[0].lng],15);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap"}).addTo(map);
+      L.polyline(stops.map(function(s){return [s.lat,s.lng];}),{color:"#1c34a0",weight:4,opacity:.55,dashArray:"6 9"}).addTo(map);
+      markers=stops.map(function(s,k){ var mk=L.marker([s.lat,s.lng],{icon:icon(k,k===0)}).addTo(map);
+        mk.bindPopup("<b>"+(k+1)+". "+s.name+"</b>"); mk.on("click",function(){ goTo(k,playing); }); return mk; });
+      map.fitBounds(L.latLngBounds(stops.map(function(s){return [s.lat,s.lng];})).pad(0.15));
+      goTo(0,false);
+    });
+  }
+
   /* ---------- Service worker (offline / installable) ---------- */
   function initSW(){
     if(!("serviceWorker" in navigator))return;
@@ -676,6 +772,7 @@
   }
 
   /* ---------- Live Penang weather (Open-Meteo, no API key) ---------- */
+  function dayAbbr(iso){ var d=new Date(iso+"T00:00:00"), en=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], ms=["Ahd","Isn","Sel","Rab","Kha","Jum","Sab"]; return (LANG==="ms"?ms:en)[d.getDay()]; }
   function wxInfo(code){
     var m={0:["☀️","Clear sky","Langit cerah"],1:["🌤️","Mainly clear","Kebanyakannya cerah"],
       2:["⛅","Partly cloudy","Berawan sebahagian"],3:["☁️","Overcast","Mendung"],
@@ -696,7 +793,9 @@
     if(map) map.parentNode.insertBefore(host,map);
     else hero.parentNode.insertBefore(host,hero.nextSibling);
     var url="https://api.open-meteo.com/v1/forecast?latitude=5.4149&longitude=100.3327"
-      +"&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=Asia%2FKuala_Lumpur";
+      +"&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m"
+      +"&hourly=precipitation_probability&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=3"
+      +"&timezone=Asia%2FKuala_Lumpur";
     fetch(url).then(function(r){ if(!r.ok)throw 0; return r.json(); }).then(function(d){
       var c=d&&d.current; if(!c)throw 0; var w=wxInfo(c.weather_code);
       host.classList.add("ready");
@@ -715,6 +814,29 @@
         var links=indoor.map(function(id){ var s=byId(id); return s?'<a href="'+pfx()+siteUrl(s)+'">'+s.name+'</a>':''; }).filter(Boolean).slice(0,3).join(" · ");
         if(links){ var tip=el("div","wx-tip"); tip.innerHTML="☔ "+t("Rainy now — great indoor picks: ","Hujan sekarang — pilihan dalam: ")+links; host.appendChild(tip); }
       }
+      // 4. Best time to visit today (from hourly rain chance)
+      if(d.hourly && d.hourly.time && d.daily){
+        var today=d.daily.time[0], hh=d.hourly.time, pp=d.hourly.precipitation_probability, mSum=0,mN=0,aSum=0,aN=0;
+        for(var k=0;k<hh.length;k++){ if(hh[k].indexOf(today)!==0)continue; var hr=+hh[k].slice(11,13), p=pp[k]||0;
+          if(hr>=8&&hr<12){ mSum+=p; mN++; } else if(hr>=12&&hr<18){ aSum+=p; aN++; } }
+        var mA=mN?mSum/mN:0, aA=aN?aSum/aN:0, msg;
+        if(mA<30&&aA<30) msg=t("Great day for walking — any time works.","Hari yang baik untuk berjalan — bila-bila masa sesuai.");
+        else if(mA+12<aA) msg=t("Mornings look drier — explore outdoors early, save the museums for the afternoon.","Waktu pagi lebih kering — terokai di luar awal, simpan muzium untuk sebelah petang.");
+        else if(aA+12<mA) msg=t("Afternoons look drier — do indoor sites first, then head outdoors later.","Waktu petang lebih kering — lawati tapak dalam dahulu, kemudian ke luar.");
+        else if(Math.max(mA,aA)>55) msg=t("Rain likely today — carry an umbrella and mix in some indoor sites.","Berkemungkinan hujan hari ini — bawa payung dan selitkan tapak dalam.");
+        else msg=t("A few passing showers possible — an umbrella helps.","Mungkin ada hujan sekejap — payung membantu.");
+        var bt=el("div","wx-besttime"); bt.innerHTML="🕒 <b>"+t("Best time today: ","Masa terbaik hari ini: ")+"</b>"+msg; host.appendChild(bt);
+      }
+      // 3-day forecast strip
+      if(d.daily && d.daily.time){
+        var dl=d.daily, fh="";
+        for(var i=0;i<Math.min(3,dl.time.length);i++){ var wi=wxInfo(dl.weather_code[i]);
+          var day=i===0?t("Today","Hari ini"):i===1?t("Tomorrow","Esok"):dayAbbr(dl.time[i]);
+          fh+='<div class="wf-day"><span class="wf-d">'+day+'</span><span class="wf-ic">'+wi[0]+'</span>'
+            +'<span class="wf-t">'+Math.round(dl.temperature_2m_max[i])+'°<small>'+Math.round(dl.temperature_2m_min[i])+'°</small></span>'
+            +'<span class="wf-r">💧'+Math.round(dl.precipitation_probability_max[i])+'%</span></div>'; }
+        var fc=el("div","wx-forecast"); fc.innerHTML=fh; host.appendChild(fc);
+      }
     }).catch(function(){ host.remove(); });
   }
 
@@ -732,6 +854,38 @@
     {ic:"🪔",en:"Deepavali",ms:"Deepavali",s:"2026-11-08",e:"2026-11-08",de:"8 Nov 2026",dm:"8 Nov 2026"},
     {ic:"🎄",en:"Christmas",ms:"Krismas",s:"2026-12-25",e:"2026-12-25",de:"25 Dec 2026",dm:"25 Dis 2026"}
   ];
+  /* ---------- Street-name finder (named-roads page) ---------- */
+  var ROAD_INDEX=[
+    {r:"Light Street · Lebuh Light",p:"Francis Light",en:"Founder & first Superintendent of Penang (1786).",ms:"Pengasas & Superintenden pertama Pulau Pinang (1786)."},
+    {r:"Farquhar Street · Lebuh Farquhar",p:"R. T. Farquhar",en:"Lieutenant-Governor of Penang (1804–05).",ms:"Leftenan Gabenor Pulau Pinang (1804–05)."},
+    {r:"Leith Street · Lebuh Leith",p:"Sir George Leith",en:"Lieutenant-Governor of Penang (1800–03).",ms:"Leftenan Gabenor Pulau Pinang (1800–03)."},
+    {r:"Macalister Road · Jalan Macalister",p:"Col. Norman Macalister",en:"Governor of Penang (1807–10).",ms:"Gabenor Pulau Pinang (1807–10)."},
+    {r:"Anson Road · Jalan Anson",p:"Sir Archibald Anson",en:"Lieutenant-Governor of Penang (1867–82).",ms:"Leftenan Gabenor Pulau Pinang (1867–82)."},
+    {r:"Gurney Drive · Persiaran Gurney",p:"Sir Henry Gurney",en:"British High Commissioner of Malaya, assassinated 1951.",ms:"Pesuruhjaya Tinggi British Tanah Melayu, dibunuh 1951."},
+    {r:"Campbell Street · Lebuh Campbell",p:"Sir George Campbell",en:"Acting Lieutenant-Governor of Penang (1872–73).",ms:"Pemangku Leftenan Gabenor Pulau Pinang (1872–73)."},
+    {r:"Carnarvon Street · Lebuh Carnarvon",p:"4th Earl of Carnarvon",en:"British Colonial Secretary in the 1860s–70s.",ms:"Setiausaha Tanah Jajahan British pada 1860–70-an."},
+    {r:"Brown Road · Jalan Brown",p:"David Brown",en:"Early planter and Penang's biggest landowner (1778–1825).",ms:"Peladang awal dan pemilik tanah terbesar Pulau Pinang (1778–1825)."},
+    {r:"Hutton Lane · Jalan Hutton",p:"Dr Hutton",en:"One of Penang's first doctors (from 1805).",ms:"Antara doktor pertama Pulau Pinang (sejak 1805)."},
+    {r:"Maxwell Road · Jalan Maxwell",p:"Sir William Maxwell",en:"Acting Resident Councillor of Penang (1886–89).",ms:"Pemangku Penasihat Residen Pulau Pinang (1886–89)."},
+    {r:"Pitt Street · Jalan Masjid Kapitan Keling",p:"William Pitt the Younger",en:"British Prime Minister when Penang was founded.",ms:"Perdana Menteri British ketika Pulau Pinang diasaskan."},
+    {r:"Bishop Street · Lebuh Bishop",p:"Bishop Garnault",en:"Catholic bishop brought to Penang by Francis Light in 1786.",ms:"Uskup Katolik yang dibawa ke Pulau Pinang oleh Francis Light pada 1786."},
+    {r:"Scott Road → Jalan D. S. Ramanathan",p:"James Scott / D. S. Ramanathan",en:"Light's partner; later renamed after George Town's first elected Mayor (1957).",ms:"Rakan kongsi Light; kemudian dinamakan semula sempena Datuk Bandar pertama George Town (1957)."},
+    {r:"Jalan P. Ramlee (Caunter Hall Road)",p:"Tan Sri P. Ramlee",en:"Malaysia's greatest entertainer (1929–73), born on this street.",ms:"Penghibur teragung Malaysia (1929–73), lahir di jalan ini."},
+    {r:"Yeap Chor Ee Road · Jalan Yeap Chor Ee",p:"Yeap Chor Ee",en:"Immigrant barber turned banker & philanthropist (1867–1952).",ms:"Tukang gunting pendatang yang menjadi jurubank & dermawan (1867–1952)."},
+    {r:"Tun Dr Lim Chong Eu Expressway",p:"Tun Dr Lim Chong Eu",en:"Penang's 2nd Chief Minister; renamed in 2010.",ms:"Ketua Menteri Pulau Pinang kedua; dinamakan semula pada 2010."},
+    {r:"Karpal Singh Drive · Persiaran Karpal Singh",p:"Karpal Singh",en:"The 'Tiger of Jelutong' lawyer-politician; renamed in 2014.",ms:"Peguam-ahli politik 'Harimau Jelutong'; dinamakan semula pada 2014."},
+    {r:"Jalan Sultan Ahmad Shah (Northam Road)",p:"Sultan Ahmad Shah",en:"Sultan of Pahang and a Yang di-Pertuan Agong of Malaysia.",ms:"Sultan Pahang dan Yang di-Pertuan Agong Malaysia."}
+  ];
+  function initRoadFinder(){
+    var inp=document.getElementById("road-finder-input"), list=document.getElementById("road-finder-list"); if(!inp||!list)return;
+    function render(q){ q=norm(q||"");
+      var rows=ROAD_INDEX.filter(function(x){ return !q || norm(x.r+" "+x.p+" "+(LANG==="ms"?x.ms:x.en)).indexOf(q)>-1; });
+      if(!rows.length){ list.innerHTML='<p class="rfind-none">'+t("No match — try another road or name.","Tiada padanan — cuba jalan atau nama lain.")+"</p>"; return; }
+      list.innerHTML=rows.map(function(x){ return '<div class="rfind-row"><div class="rfind-rd">'+x.r+'</div>'
+        +'<div class="rfind-pp"><b>'+x.p+'</b> — '+(LANG==="ms"?x.ms:x.en)+'</div></div>'; }).join("");
+    }
+    render(""); inp.addEventListener("input",function(){ render(inp.value); });
+  }
   /* ---------- Named-roads page: whole card opens Wikipedia ---------- */
   function initRoadCards(){
     [].slice.call(document.querySelectorAll(".road-clickable[data-wiki]")).forEach(function(c){
@@ -956,6 +1110,14 @@
   function updateVisitBtn(){ if(!visitBtn)return; var n=favGet().length; visitBtn.innerHTML="🗺️ "+t("My Visit","Lawatan")+(n?' <span class="vp-count">'+n+"</span>":""); }
   function syncStars(){ [].slice.call(document.querySelectorAll(".fav-star,.btn-fav")).forEach(function(b){ var id=b.getAttribute("data-id"); if(!id)return; var on=favHas(id); b.classList.toggle("on",on);
     if(b.classList.contains("fav-star")) b.innerHTML=on?"★":"☆"; else b.innerHTML=(on?"★ ":"☆ ")+t("Save to My Visit","Simpan ke Lawatan"); }); }
+  function initVisitShare(){
+    if(!window.SITES)return;
+    var m=/[?&]visit=([^&]+)/.exec(location.search); if(!m)return;
+    var ids=decodeURIComponent(m[1]).split(",").filter(function(id){ return byId(id); });
+    if(ids.length){ var cur=favGet(); ids.forEach(function(id){ if(cur.indexOf(id)<0)cur.push(id); }); favSet(cur);
+      toast("🗺️ "+t("Visit list loaded!","Senarai lawatan dimuat!")); }
+    try{ history.replaceState(null,"",location.pathname+location.hash); }catch(e){}
+  }
   function initFavourites(){
     if(!window.SITES)return;
     visitBtn=el("button","visit-fab"); visitBtn.type="button"; document.body.appendChild(visitBtn);
@@ -979,12 +1141,24 @@
     var favs=favGet(), list=visitPanel.querySelector(".vp-list"), foot=visitPanel.querySelector(".vp-foot");
     if(!favs.length){ list.innerHTML='<p class="vp-empty">'+t("No sites saved yet. Tap ☆ on any heritage site to add it to your visit.","Belum ada tapak. Ketik ☆ pada mana-mana tapak untuk menambahnya ke lawatan anda.")+"</p>"; foot.innerHTML=""; return; }
     list.innerHTML=favs.map(function(id){ var s=byId(id); if(!s)return ""; return '<div class="vp-item"><a href="'+pfx()+siteUrl(s)+'">'+s.name+'</a><button class="vp-rm" type="button" data-id="'+id+'" aria-label="'+t("Remove","Buang")+'">✕</button></div>'; }).join("");
-    var pts=favs.map(function(id){ var s=byId(id); return s?s.lat+","+s.lng:null; }).filter(Boolean);
+    var sObjs=favs.map(byId).filter(Boolean);
+    var pts=sObjs.map(function(s){ return s.lat+","+s.lng; });
     var dest=pts[pts.length-1], way=pts.slice(0,-1).join("|");
     var url="https://www.google.com/maps/dir/?api=1&travelmode=walking&destination="+dest+(way?"&waypoints="+way:"");
-    foot.innerHTML='<a class="vp-route" target="_blank" rel="noopener" href="'+url+'">🧭 '+t("Walking route in Google Maps","Laluan berjalan di Google Maps")+'</a><button class="vp-clear" type="button">'+t("Clear all","Kosongkan")+"</button>";
+    var metres=0; for(var i=1;i<sObjs.length;i++) metres+=haversine(sObjs[i-1].lat,sObjs[i-1].lng,sObjs[i].lat,sObjs[i].lng);
+    var km=(metres/1000), mins=Math.max(1,Math.round(metres/80));
+    var stat=sObjs.length+" "+t(sObjs.length===1?"stop":"stops",sObjs.length===1?"hentian":"hentian")
+      +(sObjs.length>1?" · ~"+km.toFixed(1)+" km · ~"+mins+" "+t("min walk","min jalan"):"");
+    foot.innerHTML='<div class="vp-stat">🚶 '+stat+'</div>'
+      +'<a class="vp-route" target="_blank" rel="noopener" href="'+url+'">🧭 '+t("Walking route in Google Maps","Laluan berjalan di Google Maps")+'</a>'
+      +'<div class="vp-foot-row"><button class="vp-share" type="button">🔗 '+t("Share list","Kongsi senarai")+'</button><button class="vp-clear" type="button">'+t("Clear all","Kosongkan")+"</button></div>";
     list.querySelectorAll(".vp-rm").forEach(function(b){ b.addEventListener("click",function(){ favToggle(b.getAttribute("data-id")); renderVisit(); syncStars(); }); });
     foot.querySelector(".vp-clear").addEventListener("click",function(){ favSet([]); renderVisit(); syncStars(); });
+    foot.querySelector(".vp-share").addEventListener("click",function(){
+      var link=location.origin+location.pathname+"?visit="+favs.join(",");
+      if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(link).then(function(){ toast("🔗 "+t("Link copied — share your visit list!","Pautan disalin — kongsi senarai anda!")); },function(){ prompt(t("Copy this link:","Salin pautan ini:"),link); }); }
+      else prompt(t("Copy this link:","Salin pautan ini:"),link);
+    });
   }
 
   /* ---- 2. Visitor info + Open-now (site pages) ---- */
@@ -1185,11 +1359,11 @@
   }
   onReady(function(){
     initTheme(); initLangMemory(); initReveal(); initCounters(); initTopBtn();
-    initSearch(); initChatInput(); initQuiz(); initForms(); initLightbox(); initMap(); initSW(); initFacts();
+    initSearch(); initChatInput(); initQuiz(); initForms(); initLightbox(); initMap(); initWalkingTour(); initSW(); initFacts();
     initSitePhoto(); initAudioGuide(); initWeather();
     initInfoModal(); initFoodFilters(); initDanceRhythm(); initDanceWatch();
-    initFavourites(); initVisitInfo(); initNearMe(); initA11y(); initShareQR(); initTOC(); initVoiceSearch(); initRecent(); initPrint();
-    initImgFade(); initNavTap(); initCurrency(); initPhrasebook(); initHomeExtras(); initRoadCards();
+    initVisitShare(); initFavourites(); initVisitInfo(); initNearMe(); initA11y(); initShareQR(); initTOC(); initVoiceSearch(); initRecent(); initPrint();
+    initImgFade(); initNavTap(); initCurrency(); initPhrasebook(); initHomeExtras(); initRoadCards(); initRoadFinder();
     initProgress(); initHeader(); initRipple(); initTilt();
   });
 })();
